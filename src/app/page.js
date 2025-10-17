@@ -10,7 +10,7 @@ const personalInfo = {
   email: "talib.uddin626@gmail.com",
   phone: "+91-7725050626",
   location: "Bhopal, Madhya Pradesh, India",
-  cv: '/TalibSoftwareEngineer.pdf',
+  cv: '/Talib_Software_Engineer.pdf',
   linkedin: "https://www.linkedin.com/in/dz-txlib/",
   github: "https://github.com/mohammadtalibuddin",
   image: '/profile2.png',
