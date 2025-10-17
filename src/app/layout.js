@@ -11,9 +11,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// src/app/layout.js
+
 export const metadata = {
-  title: "Mohammad Talib Uddin",
-  description: "Mohammad Talib Uddin Portfolio",
+  title: "Mohammad Talib Uddin - Software Engineer",
+  description: "Portfolio of Mohammad Talib Uddin, a Software Engineer specializing in backend development with Java (Spring Boot) and Python (Django REST Framework).",
+  keywords: "Mohammad Talib Uddin, Talib Uddin, Talib, Software Developer, Software Engineer, Backend Developer, Java, Spring Boot, Python, Django, RESTful APIs, AWS, Portfolio,",
+  author: "Mohammad Talib Uddin",
 };
 
 export default function RootLayout({ children }) {
