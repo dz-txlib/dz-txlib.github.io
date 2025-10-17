@@ -331,7 +331,7 @@ export default function Portfolio() {
         
         <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
           <div className="text-center lg:text-left">
-            <p className="text-xl font-medium mb-4 text-slate-400 animate-fadeInUp">Hello, I'm</p>
+            <p className="text-xl font-medium mb-4 text-slate-400 animate-fadeInUp">Hello, I am</p>
             <h1 className="text-5xl md:text-7xl font-extrabold mb-5 leading-tight text-slate-100 animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
               {personalInfo.name}
             </h1>
