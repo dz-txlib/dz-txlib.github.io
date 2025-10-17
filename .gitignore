@@ -42,3 +42,6 @@ next-env.d.ts
 
 /out
 /.next
+# next-sitemap
+public/sitemap.xml
+public/robots.txt
