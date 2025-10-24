@@ -20,6 +20,13 @@ export const metadata = {
   authors: [{ name: 'Mohammad Talib Uddin' }],
   creator: 'Mohammad Talib Uddin',
   publisher: 'Mohammad Talib Uddin',
+  
+  // Optional: Explicit icon configuration
+// Icon configuration - SVG only
+  icons: {
+    icon: '/icon.svg',
+  },
+  
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -48,18 +55,66 @@ export const metadata = {
   alternates: {
     canonical: 'https://talibuddin.me',
   },
-  // Disable Google Translate
   other: {
     'google': 'notranslate',
   },
 }
 
 export default function RootLayout({ children }) {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mohammad Talib Uddin",
+    "alternateName": ["Talib Uddin", "Talib"],
+    "url": "https://talibuddin.me",
+    "image": "https://talibuddin.me/profile2.png",
+    "jobTitle": "Software Engineer",
+    "description": "Backend Developer specializing in Java Spring Boot and Python Django REST Framework. Building scalable APIs and microservices.",
+    "sameAs": [
+      "https://www.linkedin.com/in/dz-txlib/",
+      "https://github.com/mohammadtalibuddin",
+      "https://www.instagram.com/dz_txlib"
+    ],
+    "knowsAbout": [
+      "Java",
+      "Spring Boot",
+      "Python",
+      "Django REST Framework",
+      "Backend Development",
+      "Microservices",
+      "RESTful APIs",
+      "MySQL",
+      "PostgreSQL",
+      "DevOps",
+      "AWS"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Affy Cloud IT Solutions"
+    },
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "SAM College of Engineering and Technology"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bhopal",
+      "addressRegion": "Madhya Pradesh",
+      "addressCountry": "IN"
+    },
+    "email": "talib.uddin626@gmail.com",
+    "telephone": "+91-7725050626"
+  };
+
   return (
     <html lang="en" translate="no" className="notranslate">
       <head>
         <meta name="google" content="notranslate" />
         <link rel="canonical" href="https://talibuddin.me" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
       </head>
       <body 
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -68,7 +123,7 @@ export default function RootLayout({ children }) {
         {children}
       </body>
     </html>
-  )
+  );
 }
 
 
