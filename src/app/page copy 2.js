@@ -77,7 +77,7 @@ const services = [
   {
     icon: Layers,
     title: 'Cloud & DevOps',
-    desc: 'Deploying and managing applications on AWS and Hostinger VPS, implementing CI/CD pipelines for automated deployment.',
+    desc: 'Deploying and managing applications on AWS and VPS, implementing CI/CD pipelines for automated deployment.',
     tags: ['AWS', 'Docker', 'CI/CD', 'Nginx']
   },
   {
@@ -153,7 +153,7 @@ const projects = [
     tagline: "Enterprise Learning Management System serving 1000+ students",
     problem: "Educational institutions needed a comprehensive digital platform to manage courses, conduct live classes, and handle student assessments while maintaining data isolation between organizations.",
     solution: "Engineered a multi-tenant Learning Management System enabling schools, universities, and coaching centers to manage their own digital learning ecosystems with complete data isolation.",
-    role: "Backend Engineer",
+    role: "Lead Backend Developer",
     impact: [
       "Reduced query response time by 40% through Redis caching",
       "Achieved 99.9% uptime serving 1000+ concurrent users",
@@ -185,7 +185,7 @@ const projects = [
     tagline: "Intelligent hiring platform with AI-powered candidate matching",
     problem: "HR teams struggled with manual resume screening and inefficient hiring workflows, leading to prolonged recruitment cycles.",
     solution: "Developed an AI-powered Recruitment Management System that automates resume parsing and matches candidates to job requirements.",
-    role: "Backend Engineer",
+    role: "Backend Architect & Lead Developer",
     impact: [
       "Reduced recruitment cycle time by 50%",
       "Improved candidate-job matching accuracy by 35%",
@@ -216,7 +216,7 @@ const projects = [
     tagline: "Scalable e-commerce backend powering 3 live platforms",
     problem: "Small to medium businesses needed robust e-commerce solutions for online orders, payment processing, and shipment tracking.",
     solution: "Architected a reusable, modular e-commerce backend framework powering multiple online stores.",
-    role: "Backend Architect & Lead Developer",
+    role: "Backend Architect",
     impact: [
       "Reduced page load time by 40% through optimization",
       "Processed 15,000+ orders across platforms",
@@ -251,7 +251,7 @@ const projects = [
     tagline: "Complete laundry operations platform with multi-role access",
     problem: "Laundry businesses needed a digital solution to manage orders and track pickups/deliveries across different user roles.",
     solution: "Developed a comprehensive Laundry Management System using Django REST Framework.",
-    role: "Backend Architect & Lead Developer",
+    role: "Full-Stack Backend Developer",
     impact: [
       "Improved data retrieval speed by 30%",
       "Streamlined operations for 500+ orders/month",
@@ -1030,95 +1030,122 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-{/* ==================== CONTACT SECTION ==================== */}
-<section ref={contactRef} className="py-20 bg-white">
-  <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-900 mb-4">
-        Get In Touch
-      </h2>
-      <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-        Feel free to reach out for collaborations or just a friendly chat.
-      </p>
-      <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto rounded-full mt-4"></div>
-    </div>
 
-    <div className="grid md:grid-cols-2 gap-16 items-start">
-      {/* Left Side - Contact Info */}
-      <div className="space-y-8">
-        {/* Email */}
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-            <Mail className="text-blue-600" size={24} />
+      {/* ==================== CONTACT SECTION ==================== */}
+      <section ref={contactRef} className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
+              <Send className="text-blue-600" size={36} />
+              Get In Touch
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Let's discuss your next project or just connect for a chat
+            </p>
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto rounded-full mt-4"></div>
           </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-1">Email</h3>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              {personalInfo.email}
-            </a>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Contact Info */}
+            <div className="space-y-6">
+              <div className="bg-gradient-to-br from-slate-50 to-blue-50 p-6 rounded-2xl">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Let's Work Together</h3>
+                <p className="text-gray-700 mb-6 leading-relaxed">
+                  {personalInfo.availability}
+                </p>
+                <div className="space-y-4">
+                  <a
+                    href={`mailto:${personalInfo.email}`}
+                    className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-shadow duration-200"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Mail className="text-white" size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Email</p>
+                      <p className="text-gray-900 font-medium break-all">{personalInfo.email}</p>
+                    </div>
+                  </a>
+
+                  <div className="flex items-center gap-4 p-4 bg-white rounded-xl">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="text-white" size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Location</p>
+                      <p className="text-gray-900 font-medium">{personalInfo.location}</p>
+                      <p className="text-sm text-gray-600">{personalInfo.timezone}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 p-4 bg-white rounded-xl">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Clock className="text-white" size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Response Time</p>
+                      <p className="text-gray-900 font-medium">{personalInfo.responseTime}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex gap-4">
+                  <a
+                    href={personalInfo.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 p-4 bg-white rounded-xl hover:shadow-md transition-shadow duration-200 flex items-center justify-center gap-2 text-blue-600 font-medium"
+                  >
+                    <Linkedin size={20} />
+                    LinkedIn
+                  </a>
+                  <a
+                    href={personalInfo.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 p-4 bg-white rounded-xl hover:shadow-md transition-shadow duration-200 flex items-center justify-center gap-2 text-gray-900 font-medium"
+                  >
+                    <Github size={20} />
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Form Placeholder */}
+            <div className="bg-gradient-to-br from-slate-50 to-blue-50 p-8 rounded-2xl">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Me a Message</h3>
+              <p className="text-gray-600 mb-6">
+                You can integrate a contact form here using services like Formspree, Netlify Forms, or EmailJS.
+              </p>
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none"
+                />
+                <textarea
+                  placeholder="Your Message"
+                  rows="5"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none resize-none"
+                ></textarea>
+                <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
+                  <Send size={20} />
+                  Send Message
+                </button>
+              </div>
+              <p className="text-sm text-gray-500 mt-4 text-center">
+                Form integration coming soon. For now, please email me directly.
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* Phone */}
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-            <Phone className="text-blue-600" size={24} />
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-1">Phone</h3>
-            <a
-              href={`tel:${personalInfo.phone}`}
-              className="text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              {personalInfo.phone}
-            </a>
-          </div>
-        </div>
-
-        {/* Location */}
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-            <MapPin className="text-blue-600" size={24} />
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-1">Location</h3>
-            <p className="text-gray-600">{personalInfo.location}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Side - Connect With Me */}
-      <div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">Connect With Me</h3>
-        <div className="space-y-4">
-          <a
-            href={personalInfo.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 px-6 py-4 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg hover:shadow-md hover:border-blue-300 transition-all duration-200"
-          >
-            <Linkedin className="text-blue-600" size={24} />
-            <span className="text-gray-900 font-medium">LinkedIn</span>
-          </a>
-
-          <a
-            href={personalInfo.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 px-6 py-4 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg hover:shadow-md hover:border-blue-300 transition-all duration-200"
-          >
-            <Github className="text-gray-900" size={24} />
-            <span className="text-gray-900 font-medium">GitHub</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* ==================== FOOTER ==================== */}
       <footer className="bg-gradient-to-r from-gray-900 to-blue-900 text-white py-8">
