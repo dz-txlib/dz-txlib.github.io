@@ -403,16 +403,43 @@ export default function Portfolio() {
     { name: 'Contact', id: 'contact', ref: contactRef },
   ];
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg font-medium">Loading Portfolio...</p>
+// Replace the loading screen return block
+if (isLoading) {
+  return (
+    <div className="fixed inset-0 bg-slate-950 flex items-center justify-center z-[9999]">
+      <div className="text-center">
+        {/* Logo/Name Animation */}
+        <div className="mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-100 mb-2 animate-fadeIn">
+            Mohammad Talib Uddin
+          </h1>
+          <p className="text-lg text-blue-400 font-medium animate-fadeIn" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+            Software Engineer
+          </p>
+        </div>
+
+        {/* Modern Progress Bar */}
+        <div className="w-64 h-1 bg-slate-800 rounded-full overflow-hidden mx-auto">
+          <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-loading"></div>
         </div>
       </div>
-    );
-  }
+
+      <style jsx>{`
+        @keyframes loading {
+          0% {
+            width: 0%;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+        .animate-loading {
+          animation: loading 2s ease-in-out;
+        }
+      `}</style>
+    </div>
+  );
+}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50">
@@ -503,7 +530,7 @@ export default function Portfolio() {
           {/* Text Content */}
           <div className="space-y-6 text-center md:text-left">
             <div className="space-y-2">
-              <p className="text-blue-600 font-medium text-lg">Hello, I'm</p>
+              
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
                 {personalInfo.name}
               </h1>
