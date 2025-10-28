@@ -530,7 +530,6 @@ if (isLoading) {
           {/* Text Content */}
           <div className="space-y-6 text-center md:text-left">
             <div className="space-y-2">
-              
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
                 {personalInfo.name}
               </h1>
@@ -557,7 +556,7 @@ if (isLoading) {
                 onClick={() => scrollToSection(contactRef)}
                 className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-all duration-200"
               >
-                Let's Connect
+                Let&apos;s Connect
               </button>
             </div>
 
@@ -836,7 +835,7 @@ if (isLoading) {
               Featured Projects
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Case studies of enterprise solutions I've architected and delivered
+              Case studies of enterprise solutions I&apos;ve architected and delivered
             </p>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto rounded-full mt-4"></div>
           </div>
