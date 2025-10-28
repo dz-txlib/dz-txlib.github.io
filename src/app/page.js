@@ -13,7 +13,7 @@ const personalInfo = {
   cv: '/Talib_Software_Engineer.pdf',
   linkedin: "https://www.linkedin.com/in/dz-txlib/",
   github: "https://github.com/mohammadtalibuddin",
-  image: '/profile2.png',
+  image: '/profile4.png',
 };
 
 const professionalSummary = {
@@ -248,37 +248,37 @@ export default function Portfolio() {
   ];
 
   if (isLoading) {
-  return (
-    <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-blue-950/20 to-slate-950 flex items-center justify-center z-[9999]">
-      <div className="text-center">
-        {/* Orbital spinner */}
-        <div className="relative w-32 h-32 mx-auto mb-8">
-          {/* Center dot */}
-          <div className="absolute inset-0 m-auto w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
-          
-          {/* Orbiting dots */}
-          <div className="absolute inset-0 animate-spin" style={{ animationDuration: '3s' }}>
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-blue-500 rounded-full"></div>
+    return (
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-blue-950/20 to-slate-950 flex items-center justify-center z-[9999]">
+        <div className="text-center">
+          {/* Orbital spinner */}
+          <div className="relative w-32 h-32 mx-auto mb-8">
+            {/* Center dot */}
+            <div className="absolute inset-0 m-auto w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
+
+            {/* Orbiting dots */}
+            <div className="absolute inset-0 animate-spin" style={{ animationDuration: '3s' }}>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-blue-500 rounded-full"></div>
+            </div>
+            <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2s', animationDirection: 'reverse' }}>
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-cyan-500 rounded-full"></div>
+            </div>
+            <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2.5s' }}>
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full"></div>
+            </div>
+            <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2.5s', animationDirection: 'reverse' }}>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full"></div>
+            </div>
           </div>
-          <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2s', animationDirection: 'reverse' }}>
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-cyan-500 rounded-full"></div>
-          </div>
-          <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2.5s' }}>
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full"></div>
-          </div>
-          <div className="absolute inset-0 animate-spin" style={{ animationDuration: '2.5s', animationDirection: 'reverse' }}>
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full"></div>
-          </div>
+
+          <h2 className="text-2xl font-bold text-slate-100 tracking-tight">
+            Mohammad Talib Uddin
+          </h2>
+          <p className="text-blue-400 text-sm mt-2 font-medium">Software Engineer</p>
         </div>
-        
-        <h2 className="text-2xl font-bold text-slate-100 tracking-tight">
-          Mohammad Talib Uddin
-        </h2>
-        <p className="text-blue-400 text-sm mt-2 font-medium">Software Engineer</p>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 
   return (
@@ -331,85 +331,136 @@ export default function Portfolio() {
         )}
       </nav>
 
+
+
       {/* Hero Section */}
-      <section ref={heroRef} className="min-h-screen flex items-center justify-center relative px-5 pt-32 pb-16 bg-slate-950 overflow-hidden">
+      <section ref={heroRef} className="min-h-screen flex items-center justify-center relative px-6 sm:px-8 pt-28 pb-20 bg-slate-950 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-        <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
-          <div className="text-center lg:text-left">
-            <p className="text-xl font-medium mb-4 text-slate-400 animate-fadeInUp">Hello, I&apos;m</p>
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-5 leading-tight text-slate-100 animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>{personalInfo.name}</h1>
-            <div className="min-h-[45px] mb-6">
-              <h2 className="text-3xl md:text-4xl font-semibold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+
+        <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10">
+
+          {/* Left Content - Text Section */}
+          <div className="text-center lg:text-left space-y-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-100 leading-tight animate-fadeInUp">
+              {personalInfo.name}
+            </h1>
+
+            <div className="flex items-center justify-center lg:justify-start">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent animate-fadeInUp"
+                style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
                 {typedRole}
-                <span className={`ml-0.5 transition-opacity duration-100 text-blue-400 ${cursorVisible ? 'opacity-100' : 'opacity-0'}`}>|</span>
+                <span className={`ml-1 transition-opacity duration-100 text-blue-400 ${cursorVisible ? 'opacity-100' : 'opacity-0'}`}>|</span>
               </h2>
             </div>
-            <p className="text-lg md:text-xl mb-12 text-slate-400 max-w-xl mx-auto lg:mx-0 animate-fadeInUp" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>{personalInfo.tagline}</p>
-            <div className="flex flex-col sm:flex-row gap-5 mb-12 animate-fadeInUp justify-center lg:justify-start" style={{ animationDelay: '0.8s', animationFillMode: 'both' }}>
-              <a href={personalInfo.cv} download className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/40 transition-all">
-                <Download size={18} />
+
+            <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-fadeInUp"
+              style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
+              {personalInfo.tagline}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fadeInUp"
+              style={{ animationDelay: '0.7s', animationFillMode: 'both' }}>
+              <a href={personalInfo.cv} download
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-semibold rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 shadow-md">
+                <Download size={20} />
                 Download CV
               </a>
-              <button onClick={() => scrollToSection(contactRef)} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold rounded-full bg-blue-500/10 text-blue-400 border-2 border-blue-500/30 hover:bg-blue-500/20 hover:-translate-y-1 transition-all">
+              <button onClick={() => scrollToSection(contactRef)}
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-semibold rounded-full bg-blue-500/10 text-blue-400 border-2 border-blue-500/30 hover:bg-blue-500/20 hover:-translate-y-1 hover:border-blue-500/50 transition-all duration-300">
                 Get in Touch
-                <ChevronRight size={18} />
+                <ChevronRight size={20} />
               </button>
             </div>
-            <div className="flex gap-4 justify-center lg:justify-start animate-fadeInUp" style={{ animationDelay: '1s', animationFillMode: 'both' }}>
-              <a href={`mailto:${personalInfo.email}`} className="w-11 h-11 flex items-center justify-center bg-blue-500/10 rounded-full text-blue-400 border border-blue-500/20 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white hover:-translate-y-1 hover:shadow-md hover:shadow-blue-500/30 transition-all" aria-label="Email"><Mail size={20} /></a>
-              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="w-11 h-11 flex items-center justify-center bg-blue-500/10 rounded-full text-blue-400 border border-blue-500/20 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white hover:-translate-y-1 hover:shadow-md hover:shadow-blue-500/30 transition-all" aria-label="LinkedIn"><Linkedin size={20} /></a>
-              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="w-11 h-11 flex items-center justify-center bg-blue-500/10 rounded-full text-blue-400 border border-blue-500/20 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white hover:-translate-y-1 hover:shadow-md hover:shadow-blue-500/30 transition-all" aria-label="GitHub"><Github size={20} /></a>
-            </div>
           </div>
-          <div className="flex justify-center items-center animate-fadeIn" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
-            <div className="relative w-full max-w-[400px] aspect-square">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-cyan-500/40 rounded-full blur-3xl opacity-70"></div>
-              <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl shadow-blue-900/50">
-                <Image src={personalInfo.image} alt={personalInfo.name} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" priority quality={95} />
+
+          {/* Right Content - Profile Image */}
+          <div className="flex justify-center items-center animate-fadeIn"
+            style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
+              {/* Main Image Container - Clean circular frame */}
+              <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl shadow-slate-900/50 ring-2 ring-blue-500/20">
+                <Image
+                  src={personalInfo.image}
+                  alt={personalInfo.name}
+                  fill
+                  sizes="(max-width: 768px) 288px, (max-width: 1024px) 384px, 420px"
+                  className="object-cover object-[center_20%]"
+                  priority
+                  quality={100}
+                />
               </div>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5 text-slate-400 animate-fadeIn" style={{ animationDelay: '1.5s', animationFillMode: 'both' }}>
-          <div className="w-6 h-10 border-2 border-blue-400 rounded-2xl relative">
-            <div className="w-1 h-2 bg-blue-400 rounded-sm absolute top-2 left-1/2 -translate-x-1/2 animate-scroll"></div>
+
+        {/* Scroll Indicator - Centered at bottom */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-slate-400 animate-fadeIn"
+          style={{ animationDelay: '1.5s', animationFillMode: 'both' }}>
+          <div className="w-6 h-10 border-2 border-blue-400/70 rounded-2xl relative">
+            <div className="w-1 h-3 bg-blue-400 rounded-sm absolute top-2 left-1/2 -translate-x-1/2 animate-scroll"></div>
           </div>
-          <p className="text-sm">Scroll Down</p>
+          <p className="text-sm font-medium text-slate-500">Scroll Down</p>
         </div>
       </section>
 
+
       {/* About Section */}
-      <section ref={aboutRef} className="py-24 px-5 bg-slate-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-100 mb-4">About Me</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full"></div>
+      {/* About Section */}
+      <section ref={aboutRef} className="py-24 px-6 sm:px-8 bg-slate-950">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16 animate-fadeInUp">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-100 mb-4">
+              About Me
+            </h2>
+            <div className="w-20 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full"></div>
           </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center">
-              <p className="text-xl md:text-2xl font-semibold text-blue-400 mb-5 leading-relaxed">{professionalSummary.intro}</p>
-              <p className="text-lg leading-relaxed text-slate-400 mb-10">{professionalSummary.about}</p>
+
+          {/* Content Container */}
+          <div className="space-y-12">
+            {/* Professional Summary */}
+            <div className="text-center space-y-6 animate-fadeInUp" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+              <p className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent leading-relaxed max-w-5xl mx-auto">
+                {professionalSummary.intro}
+              </p>
+              <p className="text-base md:text-lg leading-relaxed text-slate-300 max-w-4xl mx-auto">
+                {professionalSummary.about}
+              </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="flex gap-4 p-5 bg-slate-900 rounded-xl border border-blue-500/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-lg hover:shadow-black/30 transition-all">
-                <Mail className="text-blue-400 flex-shrink-0" size={20} />
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-slate-500 mb-1">Email</p>
-                  <p className="text-base text-slate-200 break-words">{personalInfo.email}</p>
+
+            {/* Contact Info Cards */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              {/* Email Card */}
+              <div className="flex items-start gap-4 p-6 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-blue-500/10 hover:border-blue-500/30 hover:bg-slate-900/70 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                <div className="p-3 bg-blue-500/10 rounded-lg">
+                  <Mail className="text-blue-400" size={22} />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-sm font-semibold text-slate-400 mb-1.5">Email</p>
+                  <p className="text-sm md:text-base text-slate-200 break-all leading-snug">{personalInfo.email}</p>
                 </div>
               </div>
-              <div className="flex gap-4 p-5 bg-slate-900 rounded-xl border border-blue-500/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-lg hover:shadow-black/30 transition-all">
-                <Phone className="text-blue-400 flex-shrink-0" size={20} />
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-slate-500 mb-1">Phone</p>
-                  <p className="text-base text-slate-200">{personalInfo.phone}</p>
+
+              {/* Phone Card */}
+              <div className="flex items-start gap-4 p-6 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-blue-500/10 hover:border-blue-500/30 hover:bg-slate-900/70 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                <div className="p-3 bg-blue-500/10 rounded-lg">
+                  <Phone className="text-blue-400" size={22} />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-sm font-semibold text-slate-400 mb-1.5">Phone</p>
+                  <p className="text-sm md:text-base text-slate-200 leading-snug">{personalInfo.phone}</p>
                 </div>
               </div>
-              <div className="flex gap-4 p-5 bg-slate-900 rounded-xl border border-blue-500/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-lg hover:shadow-black/30 transition-all">
-                <MapPin className="text-blue-400 flex-shrink-0" size={20} />
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-slate-500 mb-1">Location</p>
-                  <p className="text-base text-slate-200">{personalInfo.location}</p>
+
+              {/* Location Card */}
+              <div className="flex items-start gap-4 p-6 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-blue-500/10 hover:border-blue-500/30 hover:bg-slate-900/70 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 sm:col-span-2 lg:col-span-1">
+                <div className="p-3 bg-blue-500/10 rounded-lg">
+                  <MapPin className="text-blue-400" size={22} />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-sm font-semibold text-slate-400 mb-1.5">Location</p>
+                  <p className="text-sm md:text-base text-slate-200 leading-snug">{personalInfo.location}</p>
                 </div>
               </div>
             </div>

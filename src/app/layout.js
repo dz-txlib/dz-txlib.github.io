@@ -25,6 +25,7 @@ export const metadata = {
 // Icon configuration - SVG only
   icons: {
     icon: '/icon.svg',
+    icon: '/icon.png',
   },
   
   openGraph: {
