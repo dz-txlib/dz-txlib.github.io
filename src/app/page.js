@@ -15,8 +15,8 @@ import Image from 'next/image';
 const personalInfo = {
   name: "Mohammad Talib Uddin",
   role: "Backend Engineer",
-  headline: "Building Enterprise-Grade APIs & Scalable Microservices",
-  tagline: "Backend Engineer specializing in Spring Boot & Django | Delivered solutions for Ed-Tech, E-Commerce & HR platforms | Based in India, working with teams globally",
+  headline: "I Build Production-Ready Backend Systems That Scale",
+  tagline: "Backend specialist who's optimized systems serving 1000+ users and reduced query times by 40%. I turn complex business problems into elegant, scalable solutions using Java, Python, and cloud technologies.",
   email: "talib.uddin626@gmail.com",
   phone: "+91-7725050626",
   location: "Bhopal, Madhya Pradesh, India",
@@ -31,16 +31,21 @@ const personalInfo = {
 };
 
 const professionalSummary = {
-  intro: "Backend Engineer with 2+ years of experience building scalable microservices and RESTful APIs using Java (Spring Boot) and Python (Django REST Framework).",
+  intro: "I'm a Backend Engineer who loves building systems that actually work in the real world. With 2+ years of hands-on experience, I specialize in crafting scalable microservices and RESTful APIs using Java (Spring Boot) and Python (Django REST Framework).",
 
-  story: "My journey into software development began with a fascination for solving complex problems through code. What started as building small applications evolved into architecting enterprise-grade systems serving thousands of users daily. I've worked on diverse projects—from multi-tenant Learning Management Systems to AI-powered recruitment platforms—each presenting unique challenges that shaped my expertise in backend development.",
+  story: "My journey into backend development started in college when I built my first REST API for a student project. What began as a simple CRUD application sparked something in me—the thrill of solving complex problems and seeing code transform into real solutions. Fast forward to today, and I've architected multi-tenant Learning Management Systems serving thousands of students, built AI-powered recruitment platforms, and optimized e-commerce backends handling thousands of daily transactions. Each project taught me something new: the importance of clean architecture, the beauty of well-optimized queries, and the satisfaction of deploying code that makes a real difference.",
 
-  expertise: "I specialize in designing robust backend architectures with a focus on performance, scalability, and security. My experience spans the complete development lifecycle: from database schema design and API development to cloud deployment and monitoring. I've optimized systems to handle high traffic loads, reduced query latency by up to 40%, and implemented secure authentication mechanisms protecting sensitive user data.",
+  expertise: "I specialize in designing robust backend architectures that don't break under pressure. My sweet spot? Taking complex business requirements and translating them into elegant, maintainable code. I've spent countless hours optimizing database queries (achieving up to 40% faster response times), implementing secure authentication systems protecting sensitive data, and building microservices that scale gracefully. Whether it's integrating payment gateways, setting up Redis caching layers, or deploying on AWS, I focus on solutions that are both powerful and sustainable.",
 
-  approach: "I believe in writing clean, maintainable code and following industry best practices. Whether implementing microservices architecture, optimizing database queries, or setting up CI/CD pipelines, I approach each challenge with a focus on long-term sustainability and system reliability.",
+  approach: "I'm a firm believer in the 'measure twice, cut once' philosophy. Before writing a single line of code, I invest time understanding the problem deeply. I write code that my future self (and teammates) won't curse at—clean, documented, and following SOLID principles. I'm also passionate about automation; if I have to do something twice, I'll spend the time building a script to do it forever. Continuous learning is non-negotiable for me—currently exploring Kafka, Kubernetes, and diving deeper into distributed systems.",
 
-  impact: "Throughout my career, I've integrated 50+ RESTful APIs, deployed applications on AWS and Hostinger VPS, and collaborated with cross-functional teams to deliver production-ready solutions. I enjoy mentoring junior developers and contributing to architectural decisions that shape the technical direction of projects."
+  beyond: "When I'm not debugging production issues or optimizing SQL queries, you'll find me experimenting with new technologies, contributing to open-source projects, or mentoring junior developers (because someone once helped me, and I believe in paying it forward). I also enjoy automating everyday tasks—I recently built a browser automation tool using Python and RPA frameworks just for fun. Outside of tech, I'm into exploring new cuisines, reading about system design, and occasionally binge-watching tech talks on YouTube.",
+
+  impact: "Throughout my career, I've integrated 50+ RESTful APIs, deployed production systems serving 1000+ active users, and collaborated with cross-functional teams to ship features that users actually love. I've worked on everything from solo projects where I owned the entire backend to team environments where I contributed to architectural decisions. My proudest achievement? Reducing infrastructure costs by 60% for an educational platform while improving performance—proof that good engineering benefits both users and the bottom line.",
+
+  cta: "I'm currently open to exciting backend engineering opportunities where I can build impactful systems and work with talented teams. If you're working on challenging problems involving scalability, microservices, or distributed systems—let's connect!"
 };
+
 
 const stats = [
   { icon: Code, number: "50+", label: "APIs Integrated" },
@@ -403,28 +408,28 @@ export default function Portfolio() {
     { name: 'Contact', id: 'contact', ref: contactRef },
   ];
 
-// Replace the loading screen return block
-if (isLoading) {
-  return (
-    <div className="fixed inset-0 bg-slate-950 flex items-center justify-center z-[9999]">
-      <div className="text-center">
-        {/* Logo/Name Animation */}
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-100 mb-2 animate-fadeIn">
-            Mohammad Talib Uddin
-          </h1>
-          <p className="text-lg text-blue-400 font-medium animate-fadeIn" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-            Software Engineer
-          </p>
+  // Replace the loading screen return block
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-slate-950 flex items-center justify-center z-[9999]">
+        <div className="text-center">
+          {/* Logo/Name Animation */}
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-100 mb-2 animate-fadeIn">
+              Mohammad Talib Uddin
+            </h1>
+            <p className="text-lg text-blue-400 font-medium animate-fadeIn" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+              Software Engineer
+            </p>
+          </div>
+
+          {/* Modern Progress Bar */}
+          <div className="w-64 h-1 bg-slate-800 rounded-full overflow-hidden mx-auto">
+            <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-loading"></div>
+          </div>
         </div>
 
-        {/* Modern Progress Bar */}
-        <div className="w-64 h-1 bg-slate-800 rounded-full overflow-hidden mx-auto">
-          <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-loading"></div>
-        </div>
-      </div>
-
-      <style jsx>{`
+        <style jsx>{`
         @keyframes loading {
           0% {
             width: 0%;
@@ -437,9 +442,9 @@ if (isLoading) {
           animation: loading 2s ease-in-out;
         }
       `}</style>
-    </div>
-  );
-}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50">
@@ -517,98 +522,117 @@ if (isLoading) {
         )}
       </nav>
 
+
       {/* ==================== HERO SECTION ==================== */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-slate-50 opacity-50"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+<section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 px-4 overflow-hidden">
+  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-slate-50 opacity-50"></div>
+  <div className="absolute inset-0">
+    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+    <div className="absolute top-40 right-10 w-72 h-72 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+    <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+  </div>
+
+  <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+    {/* Text Content */}
+    <div className="space-y-5 text-center md:text-left">
+      {/* Name */}
+      <div className="space-y-3">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 leading-tight">
+          {personalInfo.name}
+        </h1>
+        
+        {/* Static Headline - No typing animation */}
+        <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-blue-600 leading-tight">
+          {personalInfo.headline}
+        </h2>
+      </div>
+
+      {/* Tagline */}
+      <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
+        {personalInfo.tagline}
+      </p>
+
+      {/* CTA Buttons - 2 buttons side by side */}
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start pt-2">
+        <button
+          onClick={() => scrollToSection(projectsRef)}
+          className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+        >
+          View My Work
+        </button>
+        
+        <button
+          onClick={() => scrollToSection(contactRef)}
+          className="w-full sm:w-auto px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-all duration-200"
+        >
+          Let&apos;s Connect
+        </button>
+      </div>
+
+      {/* Social Links - Bottom left */}
+      <div className="flex gap-4 justify-center md:justify-start pt-2">
+        <a 
+          href={personalInfo.linkedin} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+          aria-label="LinkedIn Profile"
+        >
+          <Linkedin className="text-blue-600" size={24} />
+        </a>
+        <a 
+          href={personalInfo.github} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+          aria-label="GitHub Profile"
+        >
+          <Github className="text-gray-900" size={24} />
+        </a>
+        <a 
+          href={`mailto:${personalInfo.email}`}
+          className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+          aria-label="Email Contact"
+        >
+          <Mail className="text-blue-600" size={24} />
+        </a>
+      </div>
+    </div>
+
+    {/* Profile Image - Smaller and more compact */}
+    <div className="relative flex justify-center items-center order-first md:order-last">
+      <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px]">
+        {/* Outer animated gradient ring */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse opacity-30"></div>
+
+        {/* Middle rotating gradient ring */}
+        <div className="absolute inset-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-spin-slow opacity-20"></div>
+
+        {/* Image container */}
+        <div className="absolute inset-6 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-cyan-100 shadow-2xl">
+          <Image
+            src={personalInfo.image}
+            alt={personalInfo.name}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 640px) 256px, (max-width: 768px) 320px, (max-width: 1024px) 380px, 420px"
+            style={{
+              objectPosition: '50% 20%'
+            }}
+          />
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <div className="space-y-6 text-center md:text-left">
-            <div className="space-y-2">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
-                {personalInfo.name}
-              </h1>
-              <div className="h-16 md:h-20">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                  {typedText}
-                  <span className={`${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>|</span>
-                </h2>
-              </div>
-            </div>
+  {/* Scroll Indicator */}
+  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
+    <ChevronRight size={32} className="text-blue-600 rotate-90" />
+  </div>
+</section>
 
-            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto md:mx-0">
-              {personalInfo.tagline}
-            </p>
 
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <button
-                onClick={() => scrollToSection(projectsRef)}
-                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
-              >
-                View My Work
-              </button>
-              <button
-                onClick={() => scrollToSection(contactRef)}
-                className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-all duration-200"
-              >
-                Let&apos;s Connect
-              </button>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex gap-4 justify-center md:justify-start">
-              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
-                className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-                <Linkedin className="text-blue-600" size={24} />
-              </a>
-              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
-                className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-                <Github className="text-gray-900" size={24} />
-              </a>
-              <a href={`mailto:${personalInfo.email}`}
-                className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-                <Mail className="text-blue-600" size={24} />
-              </a>
-            </div>
-          </div>
-
-          {/* Profile Image - FIXED with proper positioning */}
-          <div className="relative flex justify-center items-center">
-            <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px]">
-              {/* Outer animated gradient ring */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse opacity-30"></div>
-
-              {/* Middle rotating gradient ring */}
-              <div className="absolute inset-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-spin-slow opacity-20"></div>
-
-              {/* Image container with proper sizing and positioning */}
-              <div className="absolute inset-6 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-cyan-100 shadow-2xl">
-                <Image
-                  src={personalInfo.image}
-                  alt={personalInfo.name}
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 768px) 288px, (max-width: 1024px) 384px, 450px"
-                  style={{
-                    objectPosition: '50% 20%' // Moves image up to show full head
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronRight size={32} className="text-blue-600 rotate-90" />
-        </div>
-      </section>
 
 
       {/* ==================== STATS SECTION ==================== */}
@@ -630,7 +654,6 @@ if (isLoading) {
           </div>
         </div>
       </section>
-
       {/* ==================== ABOUT SECTION ==================== */}
       <section ref={aboutRef} className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -642,54 +665,97 @@ if (isLoading) {
             <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto rounded-full"></div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 space-y-6">
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">Introduction</h3>
-              <p className="text-gray-700 leading-relaxed text-lg">{professionalSummary.intro}</p>
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 space-y-8">
+            {/* Introduction */}
+            <div className="space-y-3">
+              <p className="text-gray-700 leading-relaxed text-lg">
+                {professionalSummary.intro}
+              </p>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">My Journey</h3>
-              <p className="text-gray-700 leading-relaxed">{professionalSummary.story}</p>
+            {/* My Journey */}
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span className="text-blue-600">🚀</span> My Journey
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                {professionalSummary.story}
+              </p>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">Expertise</h3>
-              <p className="text-gray-700 leading-relaxed">{professionalSummary.expertise}</p>
+            {/* What I Do */}
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span className="text-blue-600">⚡</span> What I Do Best
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                {professionalSummary.expertise}
+              </p>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">My Approach</h3>
-              <p className="text-gray-700 leading-relaxed">{professionalSummary.approach}</p>
+            {/* How I Work */}
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span className="text-blue-600">🎯</span> How I Work
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                {professionalSummary.approach}
+              </p>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">Impact & Collaboration</h3>
-              <p className="text-gray-700 leading-relaxed">{professionalSummary.impact}</p>
+            {/* Beyond Code */}
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span className="text-blue-600">🌟</span> Beyond Code
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                {professionalSummary.beyond}
+              </p>
             </div>
 
+            {/* Impact & Results */}
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span className="text-blue-600">📈</span> Real Impact
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                {professionalSummary.impact}
+              </p>
+            </div>
+
+            {/* Call to Action */}
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border-l-4 border-blue-600">
+              <p className="text-gray-700 leading-relaxed font-medium">
+                {professionalSummary.cta}
+              </p>
+            </div>
+
+            {/* Contact Info Grid */}
             <div className="grid md:grid-cols-3 gap-6 pt-6 border-t border-gray-200">
               <div className="flex items-start gap-3">
-                <Mail className="text-blue-600 flex-shrink-0" size={24} />
+                <Mail className="text-blue-600 flex-shrink-0 mt-1" size={24} />
                 <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <a href={`mailto:${personalInfo.email}`} className="text-gray-900 hover:text-blue-600 transition-colors break-all">
+                  <p className="text-sm text-gray-500 font-medium">Email</p>
+                  <a
+                    href={`mailto:${personalInfo.email}`}
+                    className="text-gray-900 hover:text-blue-600 transition-colors break-all"
+                  >
                     {personalInfo.email}
                   </a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <MapPin className="text-blue-600 flex-shrink-0" size={24} />
+                <MapPin className="text-blue-600 flex-shrink-0 mt-1" size={24} />
                 <div>
-                  <p className="text-sm text-gray-500">Location</p>
-                  <p className="text-gray-900">{personalInfo.location}</p>
+                  <p className="text-sm text-gray-500 font-medium">Location</p>
+                  <p className="text-gray-900">📍 {personalInfo.location}</p>
                   <p className="text-sm text-gray-600">{personalInfo.timezone}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Clock className="text-blue-600 flex-shrink-0" size={24} />
+                <Clock className="text-blue-600 flex-shrink-0 mt-1" size={24} />
                 <div>
-                  <p className="text-sm text-gray-500">Availability</p>
+                  <p className="text-sm text-gray-500 font-medium">Availability</p>
                   <p className="text-gray-900">{personalInfo.availability}</p>
                   <p className="text-sm text-gray-600">{personalInfo.responseTime}</p>
                 </div>
@@ -698,6 +764,7 @@ if (isLoading) {
           </div>
         </div>
       </section>
+
 
       {/* ==================== SERVICES SECTION ==================== */}
       <section ref={servicesRef} className="py-20 bg-white">
@@ -1056,94 +1123,94 @@ if (isLoading) {
           </div>
         </div>
       </section>
-{/* ==================== CONTACT SECTION ==================== */}
-<section ref={contactRef} className="py-20 bg-white">
-  <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-900 mb-4">
-        Get In Touch
-      </h2>
-      <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-        Feel free to reach out for collaborations or just a friendly chat.
-      </p>
-      <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto rounded-full mt-4"></div>
-    </div>
-
-    <div className="grid md:grid-cols-2 gap-16 items-start">
-      {/* Left Side - Contact Info */}
-      <div className="space-y-8">
-        {/* Email */}
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-            <Mail className="text-blue-600" size={24} />
+      {/* ==================== CONTACT SECTION ==================== */}
+      <section ref={contactRef} className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Get In Touch
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Feel free to reach out for collaborations or just a friendly chat.
+            </p>
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto rounded-full mt-4"></div>
           </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-1">Email</h3>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              {personalInfo.email}
-            </a>
+
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            {/* Left Side - Contact Info */}
+            <div className="space-y-8">
+              {/* Email */}
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail className="text-blue-600" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-1">Email</h3>
+                  <a
+                    href={`mailto:${personalInfo.email}`}
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    {personalInfo.email}
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Phone className="text-blue-600" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-1">Phone</h3>
+                  <a
+                    href={`tel:${personalInfo.phone}`}
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    {personalInfo.phone}
+                  </a>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin className="text-blue-600" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-1">Location</h3>
+                  <p className="text-gray-600">{personalInfo.location}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Connect With Me */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Connect With Me</h3>
+              <div className="space-y-4">
+                <a
+                  href={personalInfo.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-6 py-4 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg hover:shadow-md hover:border-blue-300 transition-all duration-200"
+                >
+                  <Linkedin className="text-blue-600" size={24} />
+                  <span className="text-gray-900 font-medium">LinkedIn</span>
+                </a>
+
+                <a
+                  href={personalInfo.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-6 py-4 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg hover:shadow-md hover:border-blue-300 transition-all duration-200"
+                >
+                  <Github className="text-gray-900" size={24} />
+                  <span className="text-gray-900 font-medium">GitHub</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Phone */}
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-            <Phone className="text-blue-600" size={24} />
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-1">Phone</h3>
-            <a
-              href={`tel:${personalInfo.phone}`}
-              className="text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              {personalInfo.phone}
-            </a>
-          </div>
-        </div>
-
-        {/* Location */}
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-            <MapPin className="text-blue-600" size={24} />
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-1">Location</h3>
-            <p className="text-gray-600">{personalInfo.location}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Side - Connect With Me */}
-      <div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">Connect With Me</h3>
-        <div className="space-y-4">
-          <a
-            href={personalInfo.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 px-6 py-4 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg hover:shadow-md hover:border-blue-300 transition-all duration-200"
-          >
-            <Linkedin className="text-blue-600" size={24} />
-            <span className="text-gray-900 font-medium">LinkedIn</span>
-          </a>
-
-          <a
-            href={personalInfo.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 px-6 py-4 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-lg hover:shadow-md hover:border-blue-300 transition-all duration-200"
-          >
-            <Github className="text-gray-900" size={24} />
-            <span className="text-gray-900 font-medium">GitHub</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
 
       {/* ==================== FOOTER ==================== */}
