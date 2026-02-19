@@ -20,14 +20,14 @@ export const metadata = {
   authors: [{ name: 'Mohammad Talib Uddin' }],
   creator: 'Mohammad Talib Uddin',
   publisher: 'Mohammad Talib Uddin',
-  
+
   // Optional: Explicit icon configuration
-// Icon configuration - SVG only
+  // Icon configuration - SVG only
   icons: {
     icon: '/icon.svg',
     icon: '/icon.png',
   },
-  
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
     "name": "Mohammad Talib Uddin",
     "alternateName": ["Talib Uddin", "Talib"],
     "url": "https://talibuddin.me",
-    "image": "https://talibuddin.me/profile2.png",
+    "image": "https://talibuddin.me/profile12.png",
     "jobTitle": "Software Engineer",
     "description": "Backend Developer specializing in Java Spring Boot and Python Django REST Framework. Building scalable APIs and microservices.",
     "sameAs": [
@@ -117,7 +117,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
       </head>
-      <body 
+      <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         translate="no"
       >
