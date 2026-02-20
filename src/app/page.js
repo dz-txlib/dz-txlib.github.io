@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Header from './components/Header';
+import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 import About from './components/About';
@@ -92,7 +92,7 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-slate-50 relative selection:bg-blue-200 selection:text-blue-900 font-sans">
-      <Header
+      <Navbar
         activeSection={activeSection}
         scrollToSection={scrollToSection}
         navItems={navItems}
