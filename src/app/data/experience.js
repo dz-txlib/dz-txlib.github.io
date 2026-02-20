@@ -2,7 +2,8 @@ import { Briefcase } from 'lucide-react'; // Not strictly needed for logic but g
 
 export const experience = [
     {
-        company: "Affy Cloud IT Solutions",
+        company: "Affy Cloud Solution",
+        url: "https://www.affyclouditsolutions.com/",
         role: "Software Engineer",
         type: "(Intern → Full-Time)",
         period: "March 2024 – Present",
@@ -20,6 +21,7 @@ export const experience = [
     },
     {
         company: "Orange Antelopes",
+        url: "https://www.orangeantelopes.com/",
         role: "Software Engineer Intern",
         type: "",
         period: "Sep 2023 – Feb 2024",

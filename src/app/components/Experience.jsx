@@ -1,117 +1,174 @@
 'use client';
 
-import { Briefcase, Calendar, MapPin, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { useRef } from 'react';
+import { Briefcase, Calendar, MapPin, Building2, Code2, ArrowRight, ExternalLink } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
 import { experience } from '../data/experience';
+
+const ExperienceCard = ({ job, index }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.7, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="group relative flex flex-col md:flex-row items-start gap-8 md:gap-12 py-12 border-b border-slate-100 last:border-0"
+        >
+            {/* Left Side: Company & Meta Info (Sticky Layout for long content) */}
+            <div className="w-full md:w-1/3 shrink-0 flex flex-col gap-4">
+                <div className="md:sticky md:top-24">
+                    {/* Period */}
+                    <div className="inline-flex items-center gap-2 mb-4 text-sm font-semibold text-blue-600">
+                        <Calendar size={16} />
+                        {job.period}
+                    </div>
+
+                    {/* Company Branding - Clickable */}
+                    {job.url ? (
+                        <a
+                            href={job.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/company flex items-center gap-4 mb-4"
+                        >
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-white shadow-sm border border-slate-200/60 flex items-center justify-center text-xl font-bold text-blue-600 transition-all duration-300 group-hover/company:scale-105 group-hover/company:shadow-md group-hover/company:border-blue-200">
+                                {job.company.charAt(0)}
+                            </div>
+                            <div className="flex flex-col">
+                                <h3 className="flex items-center gap-2 text-2xl font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover/company:text-blue-600">
+                                    {job.company}
+                                    <ExternalLink size={14} className="text-slate-400 opacity-0 -translate-y-1 translate-x-1 group-hover/company:opacity-100 group-hover/company:translate-y-0 group-hover/company:translate-x-0 transition-all duration-300" />
+                                </h3>
+                            </div>
+                        </a>
+                    ) : (
+                        <div className="flex items-center gap-4 mb-4">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-white shadow-sm border border-slate-200/60 flex items-center justify-center text-xl font-bold text-blue-600 transition-transform duration-300 group-hover:scale-105">
+                                {job.company.charAt(0)}
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-bold text-slate-800 tracking-tight group-hover:text-blue-600 transition-colors">
+                                    {job.company}
+                                </h3>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Meta Details */}
+                    <div className="flex flex-col gap-2 text-sm font-medium text-slate-500 ml-16 md:ml-0 md:mt-2">
+                        <span className="flex items-center gap-2">
+                            <MapPin size={15} />
+                            {job.location}
+                        </span>
+                        {job.type && (
+                            <span className="inline-flex items-center w-fit px-2.5 py-1 mt-1 bg-slate-100/80 rounded-lg text-slate-600">
+                                {job.type}
+                            </span>
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            {/* Right Side: Role, Highlights, Tech Stack */}
+            <div className="w-full md:w-2/3">
+                <div className="relative bg-white lg:bg-transparent lg:hover:bg-white p-0 lg:p-8 lg:-m-8 rounded-[2rem] lg:border border-transparent lg:hover:border-slate-100 lg:hover:shadow-2xl lg:hover:shadow-blue-900/5 transition-all duration-500">
+
+                    {/* Role Header */}
+                    <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                        <h4 className="text-2xl md:text-3xl font-bold text-slate-900">
+                            {job.role}
+                        </h4>
+                        {job.current && (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold uppercase tracking-wider border border-emerald-100/50">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                </span>
+                                Present
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Highlights */}
+                    <ul className="mb-8 space-y-4">
+                        {job.highlights.map((point, idx) => (
+                            <li key={idx} className="flex items-start gap-4 text-slate-600 text-base leading-relaxed">
+                                <span className="mt-1.5 shrink-0 bg-blue-50 text-blue-500 p-1 rounded-full group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
+                                    <ArrowRight size={12} strokeWidth={3} />
+                                </span>
+                                <span>{point}</span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Tech Stack */}
+                    <div className="pt-6 border-t border-slate-100">
+                        <div className="flex flex-wrap gap-2">
+                            {job.technologies.map((tech, idx) => (
+                                <span
+                                    key={idx}
+                                    className="px-3.5 py-1.5 bg-slate-50 text-slate-600 rounded-xl text-sm font-medium border border-slate-200/50 hover:border-blue-300 hover:text-blue-700 hover:bg-blue-50/50 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                                >
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
 
 export default function Experience() {
     return (
-        <section className="py-20 bg-white relative overflow-hidden">
-            {/* Background Decoration */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-transparent to-cyan-50 pointer-events-none"></div>
-
+        <section className="py-24 bg-white relative" id="experience">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <div className="inline-block mb-4">
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg animate-pulse">
-                                <Briefcase className="text-white" size={28} />
-                            </div>
-                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-                                Experience
-                            </h2>
-                        </div>
-                    </div>
-                    <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                        My professional journey and career highlights
-                    </p>
-                    <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 mx-auto rounded-full mt-6"></div>
+
+                {/* Section Header */}
+                <div className="mb-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-blue-50/50 rounded-full border border-blue-100/50"
+                    >
+                        <Briefcase className="text-blue-600" size={16} />
+                        <span className="text-sm font-bold text-blue-700 uppercase tracking-widest">Career Path</span>
+                    </motion.div>
+
+                    <motion.h2
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight"
+                    >
+                        Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Experience</span>
+                    </motion.h2>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="text-lg text-slate-500 max-w-2xl"
+                    >
+                        A timeline of my professional journey, highlighting key roles, achievements, and the technologies I've mastered along the way.
+                    </motion.p>
                 </div>
 
-                {/* Timeline */}
-                <div className="relative space-y-12">
-                    {/* Vertical Line */}
-                    <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-200 via-cyan-200 to-blue-200 transform md:-translate-x-1/2"></div>
-
+                {/* Experience List */}
+                <div className="relative flex flex-col">
                     {experience.map((job, index) => (
-                        <div key={index} className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                            {/* Timeline Dot */}
-                            <div className="absolute left-4 md:left-1/2 w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full border-4 border-white shadow-lg transform -translate-x-1/2 z-10 flex items-center justify-center">
-                                <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></div>
-                            </div>
-
-                            {/* Content Card */}
-                            <div className="ml-12 md:ml-0 md:w-1/2 px-4">
-                                <div className={`group relative bg-white p-8 rounded-3xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}>
-                                    {/* Glowing Outline */}
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300"></div>
-
-                                    {/* Date Badge */}
-                                    <div className="absolute -top-4 -right-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-md transform rotate-2 group-hover:rotate-0 transition-all duration-300 flex items-center gap-2">
-                                        <Calendar size={14} />
-                                        {job.period}
-                                    </div>
-
-                                    {/* Mobile Date Badge (Visible only on small screens) */}
-                                    <div className="md:hidden inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold mb-4">
-                                        <Calendar size={12} />
-                                        {job.period}
-                                    </div>
-
-                                    {/* Header Info */}
-                                    <div className="mb-6">
-                                        <h3 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 flex items-center gap-2">
-                                            {job.role}
-                                            {job.current && (
-                                                <span className="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full border border-green-200 animate-pulse">
-                                                    Current
-                                                </span>
-                                            )}
-                                        </h3>
-                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2 text-sm text-gray-600">
-                                            <span className="font-semibold text-blue-600 flex items-center gap-1">
-                                                <Briefcase size={14} />
-                                                {job.company}
-                                            </span>
-                                            {job.type && <span className="bg-gray-100 px-2 py-0.5 rounded-md">{job.type}</span>}
-                                            <span className="flex items-center gap-1">
-                                                <MapPin size={14} className="text-gray-400" />
-                                                {job.location}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Highlights */}
-                                    <ul className="space-y-3 mb-6">
-                                        {job.highlights.map((point, idx) => (
-                                            <li key={idx} className="flex items-start gap-3 text-gray-700 text-sm leading-relaxed group/item">
-                                                <div className="mt-1.5 min-w-[6px] w-1.5 h-1.5 rounded-full bg-blue-400 group-hover/item:bg-cyan-500 transition-colors duration-300"></div>
-                                                <span className="group-hover/item:text-gray-900 transition-colors duration-300">{point}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-
-                                    {/* Tech Stack */}
-                                    <div className="pt-6 border-t border-gray-100">
-                                        <div className="flex flex-wrap gap-2">
-                                            {job.technologies.map((tech, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className="px-3 py-1 bg-slate-50 text-gray-600 rounded-lg text-xs font-medium border border-gray-200 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 cursor-default"
-                                                >
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Arrow Decoration */}
-                                    <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-t border-r border-gray-100 transform rotate-45 ${index % 2 === 0 ? '-right-2.5 border-l-0 border-b-0 hidden md:block' : '-left-2.5 border-r-0 border-t-0 hidden md:block shadow-[-2px_2px_4px_-2px_rgba(0,0,0,0.1)]'}`}></div>
-                                </div>
-                            </div>
-                        </div>
+                        <ExperienceCard key={index} job={job} index={index} />
                     ))}
                 </div>
+
             </div>
         </section>
     );
