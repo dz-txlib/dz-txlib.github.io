@@ -8,16 +8,14 @@ export default function Navbar({ activeSection, scrollToSection, navItems }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
-    // Handle scroll effect for background
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 20);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close menu when clicking a link
     const handleNavClick = (ref) => {
         setIsMenuOpen(false);
         scrollToSection(ref);
@@ -26,35 +24,35 @@ export default function Navbar({ activeSection, scrollToSection, navItems }) {
     return (
         <>
             <nav
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-white/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm py-2' : 'bg-transparent py-4'
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16 md:h-20">
+                    <div className="flex items-center justify-between h-14">
                         {/* Logo / Brand */}
-                        <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(navItems[0].ref)}>
-                            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
-                                Talib.
+                        <div className="flex-shrink-0 cursor-pointer group" onClick={() => scrollToSection(navItems[0].ref)}>
+                            <span className="text-2xl font-extrabold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300">
+                                Talib<span className="text-blue-600">.</span>
                             </span>
                         </div>
 
                         <div className="hidden md:block">
-                            <div className="ml-10 flex items-baseline space-x-1">
+                            <div className="ml-10 flex items-center space-x-1 bg-slate-50/80 p-1.5 rounded-full border border-slate-100 backdrop-blur-md">
                                 {navItems.map((item) => (
                                     <button
                                         key={item.name}
                                         onClick={() => scrollToSection(item.ref)}
-                                        className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeSection === item.id
+                                        className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${activeSection === item.id
                                             ? 'text-white'
-                                            : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                                            : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
                                             }`}
                                     >
                                         {activeSection === item.id && (
                                             <motion.div
                                                 layoutId="activeTab"
-                                                className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full shadow-md"
+                                                className="absolute inset-0 bg-slate-900 rounded-full shadow-sm"
                                                 initial={false}
-                                                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                                             />
                                         )}
                                         <span className="relative z-10">{item.name}</span>
@@ -67,7 +65,7 @@ export default function Navbar({ activeSection, scrollToSection, navItems }) {
                         <div className="md:hidden">
                             <button
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none"
+                                className="inline-flex items-center justify-center p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none transition-colors"
                             >
                                 <span className="sr-only">Open main menu</span>
                                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -84,22 +82,24 @@ export default function Navbar({ activeSection, scrollToSection, navItems }) {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3, ease: 'easeInOut' }}
-                            className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 overflow-hidden shadow-xl"
+                            className="md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-100 overflow-hidden shadow-xl absolute w-full"
                         >
-                            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                            <div className="px-4 pt-4 pb-6 space-y-1">
                                 {navItems.map((item) => (
                                     <button
                                         key={item.name}
                                         onClick={() => handleNavClick(item.ref)}
-                                        className={`block w-full text-left px-3 py-4 rounded-lg text-base font-medium transition-colors ${activeSection === item.id
-                                            ? 'bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-600 border-l-4 border-blue-600'
-                                            : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
+                                        className={`w-full flex items-center px-4 py-4 rounded-2xl text-base font-bold transition-all duration-300 ${activeSection === item.id
+                                            ? 'bg-slate-900 text-white shadow-md'
+                                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                                             }`}
                                     >
-                                        <span className="flex items-center">
-                                            {activeSection === item.id && <motion.div layoutId="mobileIndicator" className="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2" />}
+                                        <span className="flex items-center flex-1">
                                             {item.name}
                                         </span>
+                                        {activeSection === item.id && (
+                                            <motion.div layoutId="mobileIndicator" className="w-2 h-2 rounded-full bg-blue-500" />
+                                        )}
                                     </button>
                                 ))}
                             </div>
