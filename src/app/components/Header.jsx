@@ -26,17 +26,16 @@ export default function Header({ activeSection, scrollToSection, navItems }) {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || isMenuOpen ? 'bg-white/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-white/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo / Brand */}
             <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection(navItems[0].ref)}>
-                <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
-                  Talib.
-                </span>
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
+                Talib.
+              </span>
             </div>
 
             {/* Desktop Navigation */}
@@ -46,11 +45,10 @@ export default function Header({ activeSection, scrollToSection, navItems }) {
                   <button
                     key={item.name}
                     onClick={() => scrollToSection(item.ref)}
-                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeSection === item.id
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeSection === item.id
                         ? 'text-white'
                         : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                    }`}
+                      }`}
                   >
                     {activeSection === item.id && (
                       <motion.div
@@ -94,16 +92,15 @@ export default function Header({ activeSection, scrollToSection, navItems }) {
                   <button
                     key={item.name}
                     onClick={() => handleNavClick(item.ref)}
-                    className={`block w-full text-left px-3 py-4 rounded-lg text-base font-medium transition-colors ${
-                      activeSection === item.id
+                    className={`block w-full text-left px-3 py-4 rounded-lg text-base font-medium transition-colors ${activeSection === item.id
                         ? 'bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-600 border-l-4 border-blue-600'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
-                    }`}
+                      }`}
                   >
-                   <span className="flex items-center">
-                     {activeSection === item.id && <motion.div layoutId="mobileIndicator" className="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2" />}
-                     {item.name}
-                   </span>
+                    <span className="flex items-center">
+                      {activeSection === item.id && <motion.div layoutId="mobileIndicator" className="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2" />}
+                      {item.name}
+                    </span>
                   </button>
                 ))}
               </div>
