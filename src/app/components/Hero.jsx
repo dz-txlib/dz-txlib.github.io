@@ -14,40 +14,40 @@ export default function Hero({ scrollToSection, projectsRef, contactRef }) {
             </div>
 
             <div className="relative z-10 w-full max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                <div className="grid lg:grid-cols-12 gap-8 lg:gap-8 items-center w-full min-w-0">
 
                     {/* Left: Text Content (Takes up 7 out of 12 columns) */}
-                    <div className="col-span-12 lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-7 order-2 lg:order-1 mt-8 lg:mt-0">
+                    <div className="col-span-12 lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-7 order-2 lg:order-1 mt-8 lg:mt-0 w-full min-w-0">
 
                         {/* Status/Badge */}
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <span className="relative flex h-2.5 w-2.5">
+                        <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white rounded-full border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                                <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-emerald-500"></span>
                             </span>
-                            <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">Available for work</span>
+                            <span className="text-[10px] sm:text-xs font-bold text-slate-700 uppercase tracking-widest break-words">Available for work</span>
                         </div>
 
                         {/* High-Impact Headline */}
-                        <div className="space-y-3 max-w-2xl">
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        <div className="space-y-2 sm:space-y-3 max-w-2xl w-full">
+                            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight break-words">
                                 {personalInfo.name}
                             </h1>
-                            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 leading-snug">
+                            <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 leading-snug break-words">
                                 {personalInfo.headline}
                             </h2>
                         </div>
 
                         {/* Tagline */}
-                        <p className="text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
+                        <p className="text-slate-500 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl font-medium w-full break-words">
                             {personalInfo.tagline}
                         </p>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 w-full sm:w-auto">
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2 sm:pt-4 w-full sm:w-auto">
                             <button
                                 onClick={() => scrollToSection(projectsRef)}
-                                className="w-full sm:w-auto px-8 py-3.5 bg-slate-900 text-white rounded-xl font-bold shadow-lg shadow-slate-900/20 hover:shadow-slate-900/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group"
+                                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-slate-900 text-white rounded-xl font-bold shadow-lg shadow-slate-900/20 hover:shadow-slate-900/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group"
                             >
                                 <span>View My Work</span>
                                 <ChevronRight size={18} className="text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
@@ -56,7 +56,7 @@ export default function Hero({ scrollToSection, projectsRef, contactRef }) {
                             <a
                                 href={personalInfo.cv}
                                 download
-                                className="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold shadow-sm hover:bg-slate-50 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group"
+                                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold shadow-sm hover:bg-slate-50 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group"
                             >
                                 <Download size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
                                 <span>Download Resume</span>
@@ -91,8 +91,8 @@ export default function Hero({ scrollToSection, projectsRef, contactRef }) {
                     </div>
 
                     {/* Right: Premium Profile Image Container (Takes up 5 out of 12 columns) */}
-                    <div className="col-span-12 lg:col-span-5 flex justify-center lg:justify-end items-center w-full px-4 sm:px-0 order-1 lg:order-2">
-                        <div className="relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[450px] aspect-square">
+                    <div className="col-span-12 lg:col-span-5 flex justify-center lg:justify-end items-center w-full min-w-0 px-4 sm:px-0 order-1 lg:order-2">
+                        <div className="relative w-full max-w-[280px] sm:max-w-[400px] lg:max-w-[450px] aspect-square">
                             {/* Decorative Background Elements */}
                             <div className="absolute inset-4 bg-gradient-to-tr from-blue-100 to-cyan-50 rounded-full blur-2xl opacity-50 pointer-events-none"></div>
 
