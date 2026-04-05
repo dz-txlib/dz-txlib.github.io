@@ -1,17 +1,23 @@
 export const certifications = [
     {
         name: 'Java Programming: Mastering the Fundamentals',
-        issuer: 'Certificate of Excellence',
-        year: 'Sep 2024'
+        issuer: 'Coding Ninjas',
+        year: 'Sep 2024',
+        level: 'Advanced',
+        verifyUrl: null,
     },
     {
         name: 'Blockchain Development: Building Robust Solutions',
-        issuer: 'Certificate of Completion',
-        year: 'Mar 2024'
+        issuer: 'Coursera',
+        year: 'Mar 2024',
+        level: 'Intermediate',
+        verifyUrl: null,
     },
     {
         name: 'Java Programming: Foundations and Core Principles',
-        issuer: 'Certificate of Achievement',
-        year: 'Jan 2024'
+        issuer: 'Coding Ninjas',
+        year: 'Jan 2024',
+        level: 'Intermediate',
+        verifyUrl: null,
     },
 ];
