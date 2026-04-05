@@ -5,25 +5,25 @@ import { personalInfo } from '../data/personalInfo';
 
 export default function Contact() {
     return (
-        <section className="py-24 bg-white relative overflow-hidden" id="contact">
+        <section className="py-24 bg-white relative overflow-hidden">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="bg-slate-50 rounded-[2.5rem] p-2 shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="grid lg:grid-cols-5 gap-2">
+                <div className="bg-slate-50 rounded-[2rem] sm:rounded-[2.5rem] p-3 sm:p-2 shadow-sm border border-slate-100 overflow-hidden">
+                    <div className="grid lg:grid-cols-5 gap-3 sm:gap-2">
                         {/* Left Panel: Contact Info */}
-                        <div className="lg:col-span-2 bg-white rounded-[2rem] p-8 lg:p-12 border border-slate-100 flex flex-col justify-between">
+                        <div className="lg:col-span-2 bg-white rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 lg:p-12 border border-slate-100 flex flex-col justify-between">
                             <div>
-                                <h3 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-4">Get In Touch</h3>
-                                <p className="text-slate-500 leading-relaxed mb-10 text-[15px]">
-                                    I&apos;m currently open to new opportunities and collaborations. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
+                                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-4">Get In Touch</h3>
+                                <p className="text-slate-500 leading-relaxed mb-8 sm:mb-10 text-sm sm:text-[15px]">
+                                    I&apos;m open to new opportunities and collaborations. Whether you have a question or just want to say hi, I&apos;ll get back to you promptly.
                                 </p>
 
-                                <div className="space-y-4">
+                                <div className="space-y-3 sm:space-y-4">
                                     <a
                                         href={`mailto:${personalInfo.email}`}
-                                        className="flex items-center gap-5 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300 group"
+                                        className="flex items-center gap-4 sm:gap-5 p-3 sm:p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300 group"
                                     >
-                                        <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm group-hover:border-blue-200 group-hover:bg-blue-100 transition-colors shrink-0">
-                                            <Mail size={20} className="text-slate-600 group-hover:text-blue-600" />
+                                        <div className="w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm group-hover:border-blue-200 group-hover:bg-blue-100 transition-colors shrink-0">
+                                            <Mail size={18} className="text-slate-600 group-hover:text-blue-600" />
                                         </div>
                                         <div>
                                             <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Email Me</p>
@@ -33,10 +33,10 @@ export default function Contact() {
 
                                     <a
                                         href={`tel:${personalInfo.phone}`}
-                                        className="flex items-center gap-5 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300 group"
+                                        className="flex items-center gap-4 sm:gap-5 p-3 sm:p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300 group"
                                     >
-                                        <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm group-hover:border-blue-200 group-hover:bg-blue-100 transition-colors shrink-0">
-                                            <Phone size={20} className="text-slate-600 group-hover:text-blue-600" />
+                                        <div className="w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm group-hover:border-blue-200 group-hover:bg-blue-100 transition-colors shrink-0">
+                                            <Phone size={18} className="text-slate-600 group-hover:text-blue-600" />
                                         </div>
                                         <div>
                                             <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Call Me</p>
@@ -44,9 +44,9 @@ export default function Contact() {
                                         </div>
                                     </a>
 
-                                    <div className="flex items-center gap-5 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                                        <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm shrink-0">
-                                            <MapPin size={20} className="text-slate-600" />
+                                    <div className="flex items-center gap-4 sm:gap-5 p-3 sm:p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                                        <div className="w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm shrink-0">
+                                            <MapPin size={18} className="text-slate-600" />
                                         </div>
                                         <div>
                                             <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Location</p>
@@ -57,7 +57,7 @@ export default function Contact() {
                             </div>
 
                             {/* Social Links */}
-                            <div className="mt-12 pt-8 border-t border-slate-100">
+                            <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-100">
                                 <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4">Connect on Socials</p>
                                 <div className="flex gap-3">
                                     <a
@@ -82,23 +82,23 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        {/* Right Panel: CTA Banner */}
-                        <div className="lg:col-span-3 bg-slate-900 rounded-[2rem] p-10 lg:p-16 flex flex-col justify-center items-center text-center relative overflow-hidden">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/20 blur-[80px] rounded-full pointer-events-none"></div>
+                        {/* Right Panel: CTA */}
+                        <div className="lg:col-span-3 bg-slate-900 rounded-[1.5rem] sm:rounded-[2rem] p-8 sm:p-10 lg:p-16 flex flex-col justify-center items-center text-center relative overflow-hidden">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/20 blur-[80px] rounded-full pointer-events-none" aria-hidden="true"></div>
 
                             <div className="relative z-10 flex flex-col items-center">
-                                <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center mb-8">
-                                    <MessageSquare className="text-blue-400" size={32} />
+                                <div className="w-16 sm:w-20 h-16 sm:h-20 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 flex items-center justify-center mb-6 sm:mb-8" aria-hidden="true">
+                                    <MessageSquare className="text-blue-400" size={28} />
                                 </div>
-                                <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
+                                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
                                     Send a Message
                                 </h3>
-                                <p className="text-blue-100/80 text-lg mb-10 max-w-sm">
+                                <p className="text-blue-100/80 text-base sm:text-lg mb-8 sm:mb-10 max-w-sm">
                                     My inbox is always open. Whether you have a question or a project proposal, I'd love to hear from you.
                                 </p>
                                 <a
                                     href={`mailto:${personalInfo.email}`}
-                                    className="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 rounded-2xl font-bold shadow-lg shadow-white/5 hover:shadow-xl hover:bg-slate-50 hover:-translate-y-1 transition-all duration-300"
+                                    className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-slate-900 rounded-2xl font-bold shadow-lg shadow-white/5 hover:shadow-xl hover:bg-slate-50 hover:-translate-y-1 transition-all duration-300"
                                 >
                                     <span>Send an Email</span>
                                     <Send size={18} className="text-blue-600" />

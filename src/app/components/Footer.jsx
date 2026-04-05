@@ -2,55 +2,61 @@
 
 import { Code, ChevronRight, Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
 import { personalInfo } from '../data/personalInfo';
+import { useScroll } from './ScrollProvider';
 
-export default function Footer({ scrollToSection, navItems }) {
+export default function Footer() {
+    const { scrollToSection, navItems } = useScroll();
+
     return (
         <footer className="relative bg-slate-950 text-slate-300 overflow-hidden border-t border-slate-900">
-            {/* Background Decoration */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
+            <div className="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
                 <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-900/50 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-900/50 rounded-full blur-3xl"></div>
             </div>
 
             <div className="relative z-10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div className="grid md:grid-cols-3 gap-12 lg:gap-8 mb-12">
-                        {/* Left: Brand & Description */}
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-8 mb-12">
+                        {/* Brand */}
                         <div className="space-y-6">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-700 shadow-sm">
                                     <Code className="text-white" size={20} />
                                 </div>
-                                <h3 className="text-2xl font-extrabold text-white tracking-tight">MTU</h3>
+                                <h3 className="text-2xl font-extrabold text-white tracking-tight">
+                                    Talib<span className="text-blue-500">.</span>
+                                </h3>
                             </div>
                             <p className="text-slate-400 text-[15px] leading-relaxed max-w-sm">
-                                Backend Engineer crafting scalable solutions with Java, Spring Boot, and modern cloud technologies.
+                                Backend Engineer building scalable systems with Java, Spring Boot, and cloud technologies.
                             </p>
-                            <div className="flex items-center gap-2 text-sm bg-slate-900/50 inline-flex px-3 py-1.5 rounded-full border border-slate-800">
-                                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                            <div className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-slate-800 bg-slate-900/50">
+                                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" aria-hidden="true"></div>
                                 <span className="text-slate-300 font-medium">Available for work</span>
                             </div>
                         </div>
 
-                        {/* Center: Quick Links */}
+                        {/* Quick Links */}
                         <div className="md:px-8">
                             <h4 className="text-lg font-bold text-white mb-6">Quick Links</h4>
-                            <ul className="space-y-3">
-                                {navItems.slice(0, 6).map((item, idx) => (
-                                    <li key={idx}>
-                                        <button
-                                            onClick={() => scrollToSection(item.ref)}
-                                            className="text-slate-400 hover:text-white transition-colors duration-300 text-[15px] flex items-center gap-2 group"
-                                        >
-                                            <ChevronRight size={14} className="text-blue-500 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                                            <span className="group-hover:translate-x-1 transition-transform duration-300">{item.name}</span>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
+                            <nav aria-label="Footer navigation">
+                                <ul className="space-y-3">
+                                    {navItems.map((item) => (
+                                        <li key={item.id}>
+                                            <button
+                                                onClick={() => scrollToSection(item.id)}
+                                                className="text-slate-400 hover:text-white transition-colors duration-300 text-[15px] flex items-center gap-2 group"
+                                            >
+                                                <ChevronRight size={14} className="text-blue-500 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                                <span className="group-hover:translate-x-1 transition-transform duration-300">{item.name}</span>
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
                         </div>
 
-                        {/* Right: Contact & Social */}
+                        {/* Contact & Social */}
                         <div>
                             <h4 className="text-lg font-bold text-white mb-6">Get in Touch</h4>
                             <div className="space-y-4">
@@ -79,7 +85,6 @@ export default function Footer({ scrollToSection, navItems }) {
                                     {personalInfo.location}
                                 </div>
 
-                                {/* Social Icons */}
                                 <div className="flex gap-3 pt-6">
                                     <a
                                         href={personalInfo.linkedin}
@@ -111,16 +116,14 @@ export default function Footer({ scrollToSection, navItems }) {
                         </div>
                     </div>
 
-                    {/* Divider */}
                     <div className="border-t border-slate-800/60 mb-8 w-full"></div>
 
-                    {/* Bottom Bar */}
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                         <p className="text-slate-500 text-sm">
-                            © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
+                            &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
                         </p>
                         <p className="text-slate-500 text-sm">
-                            Designed & Developed with <span className="text-blue-500">💙</span>
+                            Designed &amp; Built by {personalInfo.name}
                         </p>
                     </div>
                 </div>
