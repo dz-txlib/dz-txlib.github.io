@@ -2,6 +2,6 @@
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://talibuddin.me',
+  siteUrl: 'https://dz-txlib.github.io',
   generateRobotsTxt: true,
 };
