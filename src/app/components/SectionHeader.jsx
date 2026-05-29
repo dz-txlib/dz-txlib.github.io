@@ -31,8 +31,8 @@ export default function SectionHeader({
                     style={
                         dark
                             ? {
-                                  background: 'rgba(59,130,246,0.1)',
-                                  border: '1px solid rgba(59,130,246,0.22)',
+                                  background: 'rgba(14,165,233,0.1)',
+                                  border: '1px solid rgba(14,165,233,0.22)',
                               }
                             : {
                                   background: '#eff6ff',
@@ -43,12 +43,12 @@ export default function SectionHeader({
                     {Icon && (
                         <Icon
                             size={13}
-                            style={{ color: dark ? 'rgba(96,165,250,0.9)' : '#2563eb' }}
+                            style={{ color: dark ? 'rgba(56,189,248,0.9)' : '#0ea5e9' }}
                         />
                     )}
                     <span
                         className="text-xs font-bold uppercase tracking-[0.15em]"
-                        style={{ color: dark ? 'rgba(147,197,253,0.85)' : '#1d4ed8' }}
+                        style={{ color: dark ? 'rgba(125,211,252,0.85)' : '#0284c7' }}
                     >
                         {badge}
                     </span>
@@ -62,7 +62,7 @@ export default function SectionHeader({
                 }`}
             >
                 {title}{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-teal-400">
                     {highlight}
                 </span>
             </h2>

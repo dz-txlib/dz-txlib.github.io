@@ -25,7 +25,7 @@ function ExperienceCard({ job, index }) {
                     {/* Period */}
                     <div
                         className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] mb-4"
-                        style={{ color: 'rgba(96,165,250,0.65)' }}
+                        style={{ color: 'rgba(56,189,248,0.65)' }}
                     >
                         <Calendar size={12} />
                         {job.period}
@@ -42,21 +42,21 @@ function ExperienceCard({ job, index }) {
                             <div
                                 className="w-11 h-11 rounded-xl flex items-center justify-center text-lg font-bold text-white shrink-0 transition-all duration-300 group-hover/co:scale-105"
                                 style={{
-                                    background: 'rgba(37,99,235,0.2)',
-                                    border: '1px solid rgba(37,99,235,0.3)',
+                                    background: 'rgba(14,165,233,0.15)',
+                                    border: '1px solid rgba(14,165,233,0.25)',
                                 }}
                             >
                                 {job.company.charAt(0)}
                             </div>
                             <div>
                                 <h3
-                                    className="font-display text-xl font-bold text-white tracking-tight group-hover/co:text-blue-300 transition-colors flex items-center gap-1.5"
+                                    className="font-display text-xl font-bold text-white tracking-tight group-hover/co:text-sky-300 transition-colors flex items-center gap-1.5"
                                 >
                                     {job.company}
                                     <ExternalLink
                                         size={13}
                                         className="opacity-0 group-hover/co:opacity-60 transition-opacity"
-                                        style={{ color: 'rgba(96,165,250,0.7)' }}
+                                        style={{ color: 'rgba(56,189,248,0.7)' }}
                                     />
                                 </h3>
                             </div>
@@ -66,8 +66,8 @@ function ExperienceCard({ job, index }) {
                             <div
                                 className="w-11 h-11 rounded-xl flex items-center justify-center text-lg font-bold text-white shrink-0"
                                 style={{
-                                    background: 'rgba(37,99,235,0.2)',
-                                    border: '1px solid rgba(37,99,235,0.3)',
+                                    background: 'rgba(14,165,233,0.15)',
+                                    border: '1px solid rgba(14,165,233,0.25)',
                                 }}
                             >
                                 {job.company.charAt(0)}
@@ -134,8 +134,8 @@ function ExperienceCard({ job, index }) {
                             <span
                                 className="mt-1.5 shrink-0 p-1 rounded-full"
                                 style={{
-                                    background: 'rgba(37,99,235,0.15)',
-                                    color: 'rgba(96,165,250,0.9)',
+                                    background: 'rgba(14,165,233,0.12)',
+                                    color: 'rgba(56,189,248,0.9)',
                                 }}
                                 aria-hidden="true"
                             >
@@ -154,9 +154,9 @@ function ExperienceCard({ job, index }) {
                             key={tech}
                             className="px-3 py-1 font-mono text-xs font-medium rounded-lg cursor-default transition-all duration-200 hover:-translate-y-px"
                             style={{
-                                color: 'rgba(147,197,253,0.65)',
-                                background: 'rgba(37,99,235,0.09)',
-                                border: '1px solid rgba(37,99,235,0.18)',
+                                color: 'rgba(125,211,252,0.65)',
+                                background: 'rgba(14,165,233,0.09)',
+                                border: '1px solid rgba(14,165,233,0.18)',
                             }}
                         >
                             {tech}
@@ -173,12 +173,12 @@ export default function Experience() {
         <section
             id="experience"
             className="py-28 relative overflow-hidden"
-            style={{ background: 'linear-gradient(180deg, #060f22 0%, #040a18 100%)' }}
+            style={{ background: 'linear-gradient(180deg, #111115 0%, #0d0d12 100%)' }}
         >
             {/* Atmosphere */}
             <div
                 className="absolute -right-[10%] top-1/3 w-[500px] h-[500px] rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)' }}
+                style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%)' }}
                 aria-hidden="true"
             />
 

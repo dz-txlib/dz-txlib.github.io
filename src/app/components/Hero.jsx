@@ -75,31 +75,31 @@ export default function Hero() {
             ref={sectionRef}
             id="home"
             className="relative min-h-screen flex items-center overflow-hidden"
-            style={{ backgroundColor: '#030c18' }}
+            style={{ backgroundColor: '#09090b' }}
         >
             {/* ── Atmosphere ─────────────────────────────────────────── */}
             <motion.div style={{ y: bgY }} className="absolute inset-0 pointer-events-none" aria-hidden="true">
                 <div
                     className="absolute -top-[20%] -right-[8%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full animate-glow-pulse"
-                    style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 65%)' }}
+                    style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 65%)' }}
                 />
                 <div
                     className="absolute -bottom-[15%] -left-[6%] w-[400px] sm:w-[580px] h-[400px] sm:h-[580px] rounded-full animate-glow-pulse"
-                    style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 65%)', animationDelay: '2.2s' }}
+                    style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.10) 0%, transparent 65%)', animationDelay: '2.2s' }}
                 />
                 <div
                     className="absolute inset-0"
                     style={{
-                        backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.18) 1px, transparent 1px)',
+                        backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.14) 1px, transparent 1px)',
                         backgroundSize: '40px 40px',
                         maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)',
                     }}
                 />
                 <div className="absolute left-0 right-0 top-[30%] h-px opacity-20"
-                    style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.6), transparent)' }} />
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent)' }} />
                 <div
                     className="absolute left-0 right-0 h-[2px] pointer-events-none animate-scan-line"
-                    style={{ background: 'linear-gradient(90deg, transparent, rgba(96,165,250,0.15), transparent)' }}
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.12), transparent)' }}
                 />
             </motion.div>
 
@@ -114,22 +114,21 @@ export default function Hero() {
                         transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
                         className="lg:col-span-5 flex justify-center lg:justify-end items-center order-1 lg:order-2 mb-10 sm:mb-12 lg:mb-0"
                     >
-                        {/* Photo container — padded so floating cards don't clip */}
                         <div className="relative w-[200px] sm:w-[270px] lg:w-[340px] mt-6 sm:mt-0">
 
                             {/* Spinning gradient border */}
                             <div
                                 className="relative rounded-2xl p-[2px] overflow-hidden shadow-2xl"
-                                style={{ boxShadow: '0 0 60px rgba(37,99,235,0.25), 0 0 120px rgba(37,99,235,0.10)' }}
+                                style={{ boxShadow: '0 0 60px rgba(14,165,233,0.22), 0 0 120px rgba(14,165,233,0.08)' }}
                             >
                                 <div
                                     className="absolute inset-[-55%] animate-border-spin pointer-events-none"
                                     style={{
-                                        background: 'conic-gradient(from 0deg, transparent 0deg, #3b82f6 70deg, #06b6d4 140deg, #7c3aed 200deg, transparent 270deg)',
+                                        background: 'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 70deg, #14b8a6 140deg, #0369a1 200deg, transparent 270deg)',
                                     }}
                                     aria-hidden="true"
                                 />
-                                <div className="relative rounded-[14px] overflow-hidden aspect-[3/4]" style={{ background: '#030c18' }}>
+                                <div className="relative rounded-[14px] overflow-hidden aspect-[3/4]" style={{ background: '#09090b' }}>
                                     <Image
                                         src={personalInfo.image}
                                         alt={`${personalInfo.name} — Backend Engineer`}
@@ -142,11 +141,11 @@ export default function Hero() {
                                     />
                                     <div
                                         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-                                        style={{ background: 'linear-gradient(to top, #030c18 0%, transparent 100%)' }}
+                                        style={{ background: 'linear-gradient(to top, #09090b 0%, transparent 100%)' }}
                                         aria-hidden="true"
                                     />
                                     <div className="absolute bottom-4 left-4 right-4">
-                                        <div className="font-mono text-[9px] uppercase tracking-[0.22em] mb-0.5" style={{ color: 'rgba(96,165,250,0.5)' }}>
+                                        <div className="font-mono text-[9px] uppercase tracking-[0.22em] mb-0.5" style={{ color: 'rgba(56,189,248,0.5)' }}>
                                             Backend Engineer
                                         </div>
                                         <div className="font-display text-sm font-semibold text-white">
@@ -156,17 +155,17 @@ export default function Hero() {
                                 </div>
                             </div>
 
-                            {/* Floating card — Experience (hidden on xs, shown from sm) */}
+                            {/* Floating card — Experience */}
                             <motion.div
                                 initial={{ opacity: 0, y: 16, scale: 0.92 }}
                                 animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
                                 transition={{ delay: 0.75, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                                 className="hidden sm:block absolute -top-4 -right-6 lg:-right-8 px-3 lg:px-4 py-2 lg:py-3 rounded-xl shadow-2xl animate-float"
                                 style={{
-                                    background: 'rgba(5,14,35,0.85)',
+                                    background: 'rgba(9,9,11,0.88)',
                                     backdropFilter: 'blur(20px)',
-                                    border: '1px solid rgba(59,130,246,0.2)',
-                                    boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.1)',
+                                    border: '1px solid rgba(56,189,248,0.18)',
+                                    boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.08)',
                                 }}
                             >
                                 <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
@@ -178,24 +177,24 @@ export default function Hero() {
                                 </div>
                             </motion.div>
 
-                            {/* Floating card — Stack (hidden on xs, shown from sm) */}
+                            {/* Floating card — Stack */}
                             <motion.div
                                 initial={{ opacity: 0, y: 16, scale: 0.92 }}
                                 animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
                                 transition={{ delay: 0.95, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                                 className="hidden sm:block absolute -bottom-4 -left-6 lg:-left-8 px-3 lg:px-4 py-2 lg:py-3 rounded-xl shadow-2xl animate-float-delayed"
                                 style={{
-                                    background: 'rgba(5,14,35,0.85)',
+                                    background: 'rgba(9,9,11,0.88)',
                                     backdropFilter: 'blur(20px)',
-                                    border: '1px solid rgba(99,102,241,0.2)',
-                                    boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.1)',
+                                    border: '1px solid rgba(20,184,166,0.18)',
+                                    boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(20,184,166,0.08)',
                                 }}
                             >
                                 <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
                                     Primary Stack
                                 </div>
                                 <div className="font-display text-sm lg:text-base font-bold text-white">Java · Python</div>
-                                <div className="text-xs font-medium" style={{ color: 'rgba(147,197,253,0.75)' }}>
+                                <div className="text-xs font-medium" style={{ color: 'rgba(125,211,252,0.75)' }}>
                                     Spring Boot · Django
                                 </div>
                             </motion.div>
@@ -236,7 +235,7 @@ export default function Hero() {
                             animate={isInView ? { opacity: 1 } : {}}
                             transition={{ delay: 0.15, duration: 0.5 }}
                             className="font-mono text-xs uppercase tracking-[0.22em]"
-                            style={{ color: 'rgba(96,165,250,0.5)' }}
+                            style={{ color: 'rgba(56,189,248,0.5)' }}
                         >
                             {'<'} {personalInfo.role.toLowerCase().replace(' ', '_')} {' />'}
                         </motion.div>
@@ -273,14 +272,14 @@ export default function Hero() {
                                     animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                                     exit={{ y: -18, opacity: 0, filter: 'blur(4px)' }}
                                     transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-                                    className="font-display text-base sm:text-xl lg:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-cyan-400 whitespace-nowrap"
+                                    className="font-display text-base sm:text-xl lg:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-sky-400 to-teal-400 whitespace-nowrap"
                                 >
                                     {ROLES[roleIdx]}
                                 </motion.span>
                             </AnimatePresence>
                             <span
                                 className="w-0.5 h-6 rounded-sm animate-cursor-blink shrink-0"
-                                style={{ background: 'linear-gradient(to bottom, #60a5fa, #22d3ee)', opacity: 0.8 }}
+                                style={{ background: 'linear-gradient(to bottom, #38bdf8, #2dd4bf)', opacity: 0.8 }}
                                 aria-hidden="true"
                             />
                         </motion.div>
@@ -312,9 +311,9 @@ export default function Hero() {
                                     whileHover={{ y: -2, transition: { duration: 0.15 } }}
                                     className="px-2.5 sm:px-3 py-1 text-xs font-mono font-medium rounded-lg cursor-default"
                                     style={{
-                                        color: 'rgba(147,197,253,0.75)',
-                                        background: 'rgba(37,99,235,0.10)',
-                                        border: '1px solid rgba(37,99,235,0.20)',
+                                        color: 'rgba(125,211,252,0.75)',
+                                        background: 'rgba(14,165,233,0.10)',
+                                        border: '1px solid rgba(14,165,233,0.20)',
                                     }}
                                 >
                                     {tech}
@@ -333,8 +332,8 @@ export default function Hero() {
                                 onClick={() => scrollToSection('projects')}
                                 className="group relative px-6 py-3.5 text-white rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2.5"
                                 style={{
-                                    background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-                                    boxShadow: '0 0 28px rgba(37,99,235,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                                    background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+                                    boxShadow: '0 0 28px rgba(14,165,233,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
                                 }}
                             >
                                 <span className="relative z-10 flex items-center gap-2.5">
@@ -441,7 +440,7 @@ export default function Hero() {
                     animate={{ y: [0, 8, 0] }}
                     transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
                     className="w-px h-10"
-                    style={{ background: 'linear-gradient(to bottom, rgba(96,165,250,0.5), transparent)' }}
+                    style={{ background: 'linear-gradient(to bottom, rgba(56,189,248,0.5), transparent)' }}
                 />
                 <span className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: 'rgba(255,255,255,0.2)' }}>
                     scroll

@@ -28,7 +28,7 @@ function ServiceCard({ service, index }) {
                 border: '1px solid rgba(255,255,255,0.08)',
             }}
             whileHover={{
-                borderColor: 'rgba(59,130,246,0.3)',
+                borderColor: 'rgba(56,189,248,0.3)',
                 background: 'rgba(255,255,255,0.06)',
                 transition: { duration: 0.2 },
             }}
@@ -38,7 +38,7 @@ function ServiceCard({ service, index }) {
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
                 style={{
                     background:
-                        'radial-gradient(circle at 30% 30%, rgba(37,99,235,0.12) 0%, transparent 60%)',
+                        'radial-gradient(circle at 30% 30%, rgba(14,165,233,0.10) 0%, transparent 60%)',
                 }}
                 aria-hidden="true"
             />
@@ -48,15 +48,15 @@ function ServiceCard({ service, index }) {
                 <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
                     style={{
-                        background: 'rgba(37,99,235,0.12)',
-                        border: '1px solid rgba(37,99,235,0.22)',
+                        background: 'rgba(14,165,233,0.12)',
+                        border: '1px solid rgba(14,165,233,0.22)',
                     }}
                 >
-                    <Icon size={20} style={{ color: 'rgba(96,165,250,0.9)' }} />
+                    <Icon size={20} style={{ color: 'rgba(56,189,248,0.9)' }} />
                 </div>
 
                 <h3
-                    className={`font-display font-bold tracking-tight mb-3 text-white group-hover:text-blue-300 transition-colors duration-300 ${
+                    className={`font-display font-bold tracking-tight mb-3 text-white group-hover:text-sky-300 transition-colors duration-300 ${
                         isFeatured ? 'text-2xl' : 'text-xl'
                     }`}
                 >
@@ -76,11 +76,11 @@ function ServiceCard({ service, index }) {
                     {service.tags.map((tag) => (
                         <span
                             key={tag}
-                            className="px-3 py-1 rounded-lg font-mono text-xs font-medium cursor-default transition-all duration-300 group-hover:border-blue-500/30"
+                            className="px-3 py-1 rounded-lg font-mono text-xs font-medium cursor-default transition-all duration-300 group-hover:border-sky-500/30"
                             style={{
-                                color: 'rgba(147,197,253,0.7)',
-                                background: 'rgba(37,99,235,0.08)',
-                                border: '1px solid rgba(37,99,235,0.15)',
+                                color: 'rgba(125,211,252,0.7)',
+                                background: 'rgba(14,165,233,0.08)',
+                                border: '1px solid rgba(14,165,233,0.15)',
                             }}
                         >
                             {tag}
@@ -99,19 +99,19 @@ export default function Services() {
         <section
             id="services"
             className="py-28 relative overflow-hidden"
-            style={{ background: 'linear-gradient(160deg, #060f22 0%, #040a18 50%, #060f22 100%)' }}
+            style={{ background: 'linear-gradient(160deg, #111115 0%, #0d0d12 50%, #111115 100%)' }}
         >
             {/* Background atmosphere */}
             <div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse, rgba(37,99,235,0.07) 0%, transparent 65%)' }}
+                style={{ background: 'radial-gradient(ellipse, rgba(14,165,233,0.07) 0%, transparent 65%)' }}
                 aria-hidden="true"
             />
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     backgroundImage:
-                        'radial-gradient(circle, rgba(59,130,246,0.1) 1px, transparent 1px)',
+                        'radial-gradient(circle, rgba(56,189,248,0.08) 1px, transparent 1px)',
                     backgroundSize: '44px 44px',
                     maskImage:
                         'radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)',
@@ -150,25 +150,25 @@ export default function Services() {
                         className="absolute inset-[-40%] animate-border-spin pointer-events-none"
                         style={{
                             background:
-                                'conic-gradient(from 0deg, transparent 0deg, #3b82f6 80deg, #06b6d4 160deg, transparent 240deg)',
+                                'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, transparent 240deg)',
                             opacity: 0.4,
                         }}
                         aria-hidden="true"
                     />
                     <div
                         className="relative rounded-[calc(1rem-1.5px)] px-5 py-7 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden"
-                        style={{ background: 'rgba(5,14,35,0.95)' }}
+                        style={{ background: 'rgba(9,9,11,0.96)' }}
                     >
                         <div
                             className="absolute top-1/2 left-1/4 w-64 h-64 -translate-y-1/2 rounded-full pointer-events-none"
-                            style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)' }}
+                            style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%)' }}
                             aria-hidden="true"
                         />
                         <div className="relative z-10 text-center sm:text-left">
                             <h3 className="font-display text-xl sm:text-3xl font-bold text-white tracking-tight mb-2">
                                 Ready to Build Something Great?
                             </h3>
-                            <p className="text-sm" style={{ color: 'rgba(147,197,253,0.55)' }}>
+                            <p className="text-sm" style={{ color: 'rgba(125,211,252,0.55)' }}>
                                 Let's discuss how I can help bring your vision to life with reliable, scalable software.
                             </p>
                         </div>
@@ -177,8 +177,8 @@ export default function Services() {
                                 onClick={() => scrollToSection('contact')}
                                 className="group flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 text-white overflow-hidden relative"
                                 style={{
-                                    background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
-                                    boxShadow: '0 0 24px rgba(37,99,235,0.3)',
+                                    background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
+                                    boxShadow: '0 0 24px rgba(14,165,233,0.3)',
                                 }}
                             >
                                 <span className="relative z-10 flex items-center gap-2.5">

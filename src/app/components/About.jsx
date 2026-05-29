@@ -29,7 +29,7 @@ function useAnimatedCounter(target, isInView, duration = 1500) {
 }
 
 const STATS = [
-    { value: 50,   suffix: '+', label: 'APIs Delivered',   icon: Code2,   color: '#3b82f6', glow: 'rgba(59,130,246,0.25)' },
+    { value: 50,   suffix: '+', label: 'APIs Delivered',   icon: Code2,   color: '#0ea5e9', glow: 'rgba(14,165,233,0.25)' },
     { value: 1000, suffix: '+', label: 'Users Served',     icon: Users,   color: '#10b981', glow: 'rgba(16,185,129,0.22)' },
     { value: 40,   suffix: '%', label: 'Query Speedup',    icon: Zap,     color: '#f59e0b', glow: 'rgba(245,158,11,0.22)'  },
     { value: 4,    suffix: '+', label: 'Products Shipped', icon: Package, color: '#8b5cf6', glow: 'rgba(139,92,246,0.22)' },
@@ -106,17 +106,17 @@ export default function About() {
             {/* ── Stats band ───────────────────────────────────────── */}
             <div
                 className="relative py-24 overflow-hidden"
-                style={{ background: 'linear-gradient(160deg, #060f22 0%, #0a0520 50%, #060f22 100%)' }}
+                style={{ background: 'linear-gradient(160deg, #111115 0%, #0d0d14 50%, #111115 100%)' }}
             >
                 <div
                     className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full pointer-events-none"
-                    style={{ background: 'radial-gradient(ellipse, rgba(37,99,235,0.10) 0%, transparent 65%)' }}
+                    style={{ background: 'radial-gradient(ellipse, rgba(14,165,233,0.10) 0%, transparent 65%)' }}
                     aria-hidden="true"
                 />
                 <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                        backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.12) 1px, transparent 1px)',
+                        backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.10) 1px, transparent 1px)',
                         backgroundSize: '40px 40px',
                         maskImage: 'radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 100%)',
                     }}
@@ -127,16 +127,16 @@ export default function About() {
                     <motion.div {...fadeUp(0)} className="mb-14">
                         <div
                             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5"
-                            style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)' }}
+                            style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.22)' }}
                         >
-                            <Sparkles size={13} className="text-blue-400" />
-                            <span className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(147,197,253,0.8)' }}>
+                            <Sparkles size={13} className="text-sky-400" />
+                            <span className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(125,211,252,0.85)' }}>
                                 About Me
                             </span>
                         </div>
                         <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] text-white">
                             By the{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-400">
                                 Numbers
                             </span>
                         </h2>
@@ -153,18 +153,18 @@ export default function About() {
             {/* ── Story + CTA ──────────────────────────────────────── */}
             <div
                 className="relative py-24 overflow-hidden"
-                style={{ background: 'linear-gradient(180deg, #060f22 0%, #030c18 100%)' }}
+                style={{ background: 'linear-gradient(180deg, #111115 0%, #09090b 100%)' }}
             >
                 {/* Atmosphere */}
                 <div
                     className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
-                    style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%)' }}
+                    style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.07) 0%, transparent 70%)' }}
                     aria-hidden="true"
                 />
                 <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                        backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.07) 1px, transparent 1px)',
+                        backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.07) 1px, transparent 1px)',
                         backgroundSize: '40px 40px',
                         maskImage: 'radial-gradient(ellipse 60% 70% at 80% 20%, black 20%, transparent 100%)',
                     }}
@@ -179,27 +179,27 @@ export default function About() {
                             <div
                                 className="absolute inset-[-40%] animate-border-spin pointer-events-none"
                                 style={{
-                                    background: 'conic-gradient(from 0deg, transparent 0deg, #3b82f6 80deg, #06b6d4 160deg, #7c3aed 240deg, transparent 320deg)',
+                                    background: 'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, #0284c7 240deg, transparent 320deg)',
                                     opacity: 0.6,
                                 }}
                                 aria-hidden="true"
                             />
                             <div
                                 className="relative rounded-[calc(1.5rem-1.5px)] p-8 sm:p-10 md:p-12 overflow-hidden"
-                                style={{ background: 'linear-gradient(145deg, #0a1628 0%, #0d1f3c 50%, #080f22 100%)' }}
+                                style={{ background: 'linear-gradient(145deg, #0a0a12 0%, #0f0f1c 50%, #080810 100%)' }}
                             >
                                 <div
                                     className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none opacity-20"
-                                    style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.6) 0%, transparent 70%)' }}
+                                    style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.6) 0%, transparent 70%)' }}
                                     aria-hidden="true"
                                 />
                                 <div
                                     className="absolute bottom-0 left-0 w-48 h-48 rounded-full pointer-events-none opacity-15"
-                                    style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, transparent 70%)' }}
+                                    style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.5) 0%, transparent 70%)' }}
                                     aria-hidden="true"
                                 />
                                 <div className="relative z-10">
-                                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] mb-5" style={{ color: 'rgba(96,165,250,0.5)' }}>
+                                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] mb-5" style={{ color: 'rgba(56,189,248,0.5)' }}>
                                         // professional summary
                                     </div>
                                     <blockquote>
@@ -212,7 +212,7 @@ export default function About() {
                                             />
                                         </p>
                                     </blockquote>
-                                    <div className="mt-6 font-mono text-xs" style={{ color: 'rgba(147,197,253,0.45)' }}>
+                                    <div className="mt-6 font-mono text-xs" style={{ color: 'rgba(125,211,252,0.45)' }}>
                                         — {personalInfo.name} · {personalInfo.location}
                                     </div>
                                 </div>
@@ -232,8 +232,8 @@ export default function About() {
                                 className="group rounded-2xl p-7 transition-all duration-300"
                                 style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
-                                    e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)';
+                                    e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
+                                    e.currentTarget.style.borderColor = 'rgba(56,189,248,0.25)';
                                 }}
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
@@ -243,9 +243,9 @@ export default function About() {
                                 <div className="flex items-center gap-3 mb-4">
                                     <div
                                         className="w-8 h-8 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                                        style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}
+                                        style={{ background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(14,165,233,0.2)' }}
                                     >
-                                        <Icon size={14} style={{ color: '#60a5fa' }} />
+                                        <Icon size={14} style={{ color: '#38bdf8' }} />
                                     </div>
                                     <h3 className="font-display text-base font-semibold text-white tracking-tight">
                                         {title}
@@ -266,25 +266,25 @@ export default function About() {
                             <div
                                 className="absolute inset-[-50%] animate-border-spin pointer-events-none"
                                 style={{
-                                    background: 'conic-gradient(from 90deg, transparent 0deg, #2563eb 60deg, transparent 120deg)',
+                                    background: 'conic-gradient(from 90deg, transparent 0deg, #0ea5e9 60deg, transparent 120deg)',
                                     opacity: 0.5,
                                 }}
                                 aria-hidden="true"
                             />
                             <div
                                 className="relative rounded-[calc(1rem-1.5px)] p-7 sm:p-8 flex flex-col justify-between gap-7 h-full overflow-hidden"
-                                style={{ background: 'linear-gradient(145deg, #0a1628 0%, #0f1e40 100%)' }}
+                                style={{ background: 'linear-gradient(145deg, #0a0a12 0%, #111120 100%)' }}
                             >
                                 <div
                                     className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none opacity-20"
-                                    style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.6) 0%, transparent 70%)' }}
+                                    style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.6) 0%, transparent 70%)' }}
                                     aria-hidden="true"
                                 />
                                 <div className="relative z-10">
                                     <h3 className="font-display text-xl font-bold text-white tracking-tight mb-2">
                                         Let's Build Something
                                     </h3>
-                                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(147,197,253,0.55)' }}>
+                                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(125,211,252,0.55)' }}>
                                         {professionalSummary.cta}
                                     </p>
                                 </div>
@@ -293,8 +293,8 @@ export default function About() {
                                         onClick={() => scrollToSection('contact')}
                                         className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 text-white overflow-hidden relative"
                                         style={{
-                                            background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
-                                            boxShadow: '0 0 20px rgba(37,99,235,0.3)',
+                                            background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
+                                            boxShadow: '0 0 20px rgba(14,165,233,0.3)',
                                         }}
                                     >
                                         <span className="relative z-10 flex items-center gap-2">
@@ -326,8 +326,8 @@ export default function About() {
                                         className="group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300"
                                         style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
                                         onMouseEnter={(e) => {
-                                            e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
-                                            e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)';
+                                            e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
+                                            e.currentTarget.style.borderColor = 'rgba(56,189,248,0.25)';
                                         }}
                                         onMouseLeave={(e) => {
                                             e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
@@ -336,9 +336,9 @@ export default function About() {
                                     >
                                         <div
                                             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
-                                            style={{ background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.2)' }}
+                                            style={{ background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(14,165,233,0.2)' }}
                                         >
-                                            <Icon size={16} style={{ color: '#60a5fa' }} />
+                                            <Icon size={16} style={{ color: '#38bdf8' }} />
                                         </div>
                                         <div className="min-w-0">
                                             <div className="font-mono text-[10px] uppercase tracking-[0.14em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>

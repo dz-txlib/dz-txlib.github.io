@@ -26,7 +26,7 @@ export default function Navbar() {
             style={
                 isScrolled || isMenuOpen
                     ? {
-                          background: 'rgba(3,12,24,0.92)',
+                          background: 'rgba(9,9,11,0.92)',
                           backdropFilter: 'blur(20px)',
                           WebkitBackdropFilter: 'blur(20px)',
                           borderBottom: '1px solid rgba(255,255,255,0.07)',
@@ -40,11 +40,11 @@ export default function Navbar() {
                     {/* Brand */}
                     <button
                         onClick={() => scrollToSection('home')}
-                        className="flex-shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg"
+                        className="flex-shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg"
                         aria-label="Go to homepage"
                     >
-                        <span className="font-display text-2xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
-                            Talib<span className="text-blue-500">.</span>
+                        <span className="font-display text-2xl font-bold tracking-tight text-white group-hover:text-sky-400 transition-colors duration-300">
+                            Talib<span className="text-sky-500">.</span>
                         </span>
                     </button>
 
@@ -95,7 +95,7 @@ export default function Navbar() {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                            className="inline-flex items-center justify-center p-2 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
                             style={{ color: 'rgba(255,255,255,0.7)' }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.color = '#fff';
@@ -124,7 +124,7 @@ export default function Navbar() {
                         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                         className="md:hidden overflow-hidden absolute w-full"
                         style={{
-                            background: 'rgba(3,12,24,0.98)',
+                            background: 'rgba(9,9,11,0.98)',
                             backdropFilter: 'blur(24px)',
                             WebkitBackdropFilter: 'blur(24px)',
                             borderBottom: '1px solid rgba(255,255,255,0.07)',
@@ -141,9 +141,9 @@ export default function Navbar() {
                                         style={
                                             isActive
                                                 ? {
-                                                      background: 'rgba(37,99,235,0.15)',
-                                                      border: '1px solid rgba(37,99,235,0.25)',
-                                                      color: '#93c5fd',
+                                                      background: 'rgba(14,165,233,0.15)',
+                                                      border: '1px solid rgba(14,165,233,0.25)',
+                                                      color: '#7dd3fc',
                                                   }
                                                 : {
                                                       color: 'rgba(255,255,255,0.5)',
@@ -167,7 +167,7 @@ export default function Navbar() {
                                         {isActive && (
                                             <motion.div
                                                 layoutId="mobileIndicator"
-                                                className="w-1.5 h-1.5 rounded-full bg-blue-400"
+                                                className="w-1.5 h-1.5 rounded-full bg-sky-400"
                                             />
                                         )}
                                     </button>

@@ -11,14 +11,14 @@ export default function Footer() {
     return (
         <footer
             className="relative overflow-hidden"
-            style={{ background: '#020810', borderTop: '1px solid rgba(255,255,255,0.05)' }}
+            style={{ background: '#050508', borderTop: '1px solid rgba(255,255,255,0.05)' }}
         >
             {/* Animated gradient line at very top */}
             <div
                 className="absolute top-0 left-0 right-0 h-px animate-shimmer"
                 style={{
                     background:
-                        'linear-gradient(90deg, transparent, #3b82f6, #06b6d4, #7c3aed, transparent)',
+                        'linear-gradient(90deg, transparent, #0ea5e9, #14b8a6, #0369a1, transparent)',
                     backgroundSize: '200% 100%',
                 }}
                 aria-hidden="true"
@@ -27,7 +27,7 @@ export default function Footer() {
             {/* Ambient glow */}
             <div
                 className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse, rgba(37,99,235,0.08) 0%, transparent 70%)' }}
+                style={{ background: 'radial-gradient(ellipse, rgba(14,165,233,0.08) 0%, transparent 70%)' }}
                 aria-hidden="true"
             />
 
@@ -38,10 +38,10 @@ export default function Footer() {
                     <div className="space-y-5">
                         <button
                             onClick={() => scrollToSection('home')}
-                            className="focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg"
+                            className="focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-lg"
                         >
-                            <span className="font-display text-2xl font-bold text-white tracking-tight hover:text-blue-400 transition-colors">
-                                Talib<span className="text-blue-500">.</span>
+                            <span className="font-display text-2xl font-bold text-white tracking-tight hover:text-sky-400 transition-colors">
+                                Talib<span className="text-sky-500">.</span>
                             </span>
                         </button>
                         <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
@@ -85,7 +85,7 @@ export default function Footer() {
                                             <ArrowRight
                                                 size={12}
                                                 className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-                                                style={{ color: '#3b82f6' }}
+                                                style={{ color: '#0ea5e9' }}
                                             />
                                             <span className="group-hover:translate-x-0.5 transition-transform duration-200">
                                                 {item.name}

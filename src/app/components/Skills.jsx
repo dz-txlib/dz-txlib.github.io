@@ -8,11 +8,11 @@ import { skills } from '../data/skills';
 import CurrentlyLearning from './CurrentlyLearning';
 
 const CAT_META = {
-    'Backend Development':     { color: '#3b82f6', glow: 'rgba(59,130,246,0.25)',  bg: 'rgba(59,130,246,0.08)',  border: 'rgba(59,130,246,0.22)', short: 'Backend'  },
+    'Backend Development':     { color: '#0ea5e9', glow: 'rgba(14,165,233,0.25)',  bg: 'rgba(14,165,233,0.08)',  border: 'rgba(14,165,233,0.22)', short: 'Backend'  },
     'Databases':               { color: '#10b981', glow: 'rgba(16,185,129,0.22)', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.20)', short: 'DB'       },
     'Cloud & DevOps':          { color: '#f97316', glow: 'rgba(249,115,22,0.22)', bg: 'rgba(249,115,22,0.08)', border: 'rgba(249,115,22,0.20)', short: 'DevOps'   },
     'Tools & Version Control': { color: '#8b5cf6', glow: 'rgba(139,92,246,0.22)', bg: 'rgba(139,92,246,0.08)', border: 'rgba(139,92,246,0.20)', short: 'Tools'    },
-    'Architecture & Concepts': { color: '#6366f1', glow: 'rgba(99,102,241,0.22)', bg: 'rgba(99,102,241,0.08)', border: 'rgba(99,102,241,0.20)', short: 'Arch'     },
+    'Architecture & Concepts': { color: '#14b8a6', glow: 'rgba(20,184,166,0.22)', bg: 'rgba(20,184,166,0.08)', border: 'rgba(20,184,166,0.20)', short: 'Arch'     },
 };
 const ALL = 'All';
 
@@ -98,8 +98,8 @@ export default function Skills() {
     }, [active]);
 
     const meta        = active === ALL ? null : CAT_META[active];
-    const accentColor = meta?.color ?? '#3b82f6';
-    const glowColor   = meta?.glow  ?? 'rgba(59,130,246,0.2)';
+    const accentColor = meta?.color ?? '#0ea5e9';
+    const glowColor   = meta?.glow  ?? 'rgba(14,165,233,0.2)';
 
     const row2 = useMemo(() => {
         const keys = Object.keys(skills);
@@ -110,18 +110,18 @@ export default function Skills() {
         <section
             id="skills"
             className="py-28 relative overflow-hidden"
-            style={{ background: 'linear-gradient(180deg, #030c18 0%, #060f22 100%)' }}
+            style={{ background: 'linear-gradient(180deg, #09090b 0%, #111115 100%)' }}
         >
             {/* Atmosphere */}
             <div
                 className="absolute bottom-0 left-[-4%] w-[480px] h-[480px] rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%)' }}
+                style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 70%)' }}
                 aria-hidden="true"
             />
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                    backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.08) 1px, transparent 1px)',
+                    backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.08) 1px, transparent 1px)',
                     backgroundSize: '40px 40px',
                     maskImage: 'radial-gradient(ellipse 60% 50% at 20% 80%, black 20%, transparent 100%)',
                 }}
@@ -140,17 +140,17 @@ export default function Skills() {
                 >
                     <div
                         className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5"
-                        style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.22)' }}
+                        style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.22)' }}
                     >
-                        <Code size={13} style={{ color: 'rgba(96,165,250,0.9)' }} />
-                        <span className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: 'rgba(147,197,253,0.85)' }}>
+                        <Code size={13} style={{ color: 'rgba(56,189,248,0.9)' }} />
+                        <span className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: 'rgba(125,211,252,0.85)' }}>
                             Technical Arsenal
                         </span>
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                         <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight">
                             Core{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-400">
                                 Expertise
                             </span>
                         </h2>
@@ -178,17 +178,17 @@ export default function Skills() {
 
                     <div className="relative overflow-hidden">
                         <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-                            style={{ background: 'linear-gradient(to right, #030c18, transparent)' }} aria-hidden="true" />
+                            style={{ background: 'linear-gradient(to right, #09090b, transparent)' }} aria-hidden="true" />
                         <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-                            style={{ background: 'linear-gradient(to left, #030c18, transparent)' }} aria-hidden="true" />
+                            style={{ background: 'linear-gradient(to left, #09090b, transparent)' }} aria-hidden="true" />
                         <MarqueeRow items={allFlat} />
                     </div>
 
                     <div className="relative overflow-hidden">
                         <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-                            style={{ background: 'linear-gradient(to right, #030c18, transparent)' }} aria-hidden="true" />
+                            style={{ background: 'linear-gradient(to right, #09090b, transparent)' }} aria-hidden="true" />
                         <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
-                            style={{ background: 'linear-gradient(to left, #030c18, transparent)' }} aria-hidden="true" />
+                            style={{ background: 'linear-gradient(to left, #09090b, transparent)' }} aria-hidden="true" />
                         <MarqueeRow items={row2.length > 4 ? row2 : allFlat} reverse />
                     </div>
                 </motion.div>
@@ -206,7 +206,7 @@ export default function Skills() {
                         <motion.div
                             animate={{ scale: [1, 1.3, 1] }}
                             transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-                            className="w-2 h-2 rounded-full bg-blue-500"
+                            className="w-2 h-2 rounded-full bg-sky-500"
                             aria-hidden="true"
                         />
                         <div>
@@ -218,13 +218,13 @@ export default function Skills() {
                         {['Java', 'Spring Boot', 'Microservices', 'MySQL', 'AWS'].map((tech) => (
                             <motion.span
                                 key={tech}
-                                whileHover={{ y: -2, boxShadow: '0 4px 12px rgba(37,99,235,0.2)' }}
+                                whileHover={{ y: -2, boxShadow: '0 4px 12px rgba(14,165,233,0.2)' }}
                                 transition={{ duration: 0.15 }}
                                 className="px-3 py-1.5 font-mono text-xs font-medium rounded-xl cursor-default transition-all duration-200"
                                 style={{
-                                    color: 'rgba(147,197,253,0.7)',
-                                    background: 'rgba(37,99,235,0.09)',
-                                    border: '1px solid rgba(37,99,235,0.18)',
+                                    color: 'rgba(125,211,252,0.7)',
+                                    background: 'rgba(14,165,233,0.09)',
+                                    border: '1px solid rgba(14,165,233,0.18)',
                                 }}
                             >
                                 {tech}
@@ -246,7 +246,7 @@ export default function Skills() {
                     {categories.map((cat) => {
                         const isActive  = active === cat;
                         const catMeta   = cat === ALL ? null : CAT_META[cat];
-                        const accent    = catMeta?.color ?? '#3b82f6';
+                        const accent    = catMeta?.color ?? '#0ea5e9';
                         const count     = cat === ALL ? allFlat.length : (skills[cat]?.items.length ?? 0);
                         const shortName = catMeta?.short ?? cat;
 
@@ -256,7 +256,7 @@ export default function Skills() {
                                 role="tab"
                                 aria-selected={isActive}
                                 onClick={() => setActive(cat)}
-                                className="relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                                className="relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
                                 style={
                                     isActive
                                         ? {

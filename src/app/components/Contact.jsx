@@ -19,27 +19,27 @@ export default function Contact() {
     ];
 
     const socials = [
-        { href: personalInfo.linkedin, icon: Linkedin, label: 'LinkedIn', color: '#3b82f6' },
+        { href: personalInfo.linkedin, icon: Linkedin, label: 'LinkedIn', color: '#0ea5e9' },
         { href: personalInfo.github,   icon: Github,   label: 'GitHub',   color: '#fff' },
-        { href: `mailto:${personalInfo.email}`, icon: Mail, label: 'Email', color: '#3b82f6' },
+        { href: `mailto:${personalInfo.email}`, icon: Mail, label: 'Email', color: '#0ea5e9' },
     ];
 
     return (
         <section
             id="contact"
             className="py-28 relative overflow-hidden"
-            style={{ background: 'linear-gradient(160deg, #060f22 0%, #030c18 50%, #060f22 100%)' }}
+            style={{ background: 'linear-gradient(160deg, #111115 0%, #09090b 50%, #111115 100%)' }}
         >
             {/* Atmosphere */}
             <div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse, rgba(37,99,235,0.08) 0%, transparent 65%)' }}
+                style={{ background: 'radial-gradient(ellipse, rgba(14,165,233,0.08) 0%, transparent 65%)' }}
                 aria-hidden="true"
             />
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                    backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.12) 1px, transparent 1px)',
+                    backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.10) 1px, transparent 1px)',
                     backgroundSize: '40px 40px',
                     maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)',
                 }}
@@ -53,18 +53,18 @@ export default function Contact() {
                     <div
                         className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5"
                         style={{
-                            background: 'rgba(59,130,246,0.1)',
-                            border: '1px solid rgba(59,130,246,0.22)',
+                            background: 'rgba(14,165,233,0.1)',
+                            border: '1px solid rgba(14,165,233,0.22)',
                         }}
                     >
-                        <MessageSquare size={13} className="text-blue-400" />
-                        <span className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(147,197,253,0.85)' }}>
+                        <MessageSquare size={13} className="text-sky-400" />
+                        <span className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(125,211,252,0.85)' }}>
                             Get in Touch
                         </span>
                     </div>
                     <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
                         Let's Work{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-400">
                             Together
                         </span>
                     </h2>
@@ -90,8 +90,8 @@ export default function Contact() {
                                         border: '1px solid rgba(255,255,255,0.08)',
                                     }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.borderColor = 'rgba(59,130,246,0.28)';
-                                        e.currentTarget.style.background = 'rgba(37,99,235,0.08)';
+                                        e.currentTarget.style.borderColor = 'rgba(56,189,248,0.28)';
+                                        e.currentTarget.style.background = 'rgba(14,165,233,0.08)';
                                     }}
                                     onMouseLeave={(e) => {
                                         e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
@@ -101,11 +101,11 @@ export default function Contact() {
                                     <div
                                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
                                         style={{
-                                            background: 'rgba(37,99,235,0.12)',
-                                            border: '1px solid rgba(37,99,235,0.2)',
+                                            background: 'rgba(14,165,233,0.12)',
+                                            border: '1px solid rgba(14,165,233,0.2)',
                                         }}
                                     >
-                                        <Icon size={16} style={{ color: 'rgba(96,165,250,0.9)' }} />
+                                        <Icon size={16} style={{ color: 'rgba(56,189,248,0.9)' }} />
                                     </div>
                                     <div>
                                         <div className="font-mono text-[10px] uppercase tracking-[0.16em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
@@ -161,19 +161,19 @@ export default function Contact() {
                                 className="absolute inset-[-40%] animate-border-spin pointer-events-none"
                                 style={{
                                     background:
-                                        'conic-gradient(from 0deg, transparent 0deg, #3b82f6 80deg, #06b6d4 160deg, #7c3aed 240deg, transparent 320deg)',
+                                        'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, #0284c7 240deg, transparent 320deg)',
                                     opacity: 0.45,
                                 }}
                                 aria-hidden="true"
                             />
                             <div
                                 className="relative rounded-[calc(1rem-1.5px)] p-8 sm:p-12 flex flex-col items-center justify-center text-center gap-6 h-full overflow-hidden"
-                                style={{ background: 'rgba(5,14,35,0.96)' }}
+                                style={{ background: 'rgba(9,9,11,0.97)' }}
                             >
                                 {/* Interior atmosphere */}
                                 <div
                                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full pointer-events-none"
-                                    style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.13) 0%, transparent 70%)' }}
+                                    style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%)' }}
                                     aria-hidden="true"
                                 />
 
@@ -181,12 +181,12 @@ export default function Contact() {
                                     <div
                                         className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center"
                                         style={{
-                                            background: 'rgba(37,99,235,0.15)',
-                                            border: '1px solid rgba(37,99,235,0.25)',
-                                            boxShadow: '0 0 32px rgba(37,99,235,0.2)',
+                                            background: 'rgba(14,165,233,0.15)',
+                                            border: '1px solid rgba(14,165,233,0.25)',
+                                            boxShadow: '0 0 32px rgba(14,165,233,0.2)',
                                         }}
                                     >
-                                        <MessageSquare size={26} style={{ color: 'rgba(96,165,250,0.9)' }} />
+                                        <MessageSquare size={26} style={{ color: 'rgba(56,189,248,0.9)' }} />
                                     </div>
 
                                     <div>
@@ -203,8 +203,8 @@ export default function Contact() {
                                         href={`mailto:${personalInfo.email}`}
                                         className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 text-white overflow-hidden"
                                         style={{
-                                            background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
-                                            boxShadow: '0 0 28px rgba(37,99,235,0.35)',
+                                            background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
+                                            boxShadow: '0 0 28px rgba(14,165,233,0.35)',
                                         }}
                                     >
                                         <span className="relative z-10 flex items-center gap-2.5">

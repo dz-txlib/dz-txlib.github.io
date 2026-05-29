@@ -23,9 +23,9 @@ export default function CertificationGrid() {
                     className="group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
                     style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
-                        e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)';
-                        e.currentTarget.style.boxShadow = '0 8px 32px rgba(37,99,235,0.12)';
+                        e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
+                        e.currentTarget.style.borderColor = 'rgba(56,189,248,0.25)';
+                        e.currentTarget.style.boxShadow = '0 8px 32px rgba(14,165,233,0.12)';
                     }}
                     onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
@@ -39,9 +39,9 @@ export default function CertificationGrid() {
                         <div className="flex items-start justify-between mb-5">
                             <div
                                 className="w-11 h-11 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                                style={{ background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.22)' }}
+                                style={{ background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(14,165,233,0.22)' }}
                             >
-                                <Award size={20} style={{ color: '#60a5fa' }} />
+                                <Award size={20} style={{ color: '#38bdf8' }} />
                             </div>
 
                             {cert.verifyUrl ? (
@@ -76,7 +76,7 @@ export default function CertificationGrid() {
                         </div>
 
                         {/* Title */}
-                        <h3 className="font-display text-base font-bold mb-5 leading-snug flex-grow transition-colors duration-300 text-white group-hover:text-blue-400">
+                        <h3 className="font-display text-base font-bold mb-5 leading-snug flex-grow transition-colors duration-300 text-white group-hover:text-sky-400">
                             {cert.name}
                         </h3>
 
@@ -98,7 +98,7 @@ export default function CertificationGrid() {
                                 >
                                     <Calendar size={12} style={{ color: 'rgba(255,255,255,0.4)' }} />
                                 </div>
-                                <span className="text-sm font-bold" style={{ color: '#60a5fa' }}>{cert.year}</span>
+                                <span className="text-sm font-bold" style={{ color: '#38bdf8' }}>{cert.year}</span>
                             </div>
                         </div>
 
@@ -115,7 +115,7 @@ export default function CertificationGrid() {
                             <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
                                 <motion.div
                                     className="h-full rounded-full"
-                                    style={{ background: 'linear-gradient(90deg, #2563eb, #06b6d4)' }}
+                                    style={{ background: 'linear-gradient(90deg, #0ea5e9, #14b8a6)' }}
                                     initial={{ width: 0 }}
                                     whileInView={{ width: LEVEL_WIDTH[cert.level] ?? '85%' }}
                                     viewport={{ once: true }}

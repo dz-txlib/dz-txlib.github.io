@@ -7,7 +7,7 @@ import { projects } from '../data/projects';
 import SectionHeader from './SectionHeader';
 
 const CAT_COLOR = {
-    'Ed-Tech':    { accent: '#3b82f6', glow: 'rgba(59,130,246,0.22)' },
+    'Ed-Tech':    { accent: '#0ea5e9', glow: 'rgba(14,165,233,0.22)' },
     'HR Tech':    { accent: '#8b5cf6', glow: 'rgba(139,92,246,0.22)' },
     'E-Commerce': { accent: '#f97316', glow: 'rgba(249,115,22,0.22)'  },
     'Operations': { accent: '#10b981', glow: 'rgba(16,185,129,0.22)' },
@@ -39,7 +39,7 @@ function ProjectCard({ project, index }) {
 
                 <div
                     className="relative rounded-[calc(1rem-1.5px)] p-5 sm:p-9 overflow-hidden"
-                    style={{ background: 'rgba(5,14,35,0.95)' }}
+                    style={{ background: 'rgba(9,9,11,0.96)' }}
                 >
                     {/* Interior glow */}
                     <div
@@ -86,9 +86,9 @@ function ProjectCard({ project, index }) {
                                         key={t}
                                         className="px-3 py-1 font-mono text-xs font-medium rounded-lg cursor-default"
                                         style={{
-                                            color: 'rgba(147,197,253,0.7)',
-                                            background: 'rgba(37,99,235,0.09)',
-                                            border: '1px solid rgba(37,99,235,0.18)',
+                                            color: 'rgba(125,211,252,0.7)',
+                                            background: 'rgba(14,165,233,0.09)',
+                                            border: '1px solid rgba(14,165,233,0.18)',
                                         }}
                                     >
                                         {t}
@@ -238,11 +238,11 @@ export default function Projects() {
         <section
             id="projects"
             className="py-28 relative overflow-hidden"
-            style={{ background: 'linear-gradient(180deg, #040a18 0%, #060f22 100%)' }}
+            style={{ background: 'linear-gradient(180deg, #0d0d12 0%, #111115 100%)' }}
         >
             <div
                 className="absolute top-1/3 left-[-5%] w-[500px] h-[500px] rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)' }}
+                style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%)' }}
                 aria-hidden="true"
             />
 
@@ -276,9 +276,9 @@ export default function Projects() {
                         rel="noopener noreferrer"
                         className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
                         style={{
-                            color: 'rgba(147,197,253,0.65)',
-                            background: 'rgba(37,99,235,0.1)',
-                            border: '1px solid rgba(37,99,235,0.2)',
+                            color: 'rgba(125,211,252,0.65)',
+                            background: 'rgba(14,165,233,0.1)',
+                            border: '1px solid rgba(14,165,233,0.2)',
                         }}
                     >
                         View more on GitHub
