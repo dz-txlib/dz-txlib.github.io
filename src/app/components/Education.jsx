@@ -1,53 +1,108 @@
 'use client';
 
 import { GraduationCap, Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { education } from '../data/education';
 import SectionHeader from './SectionHeader';
 
 export default function Education() {
     return (
-        <section className="py-24 bg-white relative">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <section
+            id="education"
+            className="py-24 relative overflow-hidden"
+            style={{ background: 'linear-gradient(180deg, #060f22 0%, #030c18 100%)' }}
+        >
+            {/* Atmosphere */}
+            <div
+                className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+                style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%)' }}
+                aria-hidden="true"
+            />
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.07) 1px, transparent 1px)',
+                    backgroundSize: '40px 40px',
+                    maskImage: 'radial-gradient(ellipse 60% 50% at 100% 0%, black 20%, transparent 100%)',
+                }}
+                aria-hidden="true"
+            />
+
+            <div className="relative z-10 max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
                 <SectionHeader
                     icon={GraduationCap}
                     badge="Education"
                     title="Academic"
                     highlight="Background"
+                    dark
                 />
 
-                <div className="space-y-6">
-                    {education.map((edu) => (
-                        <div key={edu.institution} className="group bg-slate-50 rounded-[2rem] p-5 sm:p-6 md:p-8 border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-1 transition-all duration-300">
-                            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 sm:gap-6">
+                <div className="space-y-4">
+                    {education.map((edu, i) => (
+                        <motion.div
+                            key={edu.institution}
+                            initial={{ opacity: 0, y: 22, filter: 'blur(4px)' }}
+                            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                            viewport={{ once: true, margin: '-60px' }}
+                            transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            className="group rounded-2xl p-6 sm:p-8 transition-all duration-300"
+                            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
+                                e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                            }}
+                        >
+                            <div className="flex flex-col md:flex-row md:items-start justify-between gap-5">
                                 <div className="space-y-3">
-                                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                    <h3 className="font-display text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
                                         {edu.degree}
                                     </h3>
                                     <a
                                         href={edu.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 text-[15px] font-semibold text-slate-600 hover:text-blue-600 transition-colors"
+                                        className="inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+                                        style={{ color: 'rgba(255,255,255,0.5)' }}
+                                        onMouseEnter={(e) => { e.currentTarget.style.color = '#60a5fa'; }}
+                                        onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
                                     >
-                                        <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-sm shrink-0 group-hover:border-blue-200 transition-colors">
-                                            <GraduationCap size={14} className="text-slate-500 group-hover:text-blue-600 transition-colors" />
+                                        <div
+                                            className="w-7 h-7 rounded-lg flex items-center justify-center shadow-sm shrink-0"
+                                            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
+                                        >
+                                            <GraduationCap size={13} style={{ color: 'rgba(255,255,255,0.5)' }} />
                                         </div>
                                         {edu.institution}
-                                        <ExternalLink size={14} className="opacity-50 ml-1" />
+                                        <ExternalLink size={12} style={{ opacity: 0.4 }} />
                                     </a>
                                 </div>
-                                <div className="flex flex-row md:flex-col items-center md:items-end flex-wrap gap-3">
-                                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white text-blue-700 border border-blue-100 shadow-sm rounded-full text-sm font-bold tracking-wide">
-                                        <Calendar size={14} />
+
+                                <div className="flex flex-row md:flex-col items-center md:items-end gap-3 flex-wrap">
+                                    <span
+                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold"
+                                        style={{
+                                            background: 'rgba(37,99,235,0.12)',
+                                            border: '1px solid rgba(37,99,235,0.25)',
+                                            color: '#93c5fd',
+                                        }}
+                                    >
+                                        <Calendar size={13} />
                                         {edu.period}
                                     </span>
-                                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 px-2">
-                                        <MapPin size={14} />
+                                    <span
+                                        className="inline-flex items-center gap-1.5 text-sm font-medium"
+                                        style={{ color: 'rgba(255,255,255,0.4)' }}
+                                    >
+                                        <MapPin size={13} />
                                         {edu.location}
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

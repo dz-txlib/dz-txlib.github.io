@@ -1,31 +1,72 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { stats } from '../data/stats';
 
 export default function Stats() {
     return (
-        <section className="py-10 sm:py-12 bg-white relative z-20" aria-label="Key statistics">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
-                    {stats.map((stat) => {
-                        const IconComponent = stat.icon;
+        <div
+            className="relative z-10 py-5 overflow-hidden"
+            style={{ background: 'linear-gradient(180deg, #030c18 0%, #060f22 100%)' }}
+            aria-label="Key statistics"
+        >
+            {/* Thin gradient line separator */}
+            <div
+                className="absolute top-0 left-0 right-0 h-px"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.25), transparent)' }}
+                aria-hidden="true"
+            />
+
+            <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-px"
+                    style={{ background: 'rgba(255,255,255,0.05)' }}>
+                    {stats.map((stat, i) => {
+                        const Icon = stat.icon;
                         return (
-                            <div
+                            <motion.div
                                 key={stat.label}
-                                className="group flex flex-col items-center justify-center p-5 sm:p-8 bg-slate-50 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-1 transition-all duration-300"
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                                className="group flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-4 sm:py-5 transition-all duration-300"
+                                style={{ background: '#030c18' }}
                             >
-                                <div className="inline-flex items-center justify-center w-12 sm:w-14 h-12 sm:h-14 bg-white border border-slate-200 shadow-sm rounded-xl sm:rounded-2xl mb-4 sm:mb-6 group-hover:scale-110 group-hover:-rotate-3 group-hover:border-blue-200 group-hover:bg-blue-50 transition-all duration-300" aria-hidden="true">
-                                    <IconComponent className="text-slate-600 group-hover:text-blue-600" size={22} />
+                                <div
+                                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110"
+                                    style={{
+                                        background: 'rgba(37,99,235,0.12)',
+                                        border: '1px solid rgba(37,99,235,0.2)',
+                                    }}
+                                >
+                                    <Icon size={16} style={{ color: 'rgba(96,165,250,0.9)' }} />
                                 </div>
-                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-1 sm:mb-2 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-500 transition-all duration-300">
-                                    {stat.number}
-                                </h3>
-                                <p className="text-slate-500 font-semibold text-xs sm:text-sm uppercase tracking-wider text-center">{stat.label}</p>
-                            </div>
+                                <div className="text-center sm:text-left">
+                                    <div
+                                        className="font-display text-2xl sm:text-3xl font-bold tracking-tight tabular-nums leading-none"
+                                        style={{ color: '#fff' }}
+                                    >
+                                        {stat.number}
+                                    </div>
+                                    <div
+                                        className="font-mono text-[10px] uppercase tracking-[0.16em] mt-1"
+                                        style={{ color: 'rgba(255,255,255,0.32)' }}
+                                    >
+                                        {stat.label}
+                                    </div>
+                                </div>
+                            </motion.div>
                         );
                     })}
                 </div>
             </div>
-        </section>
+
+            {/* Bottom separator */}
+            <div
+                className="absolute bottom-0 left-0 right-0 h-px"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.15), transparent)' }}
+                aria-hidden="true"
+            />
+        </div>
     );
 }

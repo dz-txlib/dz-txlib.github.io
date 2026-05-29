@@ -1,133 +1,450 @@
 'use client';
 
-import { ChevronRight, Download, Mail, Linkedin, Github } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import { Download, Mail, Linkedin, Github, ArrowRight, Code2, Database, Cpu } from 'lucide-react';
 import Image from 'next/image';
+import {
+    motion,
+    useInView,
+    useScroll,
+    useTransform,
+    AnimatePresence,
+} from 'framer-motion';
 import { personalInfo } from '../data/personalInfo';
-import { useScroll } from './ScrollProvider';
+import { useScroll as useAppScroll } from './ScrollProvider';
+
+const ROLES = [
+    'Backend Engineer',
+    'Java Developer',
+    'API Architect',
+    'System Builder',
+    'Microservices Dev',
+];
+
+/* ── Character-by-character 3-D flip reveal ───────────────────────── */
+function CharReveal({ text, delay = 0, className = '' }) {
+    return (
+        <span
+            className={className}
+            style={{ display: 'block', perspective: '900px', wordBreak: 'break-word' }}
+            aria-label={text}
+        >
+            {text.split('').map((char, i) => (
+                <motion.span
+                    key={i}
+                    initial={{ opacity: 0, y: 40, rotateX: -70, filter: 'blur(6px)' }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' }}
+                    transition={{
+                        delay: delay + i * 0.042,
+                        duration: 0.52,
+                        ease: [0.22, 1, 0.36, 1],
+                    }}
+                    style={{ display: 'inline-block', transformOrigin: '50% 100%' }}
+                >
+                    {char === ' ' ? ' ' : char}
+                </motion.span>
+            ))}
+        </span>
+    );
+}
 
 export default function Hero() {
-    const { scrollToSection } = useScroll();
+    const { scrollToSection } = useAppScroll();
+    const sectionRef = useRef(null);
+    const isInView   = useInView(sectionRef, { once: true, margin: '-5%' });
+    const [roleIdx, setRoleIdx] = useState(0);
+
+    useEffect(() => {
+        if (!isInView) return;
+        const t = setInterval(() => setRoleIdx((p) => (p + 1) % ROLES.length), 2800);
+        return () => clearInterval(t);
+    }, [isInView]);
+
+    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+    const bgY         = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
+    const contentY    = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
+    const scrollAlpha = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+    const socialLinks = [
+        { href: personalInfo.linkedin, icon: Linkedin, label: 'LinkedIn' },
+        { href: personalInfo.github,   icon: Github,   label: 'GitHub'   },
+    ];
 
     return (
-        <section className="relative min-h-screen flex items-center justify-center pt-20 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-50/30">
-            {/* Subtle Background Glows */}
-            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-blue-100/40 to-transparent rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-cyan-100/30 to-transparent rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
-            </div>
+        <section
+            ref={sectionRef}
+            id="home"
+            className="relative min-h-screen flex items-center overflow-hidden"
+            style={{ backgroundColor: '#030c18' }}
+        >
+            {/* ── Atmosphere ─────────────────────────────────────────── */}
+            <motion.div style={{ y: bgY }} className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                <div
+                    className="absolute -top-[20%] -right-[8%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full animate-glow-pulse"
+                    style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 65%)' }}
+                />
+                <div
+                    className="absolute -bottom-[15%] -left-[6%] w-[400px] sm:w-[580px] h-[400px] sm:h-[580px] rounded-full animate-glow-pulse"
+                    style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 65%)', animationDelay: '2.2s' }}
+                />
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.18) 1px, transparent 1px)',
+                        backgroundSize: '40px 40px',
+                        maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)',
+                    }}
+                />
+                <div className="absolute left-0 right-0 top-[30%] h-px opacity-20"
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.6), transparent)' }} />
+                <div
+                    className="absolute left-0 right-0 h-[2px] pointer-events-none animate-scan-line"
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(96,165,250,0.15), transparent)' }}
+                />
+            </motion.div>
 
-            <div className="relative z-10 w-full max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-12 gap-8 lg:gap-8 items-center w-full min-w-0">
+            {/* ── Content ────────────────────────────────────────────── */}
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 pt-24 sm:pt-28 pb-16 sm:pb-24">
+                <div className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-10 lg:items-center gap-0">
 
-                    {/* Left: Text Content */}
-                    <div className="col-span-12 lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-7 order-2 lg:order-1 mt-8 lg:mt-0 w-full min-w-0">
+                    {/* ── Photo column — mobile: top, desktop: right ── */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 0, filter: 'blur(10px)' }}
+                        animate={isInView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
+                        transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                        className="lg:col-span-5 flex justify-center lg:justify-end items-center order-1 lg:order-2 mb-10 sm:mb-12 lg:mb-0"
+                    >
+                        {/* Photo container — padded so floating cards don't clip */}
+                        <div className="relative w-[200px] sm:w-[270px] lg:w-[340px] mt-6 sm:mt-0">
 
-                        {/* Status Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white rounded-full border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5" aria-hidden="true">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-emerald-500"></span>
-                            </span>
-                            <span className="text-[10px] sm:text-xs font-bold text-slate-700 uppercase tracking-widest">Available for work</span>
+                            {/* Spinning gradient border */}
+                            <div
+                                className="relative rounded-2xl p-[2px] overflow-hidden shadow-2xl"
+                                style={{ boxShadow: '0 0 60px rgba(37,99,235,0.25), 0 0 120px rgba(37,99,235,0.10)' }}
+                            >
+                                <div
+                                    className="absolute inset-[-55%] animate-border-spin pointer-events-none"
+                                    style={{
+                                        background: 'conic-gradient(from 0deg, transparent 0deg, #3b82f6 70deg, #06b6d4 140deg, #7c3aed 200deg, transparent 270deg)',
+                                    }}
+                                    aria-hidden="true"
+                                />
+                                <div className="relative rounded-[14px] overflow-hidden aspect-[3/4]" style={{ background: '#030c18' }}>
+                                    <Image
+                                        src={personalInfo.image}
+                                        alt={`${personalInfo.name} — Backend Engineer`}
+                                        fill
+                                        className="object-cover object-[center_8%] transition-transform duration-700 ease-out hover:scale-[1.04]"
+                                        priority
+                                        sizes="(max-width: 640px) 200px, (max-width: 1024px) 270px, 340px"
+                                    />
+                                    <div
+                                        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+                                        style={{ background: 'linear-gradient(to top, #030c18 0%, transparent 100%)' }}
+                                        aria-hidden="true"
+                                    />
+                                    <div className="absolute bottom-4 left-4 right-4">
+                                        <div className="font-mono text-[9px] uppercase tracking-[0.22em] mb-0.5" style={{ color: 'rgba(96,165,250,0.5)' }}>
+                                            Backend Engineer
+                                        </div>
+                                        <div className="font-display text-sm font-semibold text-white">
+                                            @ Affy Cloud Solutions
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Floating card — Experience (hidden on xs, shown from sm) */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 16, scale: 0.92 }}
+                                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                                transition={{ delay: 0.75, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                className="hidden sm:block absolute -top-4 -right-6 lg:-right-8 px-3 lg:px-4 py-2 lg:py-3 rounded-xl shadow-2xl animate-float"
+                                style={{
+                                    background: 'rgba(5,14,35,0.85)',
+                                    backdropFilter: 'blur(20px)',
+                                    border: '1px solid rgba(59,130,246,0.2)',
+                                    boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.1)',
+                                }}
+                            >
+                                <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                                    Experience
+                                </div>
+                                <div className="font-display text-sm lg:text-base font-bold text-white">2+ Years</div>
+                                <div className="text-xs font-medium" style={{ color: 'rgba(52,211,153,0.8)' }}>
+                                    Production Systems
+                                </div>
+                            </motion.div>
+
+                            {/* Floating card — Stack (hidden on xs, shown from sm) */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 16, scale: 0.92 }}
+                                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                                transition={{ delay: 0.95, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                className="hidden sm:block absolute -bottom-4 -left-6 lg:-left-8 px-3 lg:px-4 py-2 lg:py-3 rounded-xl shadow-2xl animate-float-delayed"
+                                style={{
+                                    background: 'rgba(5,14,35,0.85)',
+                                    backdropFilter: 'blur(20px)',
+                                    border: '1px solid rgba(99,102,241,0.2)',
+                                    boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.1)',
+                                }}
+                            >
+                                <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                                    Primary Stack
+                                </div>
+                                <div className="font-display text-sm lg:text-base font-bold text-white">Java · Python</div>
+                                <div className="text-xs font-medium" style={{ color: 'rgba(147,197,253,0.75)' }}>
+                                    Spring Boot · Django
+                                </div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+
+                    {/* ── Text column ─────────────────────────────────── */}
+                    <motion.div
+                        style={{ y: contentY }}
+                        className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-5 order-2 lg:order-1 w-full min-w-0"
+                    >
+                        {/* Status badge */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+                            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            <div
+                                className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full"
+                                style={{
+                                    background: 'rgba(255,255,255,0.04)',
+                                    border: '1px solid rgba(255,255,255,0.10)',
+                                }}
+                            >
+                                <span className="relative flex h-2 w-2 shrink-0">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                                </span>
+                                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                                    Available for work
+                                </span>
+                            </div>
+                        </motion.div>
+
+                        {/* Code label */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ delay: 0.15, duration: 0.5 }}
+                            className="font-mono text-xs uppercase tracking-[0.22em]"
+                            style={{ color: 'rgba(96,165,250,0.5)' }}
+                        >
+                            {'<'} {personalInfo.role.toLowerCase().replace(' ', '_')} {' />'}
+                        </motion.div>
+
+                        {/* Name — character reveal */}
+                        <div className="w-full overflow-hidden leading-none space-y-0.5">
+                            {isInView && (
+                                <>
+                                    <CharReveal
+                                        text="Mohammad"
+                                        delay={0.18}
+                                        className="font-display text-[clamp(2rem,8vw,4.5rem)] lg:text-6xl xl:text-7xl font-bold tracking-[-0.02em] text-white/70"
+                                    />
+                                    <CharReveal
+                                        text="Talib Uddin"
+                                        delay={0.38}
+                                        className="font-display text-[clamp(2.4rem,9.5vw,5.5rem)] lg:text-7xl xl:text-8xl font-bold tracking-[-0.03em] text-white"
+                                    />
+                                </>
+                            )}
                         </div>
 
-                        {/* Headline */}
-                        <div className="space-y-2 sm:space-y-3 max-w-2xl w-full">
-                            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight break-words">
-                                {personalInfo.name}
-                            </h1>
-                            <p className="text-lg sm:text-2xl lg:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 leading-snug break-words">
-                                {personalInfo.headline}
-                            </p>
-                        </div>
+                        {/* Cycling role */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ delay: 1.1, duration: 0.5 }}
+                            className="flex items-center gap-2 h-8 overflow-hidden"
+                        >
+                            <AnimatePresence mode="wait">
+                                <motion.span
+                                    key={roleIdx}
+                                    initial={{ y: 18, opacity: 0, filter: 'blur(4px)' }}
+                                    animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                                    exit={{ y: -18, opacity: 0, filter: 'blur(4px)' }}
+                                    transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                                    className="font-display text-base sm:text-xl lg:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-cyan-400 whitespace-nowrap"
+                                >
+                                    {ROLES[roleIdx]}
+                                </motion.span>
+                            </AnimatePresence>
+                            <span
+                                className="w-0.5 h-6 rounded-sm animate-cursor-blink shrink-0"
+                                style={{ background: 'linear-gradient(to bottom, #60a5fa, #22d3ee)', opacity: 0.8 }}
+                                aria-hidden="true"
+                            />
+                        </motion.div>
 
                         {/* Tagline */}
-                        <p className="text-slate-500 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl font-medium w-full break-words">
+                        <motion.p
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ delay: 1.3, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                            className="text-sm sm:text-base lg:text-[17px] leading-relaxed w-full max-w-[500px] font-medium"
+                            style={{ color: 'rgba(255,255,255,0.38)' }}
+                        >
                             {personalInfo.tagline}
-                        </p>
+                        </motion.p>
 
-                        {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2 sm:pt-4 w-full sm:w-auto">
+                        {/* Tech chips */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 14 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ delay: 1.45, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                            className="flex flex-wrap gap-2 justify-center lg:justify-start w-full"
+                        >
+                            {['Java', 'Spring Boot', 'Python', 'Django', 'Microservices', 'AWS'].map((tech, i) => (
+                                <motion.span
+                                    key={tech}
+                                    initial={{ opacity: 0, scale: 0.85 }}
+                                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                                    transition={{ delay: 1.5 + i * 0.06, duration: 0.4 }}
+                                    whileHover={{ y: -2, transition: { duration: 0.15 } }}
+                                    className="px-2.5 sm:px-3 py-1 text-xs font-mono font-medium rounded-lg cursor-default"
+                                    style={{
+                                        color: 'rgba(147,197,253,0.75)',
+                                        background: 'rgba(37,99,235,0.10)',
+                                        border: '1px solid rgba(37,99,235,0.20)',
+                                    }}
+                                >
+                                    {tech}
+                                </motion.span>
+                            ))}
+                        </motion.div>
+
+                        {/* CTA buttons */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 14 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ delay: 1.65, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 w-full sm:w-auto"
+                        >
                             <button
                                 onClick={() => scrollToSection('projects')}
-                                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-slate-900 text-white rounded-xl font-bold shadow-lg shadow-slate-900/20 hover:shadow-slate-900/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group"
+                                className="group relative px-6 py-3.5 text-white rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2.5"
+                                style={{
+                                    background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                                    boxShadow: '0 0 28px rgba(37,99,235,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                                }}
                             >
-                                <span>View My Work</span>
-                                <ChevronRight size={18} className="text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                                <span className="relative z-10 flex items-center gap-2.5">
+                                    View My Work
+                                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+                                </span>
+                                <span
+                                    className="absolute inset-0 pointer-events-none animate-shimmer-pass"
+                                    style={{ background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)' }}
+                                    aria-hidden="true"
+                                />
                             </button>
 
                             <a
                                 href={personalInfo.cv}
                                 download
-                                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold shadow-sm hover:bg-slate-50 hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group"
                                 aria-label="Download resume PDF"
+                                className="group px-6 py-3.5 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2.5 hover:-translate-y-0.5 active:translate-y-0"
+                                style={{
+                                    color: 'rgba(255,255,255,0.68)',
+                                    background: 'rgba(255,255,255,0.04)',
+                                    border: '1px solid rgba(255,255,255,0.10)',
+                                }}
                             >
-                                <Download size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
-                                <span>Download Resume</span>
+                                <Download size={16} style={{ color: 'rgba(255,255,255,0.35)' }} />
+                                Download Resume
                             </a>
-                        </div>
+                        </motion.div>
 
-                        {/* Social Links */}
-                        <div className="flex items-center gap-4 pt-4 w-full justify-center lg:justify-start">
-                            <a
-                                href={personalInfo.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="LinkedIn profile"
-                                className="w-11 h-11 bg-white border border-slate-200 text-slate-600 rounded-xl flex items-center justify-center shadow-sm hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300"
-                            >
-                                <Linkedin size={18} />
-                            </a>
-                            <a
-                                href={personalInfo.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="GitHub profile"
-                                className="w-11 h-11 bg-white border border-slate-200 text-slate-600 rounded-xl flex items-center justify-center shadow-sm hover:bg-slate-900 hover:text-white hover:border-slate-900 hover:-translate-y-1 transition-all duration-300"
-                            >
-                                <Github size={18} />
-                            </a>
-                            <button
+                        {/* Social + quick stats */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ delay: 1.8, duration: 0.5 }}
+                            className="flex flex-wrap items-center gap-3 justify-center lg:justify-start w-full"
+                        >
+                            {socialLinks.map(({ href, icon: Icon, label }) => (
+                                <motion.a
+                                    key={label}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={label}
+                                    whileHover={{ y: -3, scale: 1.08 }}
+                                    transition={{ duration: 0.15 }}
+                                    className="w-9 h-9 flex items-center justify-center rounded-xl"
+                                    style={{
+                                        color: 'rgba(255,255,255,0.45)',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(255,255,255,0.09)',
+                                    }}
+                                >
+                                    <Icon size={16} />
+                                </motion.a>
+                            ))}
+
+                            <motion.button
                                 onClick={() => scrollToSection('contact')}
-                                aria-label="Go to contact section"
-                                className="w-11 h-11 bg-white border border-slate-200 text-slate-600 rounded-xl flex items-center justify-center shadow-sm hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 hover:-translate-y-1 transition-all duration-300"
+                                aria-label="Contact"
+                                whileHover={{ y: -3, scale: 1.08 }}
+                                transition={{ duration: 0.15 }}
+                                className="w-9 h-9 flex items-center justify-center rounded-xl"
+                                style={{
+                                    color: 'rgba(255,255,255,0.45)',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    border: '1px solid rgba(255,255,255,0.09)',
+                                }}
                             >
-                                <Mail size={18} />
-                            </button>
-                        </div>
-                    </div>
+                                <Mail size={16} />
+                            </motion.button>
 
-                    {/* Right: Profile Image */}
-                    <div className="col-span-12 lg:col-span-5 flex justify-center lg:justify-end items-center w-full min-w-0 px-4 sm:px-0 order-1 lg:order-2">
-                        <div className="relative w-full max-w-[260px] sm:max-w-[380px] lg:max-w-[430px] aspect-square">
-                            <div className="absolute inset-4 bg-gradient-to-tr from-blue-100 to-cyan-50 rounded-full blur-2xl opacity-50 pointer-events-none" aria-hidden="true"></div>
+                            <div className="h-4 w-px mx-1" style={{ background: 'rgba(255,255,255,0.12)' }} aria-hidden="true" />
 
-                            <div className="absolute inset-0 border-[1.5px] border-slate-200 rounded-full scale-[1.03] pointer-events-none hidden sm:block" aria-hidden="true"></div>
-                            <div className="absolute inset-0 border-[1.5px] border-slate-100 rounded-full scale-[1.07] pointer-events-none hidden lg:block" aria-hidden="true"></div>
-
-                            <div className="relative w-full h-full rounded-full overflow-hidden border-[6px] border-white shadow-xl bg-slate-50">
-                                <Image
-                                    src={personalInfo.image}
-                                    alt={`${personalInfo.name} - Backend Engineer portrait`}
-                                    fill
-                                    className="object-cover object-[center_8%] scale-[1.02] hover:scale-100 transition-transform duration-700 ease-out flex-shrink-0"
-                                    priority
-                                    sizes="(max-width: 640px) 260px, (max-width: 1024px) 380px, 430px"
-                                />
+                            <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs sm:text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                                <span className="flex items-center gap-1.5">
+                                    <Code2 size={12} />
+                                    <strong style={{ color: 'rgba(255,255,255,0.52)' }}>50+</strong>
+                                    <span>APIs</span>
+                                </span>
+                                <span className="flex items-center gap-1.5">
+                                    <Database size={12} />
+                                    <strong style={{ color: 'rgba(255,255,255,0.52)' }}>1k+</strong>
+                                    <span>Users</span>
+                                </span>
+                                <span className="flex items-center gap-1.5">
+                                    <Cpu size={12} />
+                                    <strong style={{ color: 'rgba(255,255,255,0.52)' }}>4+</strong>
+                                    <span>Products</span>
+                                </span>
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
 
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 z-20" aria-hidden="true">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Scroll down</span>
-                <div className="animate-bounce mt-1">
-                    <ChevronRight size={18} className="text-slate-400 rotate-90" />
-                </div>
-            </div>
+            {/* Scroll indicator */}
+            <motion.div
+                style={{ opacity: scrollAlpha }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 z-20 pointer-events-none"
+                aria-hidden="true"
+            >
+                <motion.div
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+                    className="w-px h-10"
+                    style={{ background: 'linear-gradient(to bottom, rgba(96,165,250,0.5), transparent)' }}
+                />
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                    scroll
+                </span>
+            </motion.div>
         </section>
     );
 }

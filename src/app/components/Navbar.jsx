@@ -18,87 +18,161 @@ export default function Navbar() {
         <nav
             role="navigation"
             aria-label="Main navigation"
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm py-2' : 'bg-transparent py-4'
-                }`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+                isScrolled || isMenuOpen
+                    ? 'py-2'
+                    : 'py-4 bg-transparent'
+            }`}
+            style={
+                isScrolled || isMenuOpen
+                    ? {
+                          background: 'rgba(3,12,24,0.92)',
+                          backdropFilter: 'blur(20px)',
+                          WebkitBackdropFilter: 'blur(20px)',
+                          borderBottom: '1px solid rgba(255,255,255,0.07)',
+                      }
+                    : undefined
+            }
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
+
+                    {/* Brand */}
                     <button
                         onClick={() => scrollToSection('home')}
                         className="flex-shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg"
                         aria-label="Go to homepage"
                     >
-                        <span className="text-2xl font-extrabold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors duration-300">
-                            Talib<span className="text-blue-600">.</span>
+                        <span className="font-display text-2xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors duration-300">
+                            Talib<span className="text-blue-500">.</span>
                         </span>
                     </button>
 
+                    {/* Desktop nav */}
                     <div className="hidden md:block">
-                        <div className="ml-10 flex items-center space-x-1 bg-slate-50/80 p-1.5 rounded-full border border-slate-100 backdrop-blur-md">
-                            {navItems.map((item) => (
-                                <button
-                                    key={item.id}
-                                    onClick={() => scrollToSection(item.id)}
-                                    className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${activeSection === item.id
-                                        ? 'text-white'
-                                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
-                                        }`}
-                                    aria-current={activeSection === item.id ? 'true' : undefined}
-                                >
-                                    {activeSection === item.id && (
-                                        <motion.div
-                                            layoutId="activeTab"
-                                            className="absolute inset-0 bg-slate-900 rounded-full shadow-sm"
-                                            initial={false}
-                                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                                        />
-                                    )}
-                                    <span className="relative z-10">{item.name}</span>
-                                </button>
-                            ))}
+                        <div
+                            className="ml-10 flex items-center space-x-1 p-1.5 rounded-full transition-all duration-500"
+                            style={{
+                                background: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                backdropFilter: 'blur(12px)',
+                            }}
+                        >
+                            {navItems.map((item) => {
+                                const isActive = activeSection === item.id;
+                                return (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => scrollToSection(item.id)}
+                                        className="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300"
+                                        style={{
+                                            color: isActive ? '#fff' : 'rgba(255,255,255,0.5)',
+                                        }}
+                                        onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
+                                        onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
+                                        aria-current={isActive ? 'true' : undefined}
+                                    >
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="activeTab"
+                                                className="absolute inset-0 rounded-full"
+                                                style={{
+                                                    background: 'rgba(255,255,255,0.12)',
+                                                    border: '1px solid rgba(255,255,255,0.18)',
+                                                }}
+                                                initial={false}
+                                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                                            />
+                                        )}
+                                        <span className="relative z-10">{item.name}</span>
+                                    </button>
+                                );
+                            })}
                         </div>
                     </div>
 
+                    {/* Mobile toggle */}
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 transition-colors"
+                            className="inline-flex items-center justify-center p-2 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                            style={{ color: 'rgba(255,255,255,0.7)' }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.color = '#fff';
+                                e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
+                                e.currentTarget.style.background = 'transparent';
+                            }}
                             aria-expanded={isMenuOpen}
                             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                         >
-                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
                         </button>
                     </div>
                 </div>
             </div>
 
+            {/* Mobile menu */}
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-100 overflow-hidden shadow-xl absolute w-full"
+                        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                        className="md:hidden overflow-hidden absolute w-full"
+                        style={{
+                            background: 'rgba(3,12,24,0.98)',
+                            backdropFilter: 'blur(24px)',
+                            WebkitBackdropFilter: 'blur(24px)',
+                            borderBottom: '1px solid rgba(255,255,255,0.07)',
+                        }}
                     >
                         <div className="px-4 pt-4 pb-6 space-y-1">
-                            {navItems.map((item) => (
-                                <button
-                                    key={item.id}
-                                    onClick={() => handleNavClick(item.id)}
-                                    className={`w-full flex items-center px-4 py-4 rounded-2xl text-base font-bold transition-all duration-300 ${activeSection === item.id
-                                        ? 'bg-slate-900 text-white shadow-md'
-                                        : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                                        }`}
-                                >
-                                    <span className="flex items-center flex-1">
-                                        {item.name}
-                                    </span>
-                                    {activeSection === item.id && (
-                                        <motion.div layoutId="mobileIndicator" className="w-2 h-2 rounded-full bg-blue-500" />
-                                    )}
-                                </button>
-                            ))}
+                            {navItems.map((item) => {
+                                const isActive = activeSection === item.id;
+                                return (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => handleNavClick(item.id)}
+                                        className="w-full flex items-center px-4 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300"
+                                        style={
+                                            isActive
+                                                ? {
+                                                      background: 'rgba(37,99,235,0.15)',
+                                                      border: '1px solid rgba(37,99,235,0.25)',
+                                                      color: '#93c5fd',
+                                                  }
+                                                : {
+                                                      color: 'rgba(255,255,255,0.5)',
+                                                      border: '1px solid transparent',
+                                                  }
+                                        }
+                                        onMouseEnter={(e) => {
+                                            if (!isActive) {
+                                                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                                                e.currentTarget.style.color = 'rgba(255,255,255,0.9)';
+                                            }
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            if (!isActive) {
+                                                e.currentTarget.style.background = 'transparent';
+                                                e.currentTarget.style.color = 'rgba(255,255,255,0.5)';
+                                            }
+                                        }}
+                                    >
+                                        <span className="flex-1 text-left">{item.name}</span>
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="mobileIndicator"
+                                                className="w-1.5 h-1.5 rounded-full bg-blue-400"
+                                            />
+                                        )}
+                                    </button>
+                                );
+                            })}
                         </div>
                     </motion.div>
                 )}

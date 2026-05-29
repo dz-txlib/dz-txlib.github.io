@@ -2,60 +2,138 @@
 
 import Image from 'next/image';
 import { Sparkles, Target } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { currentlyLearning } from '../data/currentlyLearning';
 
 export default function CurrentlyLearning() {
     return (
-        <div className="relative mt-12 mb-12">
-            <div className="relative bg-white rounded-[2rem] border border-slate-100 shadow-sm p-6 sm:p-8 md:p-10 overflow-hidden group hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-500">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-blue-50/50 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none opacity-60" aria-hidden="true"></div>
+        <motion.div
+            initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mt-12"
+        >
+            {/* Gradient border wrapper */}
+            <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
+                <div
+                    className="absolute inset-[-40%] animate-border-spin pointer-events-none"
+                    style={{
+                        background:
+                            'conic-gradient(from 0deg, transparent 0deg, #3b82f6 80deg, #06b6d4 160deg, #7c3aed 240deg, transparent 320deg)',
+                        opacity: 0.3,
+                    }}
+                    aria-hidden="true"
+                />
 
-                <div className="relative z-10">
-                    {/* Header */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mb-8 sm:mb-10">
-                        <div className="flex items-center gap-4 sm:gap-5">
-                            <div className="w-12 sm:w-14 h-12 sm:h-14 bg-blue-50 rounded-2xl flex items-center justify-center border border-blue-100 shrink-0 shadow-sm">
-                                <Sparkles className="text-blue-500" size={22} />
-                            </div>
-                            <div>
-                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">Currently Learning</h3>
-                                <p className="text-slate-500 font-medium mt-1 text-sm sm:text-base">Expanding my technical horizons</p>
-                            </div>
-                        </div>
+                <div
+                    className="relative rounded-[calc(1rem-1.5px)] p-6 sm:p-8 overflow-hidden"
+                    style={{ background: 'rgba(5,14,35,0.95)' }}
+                >
+                    {/* Atmosphere */}
+                    <div
+                        className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"
+                        style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%)' }}
+                        aria-hidden="true"
+                    />
 
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-full text-sm font-semibold border border-slate-100/80 shadow-sm self-start sm:self-auto">
-                            <Target size={16} className="text-blue-500" />
-                            Continuous Growth
-                        </div>
-                    </div>
-
-                    {/* Tech Grid — fixed breakpoints for 5 items */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-                        {currentlyLearning.map((tech) => (
-                            <div key={tech.name} className="group/tech bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-100 hover:bg-white hover:border-blue-200 hover:shadow-sm transition-all duration-300 transform hover:-translate-y-1 cursor-default flex flex-col items-center gap-3 sm:gap-4 relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-transparent opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300" aria-hidden="true"></div>
-
-                                <div className="relative z-10 w-12 sm:w-14 h-12 sm:h-14 flex items-center justify-center bg-white rounded-xl border border-slate-100 shadow-sm group-hover/tech:scale-110 group-hover/tech:-rotate-3 transition-transform duration-300">
-                                    <Image
-                                        src={tech.icon}
-                                        alt={tech.name}
-                                        width={32}
-                                        height={32}
-                                        className="w-7 sm:w-8 h-7 sm:h-8 object-contain"
-                                        loading="lazy"
-                                    />
+                    <div className="relative z-10">
+                        {/* Header */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                            <div className="flex items-center gap-4">
+                                <div
+                                    className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                                    style={{
+                                        background: 'rgba(37,99,235,0.12)',
+                                        border: '1px solid rgba(37,99,235,0.22)',
+                                    }}
+                                >
+                                    <Sparkles size={18} style={{ color: 'rgba(96,165,250,0.9)' }} />
                                 </div>
-
-                                <span className="relative z-10 font-semibold text-xs sm:text-sm text-center text-slate-700 group-hover/tech:text-blue-600 transition-colors duration-300">
-                                    {tech.name}
-                                </span>
-
-                                <div className="w-8 h-1 bg-slate-200 rounded-full group-hover/tech:bg-blue-300 group-hover/tech:w-12 transition-all duration-300" aria-hidden="true"></div>
+                                <div>
+                                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+                                        Currently Learning
+                                    </h3>
+                                    <p className="text-xs mt-0.5 font-mono uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                                        Expanding technical horizons
+                                    </p>
+                                </div>
                             </div>
-                        ))}
+
+                            <div
+                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full self-start sm:self-auto"
+                                style={{
+                                    background: 'rgba(59,130,246,0.1)',
+                                    border: '1px solid rgba(59,130,246,0.22)',
+                                }}
+                            >
+                                <Target size={13} style={{ color: '#60a5fa' }} />
+                                <span className="text-xs font-bold uppercase tracking-[0.14em]" style={{ color: 'rgba(147,197,253,0.85)' }}>
+                                    Continuous Growth
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Tech Grid */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                            {currentlyLearning.map((tech, i) => (
+                                <motion.div
+                                    key={tech.name}
+                                    initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+                                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                                    whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(59,130,246,0.2)' }}
+                                    className="flex flex-col items-center gap-3 p-4 sm:p-5 rounded-xl cursor-default"
+                                    style={{
+                                        background: 'rgba(255,255,255,0.03)',
+                                        border: '1px solid rgba(255,255,255,0.07)',
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.borderColor = 'rgba(59,130,246,0.3)';
+                                        e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                                        e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                    }}
+                                >
+                                    <div
+                                        className="w-12 h-12 flex items-center justify-center rounded-xl"
+                                        style={{
+                                            background: 'rgba(255,255,255,0.06)',
+                                            border: '1px solid rgba(255,255,255,0.09)',
+                                        }}
+                                    >
+                                        <Image
+                                            src={tech.icon}
+                                            alt={tech.name}
+                                            width={28}
+                                            height={28}
+                                            className="w-7 h-7 object-contain"
+                                            loading="lazy"
+                                            unoptimized
+                                        />
+                                    </div>
+
+                                    <span
+                                        className="font-mono text-xs font-semibold text-center"
+                                        style={{ color: 'rgba(255,255,255,0.65)' }}
+                                    >
+                                        {tech.name}
+                                    </span>
+
+                                    <div
+                                        className="w-6 h-0.5 rounded-full"
+                                        style={{ background: 'linear-gradient(90deg, #3b82f6, #06b6d4)' }}
+                                        aria-hidden="true"
+                                    />
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

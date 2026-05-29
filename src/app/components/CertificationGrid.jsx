@@ -1,24 +1,47 @@
 'use client';
 
 import { CheckCircle2, Briefcase, Calendar, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { certifications } from '../data/certifications';
+
+const LEVEL_WIDTH = {
+    'Advanced':     '85%',
+    'Intermediate': '65%',
+    'Beginner':     '45%',
+};
 
 export default function CertificationGrid() {
     return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-            {certifications.map((cert) => (
-                <div
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
+            {certifications.map((cert, i) => (
+                <motion.div
                     key={cert.name}
-                    className="group flex flex-col h-full bg-slate-50 rounded-[2rem] p-6 sm:p-8 border border-slate-100 hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-1 transition-all duration-500 overflow-hidden relative"
+                    initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    className="group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
+                    style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
+                        e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)';
+                        e.currentTarget.style.boxShadow = '0 8px 32px rgba(37,99,235,0.12)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                        e.currentTarget.style.boxShadow = 'none';
+                    }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true"></div>
-
-                    <div className="relative z-10 flex flex-col h-full">
+                    <div className="p-6 sm:p-7 flex flex-col h-full">
 
                         {/* Header */}
-                        <div className="flex items-start justify-between mb-6 sm:mb-8">
-                            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center border border-slate-200 shadow-sm group-hover:bg-blue-50 group-hover:border-blue-200 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300">
-                                <Award size={24} className="text-blue-600" />
+                        <div className="flex items-start justify-between mb-5">
+                            <div
+                                className="w-11 h-11 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                                style={{ background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.22)' }}
+                            >
+                                <Award size={20} style={{ color: '#60a5fa' }} />
                             </div>
 
                             {cert.verifyUrl ? (
@@ -26,54 +49,82 @@ export default function CertificationGrid() {
                                     href={cert.verifyUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-100 rounded-full shadow-sm hover:bg-emerald-100 transition-colors"
+                                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-colors"
+                                    style={{
+                                        background: 'rgba(16,185,129,0.1)',
+                                        border: '1px solid rgba(16,185,129,0.22)',
+                                        color: '#34d399',
+                                    }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(16,185,129,0.18)'; }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(16,185,129,0.1)'; }}
                                 >
-                                    <CheckCircle2 size={14} className="text-emerald-600" />
-                                    <span className="text-xs font-bold text-emerald-700 tracking-wide">Verified</span>
+                                    <CheckCircle2 size={12} />
+                                    Verified
                                 </a>
                             ) : (
-                                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 border border-slate-200 rounded-full shadow-sm">
-                                    <Award size={14} className="text-slate-500" />
-                                    <span className="text-xs font-bold text-slate-500 tracking-wide">Certified</span>
+                                <div
+                                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
+                                    style={{
+                                        background: 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        color: 'rgba(255,255,255,0.35)',
+                                    }}
+                                >
+                                    <Award size={12} /> Certified
                                 </div>
                             )}
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-6 group-hover:text-blue-600 transition-colors duration-300 leading-snug flex-grow">
+                        <h3 className="font-display text-base font-bold mb-5 leading-snug flex-grow transition-colors duration-300 text-white group-hover:text-blue-400">
                             {cert.name}
                         </h3>
 
-                        {/* Details */}
-                        <div className="space-y-3 mb-6 sm:mb-8">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-sm shrink-0">
-                                    <Briefcase size={14} className="text-slate-500" />
+                        {/* Meta */}
+                        <div className="space-y-2 mb-5">
+                            <div className="flex items-center gap-2">
+                                <div
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)' }}
+                                >
+                                    <Briefcase size={12} style={{ color: 'rgba(255,255,255,0.4)' }} />
                                 </div>
-                                <span className="text-sm font-semibold text-slate-700">{cert.issuer}</span>
+                                <span className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.6)' }}>{cert.issuer}</span>
                             </div>
-
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-sm shrink-0">
-                                    <Calendar size={14} className="text-slate-500" />
+                            <div className="flex items-center gap-2">
+                                <div
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)' }}
+                                >
+                                    <Calendar size={12} style={{ color: 'rgba(255,255,255,0.4)' }} />
                                 </div>
-                                <span className="text-sm font-bold text-blue-600">{cert.year}</span>
+                                <span className="text-sm font-bold" style={{ color: '#60a5fa' }}>{cert.year}</span>
                             </div>
                         </div>
 
-                        {/* Skill Bar */}
-                        <div className="mt-auto pt-6 border-t border-slate-200/60">
-                            <div className="flex items-center justify-between mb-3">
-                                <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Proficiency</span>
-                                <span className="text-xs font-bold text-slate-700">{cert.level || 'Advanced'}</span>
+                        {/* Proficiency bar */}
+                        <div className="mt-auto pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                                    Proficiency
+                                </span>
+                                <span className="text-xs font-bold" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                                    {cert.level || 'Advanced'}
+                                </span>
                             </div>
-                            <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                                <div className="h-full bg-blue-500 rounded-full w-full transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 delay-75"></div>
+                            <div className="h-1 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                                <motion.div
+                                    className="h-full rounded-full"
+                                    style={{ background: 'linear-gradient(90deg, #2563eb, #06b6d4)' }}
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: LEVEL_WIDTH[cert.level] ?? '85%' }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 1.2, delay: i * 0.1 + 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                />
                             </div>
                         </div>
-
                     </div>
-                </div>
+                </motion.div>
             ))}
         </div>
     );

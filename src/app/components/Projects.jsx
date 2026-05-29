@@ -1,157 +1,290 @@
 'use client';
 
-import { Layers, Github, ExternalLink, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { useRef } from 'react';
+import { Github, ExternalLink, CheckCircle2, Layers, ArrowRight } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
 import { projects } from '../data/projects';
 import SectionHeader from './SectionHeader';
 
+const CAT_COLOR = {
+    'Ed-Tech':    { accent: '#3b82f6', glow: 'rgba(59,130,246,0.22)' },
+    'HR Tech':    { accent: '#8b5cf6', glow: 'rgba(139,92,246,0.22)' },
+    'E-Commerce': { accent: '#f97316', glow: 'rgba(249,115,22,0.22)'  },
+    'Operations': { accent: '#10b981', glow: 'rgba(16,185,129,0.22)' },
+};
+
+function ProjectCard({ project, index }) {
+    const ref    = useRef(null);
+    const inView = useInView(ref, { once: true, margin: '-80px' });
+    const meta   = CAT_COLOR[project.category] ?? CAT_COLOR['Ed-Tech'];
+
+    return (
+        <motion.article
+            ref={ref}
+            initial={{ opacity: 0, y: 40, filter: 'blur(6px)' }}
+            animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            transition={{ duration: 0.75, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            className="relative rounded-2xl overflow-hidden"
+        >
+            {/* Gradient border */}
+            <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
+                <div
+                    className="absolute inset-[-50%] animate-border-spin pointer-events-none"
+                    style={{
+                        background: `conic-gradient(from 0deg, transparent 0deg, ${meta.accent} 70deg, transparent 140deg)`,
+                        opacity: 0.35,
+                    }}
+                    aria-hidden="true"
+                />
+
+                <div
+                    className="relative rounded-[calc(1rem-1.5px)] p-5 sm:p-9 overflow-hidden"
+                    style={{ background: 'rgba(5,14,35,0.95)' }}
+                >
+                    {/* Interior glow */}
+                    <div
+                        className="absolute top-0 right-0 w-80 h-80 rounded-full pointer-events-none"
+                        style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 70%)` }}
+                        aria-hidden="true"
+                    />
+
+                    <div className="relative z-10 flex flex-col lg:flex-row gap-10 items-start">
+
+                        {/* Left — info */}
+                        <div className="flex-1 min-w-0">
+                            {/* Category + index */}
+                            <div className="flex items-center gap-3 mb-5">
+                                <span
+                                    className="font-mono text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-lg"
+                                    style={{
+                                        color: meta.accent,
+                                        background: `${meta.accent}18`,
+                                        border: `1px solid ${meta.accent}30`,
+                                    }}
+                                >
+                                    {project.category}
+                                </span>
+                                <span
+                                    className="font-mono text-[10px] uppercase tracking-[0.2em]"
+                                    style={{ color: 'rgba(255,255,255,0.2)' }}
+                                >
+                                    0{index + 1}
+                                </span>
+                            </div>
+
+                            <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight mb-2">
+                                {project.title}
+                            </h3>
+                            <p className="text-base mb-6 leading-relaxed" style={{ color: 'rgba(255,255,255,0.42)' }}>
+                                {project.tagline}
+                            </p>
+
+                            {/* Tech chips */}
+                            <div className="flex flex-wrap gap-2 mb-8">
+                                {project.tech.map((t) => (
+                                    <span
+                                        key={t}
+                                        className="px-3 py-1 font-mono text-xs font-medium rounded-lg cursor-default"
+                                        style={{
+                                            color: 'rgba(147,197,253,0.7)',
+                                            background: 'rgba(37,99,235,0.09)',
+                                            border: '1px solid rgba(37,99,235,0.18)',
+                                        }}
+                                    >
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Action links */}
+                            <div className="flex flex-wrap gap-3 pt-6 border-t"
+                                style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+                                {project.live && (
+                                    Array.isArray(project.live)
+                                        ? project.live.map((link) => (
+                                            <a
+                                                key={link.url}
+                                                href={link.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 text-white"
+                                                style={{
+                                                    background: `${meta.accent}22`,
+                                                    border: `1px solid ${meta.accent}35`,
+                                                }}
+                                            >
+                                                {link.name}
+                                                <ExternalLink size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                            </a>
+                                        ))
+                                        : (
+                                            <a
+                                                href={project.live}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 text-white"
+                                                style={{
+                                                    background: `${meta.accent}22`,
+                                                    border: `1px solid ${meta.accent}35`,
+                                                }}
+                                            >
+                                                Live Demo
+                                                <ExternalLink size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                            </a>
+                                        )
+                                )}
+                                {project.github ? (
+                                    <a
+                                        href={project.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                                        style={{
+                                            color: 'rgba(255,255,255,0.6)',
+                                            background: 'rgba(255,255,255,0.05)',
+                                            border: '1px solid rgba(255,255,255,0.1)',
+                                        }}
+                                    >
+                                        <Github size={15} /> Source Code
+                                    </a>
+                                ) : (
+                                    <span
+                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium cursor-not-allowed"
+                                        style={{
+                                            color: 'rgba(255,255,255,0.25)',
+                                            background: 'rgba(255,255,255,0.03)',
+                                            border: '1px solid rgba(255,255,255,0.06)',
+                                        }}
+                                        title="Source code is private"
+                                    >
+                                        <Github size={15} /> Private Repo
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Right — challenge / solution / impact */}
+                        <div className="w-full lg:w-[280px] xl:w-[300px] shrink-0 flex flex-col gap-3">
+                            {/* Challenge */}
+                            <div
+                                className="rounded-xl p-4"
+                                style={{
+                                    background: 'rgba(255,255,255,0.03)',
+                                    border: '1px solid rgba(255,255,255,0.07)',
+                                }}
+                            >
+                                <div
+                                    className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2"
+                                    style={{ color: 'rgba(255,255,255,0.28)' }}
+                                >
+                                    // Challenge
+                                </div>
+                                <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.48)' }}>
+                                    {project.problem}
+                                </p>
+                            </div>
+
+                            {/* Solution */}
+                            <div
+                                className="rounded-xl p-4"
+                                style={{
+                                    background: `${meta.accent}0c`,
+                                    border: `1px solid ${meta.accent}20`,
+                                }}
+                            >
+                                <div
+                                    className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2"
+                                    style={{ color: meta.accent, opacity: 0.7 }}
+                                >
+                                    // Solution
+                                </div>
+                                <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                                    {project.solution}
+                                </p>
+                            </div>
+
+                            {/* Impact metrics */}
+                            <div className="flex flex-col gap-2">
+                                {project.impact.map((m, i) => (
+                                    <div
+                                        key={i}
+                                        className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-xl"
+                                        style={{
+                                            background: 'rgba(16,185,129,0.07)',
+                                            border: '1px solid rgba(16,185,129,0.15)',
+                                        }}
+                                    >
+                                        <CheckCircle2
+                                            size={13}
+                                            className="mt-0.5 shrink-0"
+                                            style={{ color: 'rgba(52,211,153,0.8)' }}
+                                        />
+                                        <span className="text-[12px] font-medium leading-snug" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                                            {m}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </motion.article>
+    );
+}
+
 export default function Projects() {
     return (
-        <section className="py-24 bg-white relative">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <section
+            id="projects"
+            className="py-28 relative overflow-hidden"
+            style={{ background: 'linear-gradient(180deg, #040a18 0%, #060f22 100%)' }}
+        >
+            <div
+                className="absolute top-1/3 left-[-5%] w-[500px] h-[500px] rounded-full pointer-events-none"
+                style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)' }}
+                aria-hidden="true"
+            />
 
+            <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
                 <SectionHeader
                     icon={Layers}
                     badge="Featured Work"
                     title="Flagship"
                     highlight="Projects"
                     subtitle="Real-world solutions that solve complex business problems through scalable architecture."
+                    dark
                 />
 
-                {/* Projects List */}
-                <div className="space-y-16 lg:space-y-32">
-                    {projects.map((project, index) => (
-                        <div
-                            key={project.title}
-                            className={`group flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 sm:gap-12 lg:gap-20 items-center`}
-                        >
-                            {/* Project Visual Side */}
-                            <div className="w-full lg:w-1/2">
-                                <div className="relative rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 md:p-12 bg-slate-50 border border-slate-100 overflow-hidden shadow-sm group-hover:shadow-xl group-hover:shadow-blue-900/5 transition-all duration-500">
-
-                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
-
-                                    <div className="relative z-10 flex flex-col h-full justify-between min-h-[280px] sm:min-h-[320px]">
-                                        <div>
-                                            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white rounded-full border border-slate-200/60 shadow-sm mb-6 sm:mb-8 transition-transform duration-300">
-                                                <div className="w-2 h-2 bg-blue-500 rounded-full" aria-hidden="true"></div>
-                                                <span className="text-xs font-bold tracking-wider text-slate-600 uppercase">{project.category}</span>
-                                            </div>
-
-                                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-800 mb-4 tracking-tight group-hover:text-blue-600 transition-colors duration-300">
-                                                {project.title}
-                                            </h3>
-                                            <p className="text-slate-500 text-base sm:text-lg md:text-xl font-medium leading-relaxed">
-                                                {project.tagline}
-                                            </p>
-                                        </div>
-
-                                        <div className="flex flex-wrap gap-2 mt-8 sm:mt-10">
-                                            {project.tech.map((t) => (
-                                                <span key={t} className="px-3.5 py-1.5 bg-white text-slate-600 font-semibold text-xs rounded-xl border border-slate-200/60 shadow-sm hover:border-blue-300 hover:text-blue-600 transition-colors">
-                                                    {t}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Project Details Side */}
-                            <div className="w-full lg:w-1/2 flex flex-col gap-6 sm:gap-8">
-
-                                <div className="space-y-4 sm:space-y-6">
-                                    <div className="relative p-5 sm:p-6 md:p-8 bg-white rounded-3xl border border-slate-100 shadow-sm group-hover:border-slate-200 transition-colors">
-                                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">The Challenge</h4>
-                                        <p className="text-slate-600 leading-relaxed text-sm sm:text-[15px]">
-                                            {project.problem}
-                                        </p>
-                                    </div>
-
-                                    <div className="relative p-5 sm:p-6 md:p-8 bg-blue-50/50 rounded-3xl border border-blue-100/50">
-                                        <h4 className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-3">The Solution</h4>
-                                        <p className="text-slate-700 leading-relaxed text-sm sm:text-[15px]">
-                                            {project.solution}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Metrics */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                                    {project.impact.map((metric, idx) => (
-                                        <div key={idx} className="flex items-start gap-3 p-3 sm:p-4 bg-white rounded-2xl border border-slate-50 hover:bg-slate-50 hover:border-slate-100 transition-all">
-                                            <div className="mt-0.5 shrink-0 bg-emerald-50 text-emerald-500 p-1 rounded-full" aria-hidden="true">
-                                                <CheckCircle2 size={14} strokeWidth={3} />
-                                            </div>
-                                            <span className="text-sm text-slate-700 font-semibold leading-snug">{metric}</span>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Action Links */}
-                                <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-4 border-t border-slate-100">
-                                    {project.live && (
-                                        Array.isArray(project.live) ? (
-                                            project.live.map((link) => (
-                                                <a
-                                                    key={link.url}
-                                                    href={link.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-slate-900 text-white rounded-xl font-bold shadow-sm hover:shadow-md hover:bg-blue-600 hover:-translate-y-0.5 transition-all duration-300 text-sm sm:text-base"
-                                                >
-                                                    <span>{link.name}</span>
-                                                    <ExternalLink size={16} />
-                                                </a>
-                                            ))
-                                        ) : (
-                                            <a
-                                                href={project.live}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-slate-900 text-white rounded-xl font-bold shadow-sm hover:shadow-md hover:bg-blue-600 hover:-translate-y-0.5 transition-all duration-300 text-sm sm:text-base"
-                                            >
-                                                <span>Live Demo</span>
-                                                <ExternalLink size={16} />
-                                            </a>
-                                        )
-                                    )}
-
-                                    {project.github ? (
-                                        <a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-white text-slate-700 rounded-xl font-bold border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300 shadow-sm text-sm sm:text-base"
-                                        >
-                                            <Github size={18} />
-                                            <span>Source Code</span>
-                                        </a>
-                                    ) : (
-                                        <span className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-slate-50 text-slate-400 rounded-xl font-semibold border border-slate-100 cursor-not-allowed text-sm sm:text-base" title="Source code is private">
-                                            <Github size={18} />
-                                            <span>Private Repo</span>
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-
-                        </div>
+                <div className="space-y-6">
+                    {projects.map((project, i) => (
+                        <ProjectCard key={project.title} project={project} index={i} />
                     ))}
                 </div>
 
                 {/* GitHub CTA */}
-                <div className="mt-16 lg:mt-32 text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.55 }}
+                    className="mt-12 text-center"
+                >
                     <a
                         href="https://github.com/dz-txlib"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-600 rounded-full font-semibold hover:border-blue-200 hover:text-blue-600 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 group"
+                        className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                        style={{
+                            color: 'rgba(147,197,253,0.65)',
+                            background: 'rgba(37,99,235,0.1)',
+                            border: '1px solid rgba(37,99,235,0.2)',
+                        }}
                     >
-                        <span>View more projects on GitHub</span>
-                        <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+                        View more on GitHub
+                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                     </a>
-                </div>
-
+                </motion.div>
             </div>
         </section>
     );

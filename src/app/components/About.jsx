@@ -1,147 +1,361 @@
 'use client';
 
-import { Sparkles, Zap, ChevronRight, Mail, MapPin, Clock } from 'lucide-react';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import {
+    Code2, Users, Zap, Package,
+    MapPin, Mail, Clock, ArrowRight, Sparkles,
+} from 'lucide-react';
 import { professionalSummary, personalInfo } from '../data/personalInfo';
 import { useScroll } from './ScrollProvider';
-import SectionHeader from './SectionHeader';
+
+/* ── rAF counter ──────────────────────────────────────────────────── */
+function useAnimatedCounter(target, isInView, duration = 1500) {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        if (!isInView) return;
+        let raf;
+        const start = performance.now();
+        const tick = (now) => {
+            const t = Math.min((now - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - t, 3);
+            setCount(Math.round(ease * target));
+            if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, [isInView, target, duration]);
+    return count;
+}
+
+const STATS = [
+    { value: 50,   suffix: '+', label: 'APIs Delivered',   icon: Code2,   color: '#3b82f6', glow: 'rgba(59,130,246,0.25)' },
+    { value: 1000, suffix: '+', label: 'Users Served',     icon: Users,   color: '#10b981', glow: 'rgba(16,185,129,0.22)' },
+    { value: 40,   suffix: '%', label: 'Query Speedup',    icon: Zap,     color: '#f59e0b', glow: 'rgba(245,158,11,0.22)'  },
+    { value: 4,    suffix: '+', label: 'Products Shipped', icon: Package, color: '#8b5cf6', glow: 'rgba(139,92,246,0.22)' },
+];
+
+function GiantStat({ stat, isInView, delay }) {
+    const n = useAnimatedCounter(stat.value, isInView, 1600);
+    const Icon = stat.icon;
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-center lg:items-start gap-3 group"
+        >
+            <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{ background: `${stat.color}18`, border: `1px solid ${stat.color}28` }}
+            >
+                <Icon size={18} style={{ color: stat.color }} />
+            </div>
+            <div>
+                <div
+                    className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter tabular-nums leading-none animate-stat-glow"
+                    style={{ color: '#fff' }}
+                >
+                    {n}{stat.suffix}
+                </div>
+                <div className="text-sm font-medium mt-2 uppercase tracking-[0.12em]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    {stat.label}
+                </div>
+            </div>
+        </motion.div>
+    );
+}
+
+const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: '-60px' },
+    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
+});
+
+function WordReveal({ text, className = '', delay = 0, isInView }) {
+    const words = text.split(' ');
+    return (
+        <span className={className} aria-label={text}>
+            {words.map((word, i) => (
+                <span key={i} style={{ overflow: 'hidden', display: 'inline-block', marginRight: '0.3em' }}>
+                    <motion.span
+                        initial={{ y: '110%', opacity: 0 }}
+                        animate={isInView ? { y: '0%', opacity: 1 } : {}}
+                        transition={{ delay: delay + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ display: 'inline-block' }}
+                    >
+                        {word}
+                    </motion.span>
+                </span>
+            ))}
+        </span>
+    );
+}
 
 export default function About() {
     const { scrollToSection } = useScroll();
+    const statsRef    = useRef(null);
+    const statsInView = useInView(statsRef, { once: true, margin: '-80px' });
+    const quoteRef    = useRef(null);
+    const quoteInView = useInView(quoteRef, { once: true, margin: '-80px' });
 
     return (
-        <section className="py-24 bg-slate-50/50 relative">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <SectionHeader
-                    icon={Sparkles}
-                    badge="About Me"
-                    title="Who I"
-                    highlight="Am"
-                    subtitle="My journey, expertise, and what drives me to build great software."
+        <section id="about" className="relative overflow-hidden">
+
+            {/* ── Stats band ───────────────────────────────────────── */}
+            <div
+                className="relative py-24 overflow-hidden"
+                style={{ background: 'linear-gradient(160deg, #060f22 0%, #0a0520 50%, #060f22 100%)' }}
+            >
+                <div
+                    className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full pointer-events-none"
+                    style={{ background: 'radial-gradient(ellipse, rgba(37,99,235,0.10) 0%, transparent 65%)' }}
+                    aria-hidden="true"
+                />
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.12) 1px, transparent 1px)',
+                        backgroundSize: '40px 40px',
+                        maskImage: 'radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 100%)',
+                    }}
+                    aria-hidden="true"
                 />
 
-                {/* Main Content Card */}
-                <div className="relative bg-white rounded-[2.5rem] p-6 sm:p-8 md:p-12 shadow-sm border border-slate-100 overflow-hidden">
-
-                    {/* Background Accent */}
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-blue-50/60 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" aria-hidden="true"></div>
-
-                    <div className="relative z-10 space-y-10">
-                        {/* Introduction */}
-                        <div className="bg-slate-50/80 rounded-3xl p-6 md:p-8 border border-slate-100">
-                            <p className="text-slate-700 leading-relaxed text-base sm:text-lg font-medium">
-                                {professionalSummary.intro}
-                            </p>
+                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+                    <motion.div {...fadeUp(0)} className="mb-14">
+                        <div
+                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5"
+                            style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)' }}
+                        >
+                            <Sparkles size={13} className="text-blue-400" />
+                            <span className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(147,197,253,0.8)' }}>
+                                About Me
+                            </span>
                         </div>
+                        <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] text-white">
+                            By the{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                                Numbers
+                            </span>
+                        </h2>
+                    </motion.div>
 
-                        {/* Content Grid — 2 cards instead of 4 */}
-                        <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-                            {/* My Journey */}
-                            <div className="group bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 hover:border-slate-200 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300">
-                                <div className="flex items-center gap-4 mb-5">
-                                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-blue-100 shadow-sm group-hover:rotate-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
-                                        <Zap className="text-blue-500" size={22} />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-slate-800">My Journey</h3>
-                                </div>
-                                <p className="text-slate-600 leading-relaxed text-[15px]">
-                                    {professionalSummary.story}
-                                </p>
-                            </div>
-
-                            {/* What I Do Best */}
-                            <div className="group bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 hover:border-slate-200 hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300">
-                                <div className="flex items-center gap-4 mb-5">
-                                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-blue-100 shadow-sm group-hover:rotate-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
-                                        <Sparkles className="text-blue-500" size={22} />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-slate-800">What I Do Best</h3>
-                                </div>
-                                <p className="text-slate-600 leading-relaxed text-[15px]">
-                                    {professionalSummary.expertise}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Impact — Full Width */}
-                        <div className="group bg-slate-50/80 rounded-3xl p-6 sm:p-8 border border-slate-100 hover:bg-white hover:shadow-md hover:shadow-blue-900/5 transition-all duration-300">
-                            <div className="flex items-center gap-4 mb-5">
-                                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-blue-100 shadow-sm group-hover:rotate-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
-                                    <ChevronRight className="text-blue-500" size={22} />
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-800">Real Impact</h3>
-                            </div>
-                            <p className="text-slate-600 leading-relaxed">
-                                {professionalSummary.impact}
-                            </p>
-                        </div>
-
-                        {/* CTA + Contact Info */}
-                        <div className="pt-8 border-t border-slate-100">
-                            <div className="grid lg:grid-cols-2 gap-8">
-
-                                {/* CTA Card */}
-                                <div className="bg-gradient-to-br from-slate-900 to-blue-950 rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg relative overflow-hidden flex flex-col justify-between">
-                                    <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/20 rounded-full blur-[40px] pointer-events-none" aria-hidden="true"></div>
-                                    <div className="relative z-10">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <Zap className="text-yellow-400 shrink-0" size={28} />
-                                            <h3 className="text-2xl font-bold text-white tracking-tight">Let's Work Together</h3>
-                                        </div>
-                                        <p className="text-blue-100/90 leading-relaxed mb-8">
-                                            {professionalSummary.cta}
-                                        </p>
-                                    </div>
-                                    <div className="relative z-10">
-                                        <button
-                                            onClick={() => scrollToSection('contact')}
-                                            className="px-6 py-3 bg-white text-slate-900 rounded-xl font-bold shadow-sm hover:shadow-md hover:bg-slate-50 hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center gap-2"
-                                        >
-                                            <span>Get in Touch</span>
-                                            <ChevronRight size={18} className="text-blue-600" />
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Contact Grid */}
-                                <div className="grid gap-4">
-                                    <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-5 p-5 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-300 group">
-                                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center shrink-0 border border-blue-100 shadow-sm group-hover:bg-blue-100 transition-colors">
-                                            <Mail className="text-blue-600" size={20} />
-                                        </div>
-                                        <div>
-                                            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Email</p>
-                                            <p className="text-slate-700 font-semibold text-[15px] group-hover:text-blue-600 transition-colors break-all">
-                                                {personalInfo.email}
-                                            </p>
-                                        </div>
-                                    </a>
-
-                                    <div className="flex items-center gap-5 p-5 bg-white rounded-2xl border border-slate-100">
-                                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center shrink-0 border border-blue-100 shadow-sm">
-                                            <MapPin className="text-blue-600" size={20} />
-                                        </div>
-                                        <div>
-                                            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Location</p>
-                                            <p className="text-slate-700 font-semibold text-[15px]">{personalInfo.location}</p>
-                                            <p className="text-xs text-slate-500 mt-0.5">{personalInfo.timezone}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-5 p-5 bg-white rounded-2xl border border-slate-100">
-                                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center shrink-0 border border-blue-100 shadow-sm">
-                                            <Clock className="text-blue-600" size={20} />
-                                        </div>
-                                        <div>
-                                            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Availability</p>
-                                            <p className="text-slate-700 font-semibold text-[15px]">{personalInfo.availability}</p>
-                                            <p className="text-xs text-slate-500 mt-0.5">{personalInfo.responseTime}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                    <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                        {STATS.map((stat, i) => (
+                            <GiantStat key={stat.label} stat={stat} isInView={statsInView} delay={i * 0.1} />
+                        ))}
                     </div>
+                </div>
+            </div>
+
+            {/* ── Story + CTA ──────────────────────────────────────── */}
+            <div
+                className="relative py-24 overflow-hidden"
+                style={{ background: 'linear-gradient(180deg, #060f22 0%, #030c18 100%)' }}
+            >
+                {/* Atmosphere */}
+                <div
+                    className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+                    style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%)' }}
+                    aria-hidden="true"
+                />
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: 'radial-gradient(circle, rgba(59,130,246,0.07) 1px, transparent 1px)',
+                        backgroundSize: '40px 40px',
+                        maskImage: 'radial-gradient(ellipse 60% 70% at 80% 20%, black 20%, transparent 100%)',
+                    }}
+                    aria-hidden="true"
+                />
+
+                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+
+                    {/* Pull quote */}
+                    <motion.div {...fadeUp(0)} ref={quoteRef} className="mb-8">
+                        <div className="relative rounded-3xl p-[1.5px] overflow-hidden">
+                            <div
+                                className="absolute inset-[-40%] animate-border-spin pointer-events-none"
+                                style={{
+                                    background: 'conic-gradient(from 0deg, transparent 0deg, #3b82f6 80deg, #06b6d4 160deg, #7c3aed 240deg, transparent 320deg)',
+                                    opacity: 0.6,
+                                }}
+                                aria-hidden="true"
+                            />
+                            <div
+                                className="relative rounded-[calc(1.5rem-1.5px)] p-8 sm:p-10 md:p-12 overflow-hidden"
+                                style={{ background: 'linear-gradient(145deg, #0a1628 0%, #0d1f3c 50%, #080f22 100%)' }}
+                            >
+                                <div
+                                    className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none opacity-20"
+                                    style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.6) 0%, transparent 70%)' }}
+                                    aria-hidden="true"
+                                />
+                                <div
+                                    className="absolute bottom-0 left-0 w-48 h-48 rounded-full pointer-events-none opacity-15"
+                                    style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, transparent 70%)' }}
+                                    aria-hidden="true"
+                                />
+                                <div className="relative z-10">
+                                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] mb-5" style={{ color: 'rgba(96,165,250,0.5)' }}>
+                                        // professional summary
+                                    </div>
+                                    <blockquote>
+                                        <p className="font-display text-xl sm:text-2xl lg:text-3xl font-semibold leading-[1.3] tracking-tight">
+                                            <WordReveal
+                                                text="Backend engineer with 2+ years shipping production systems in Java and Python for ed-tech, recruitment, and e-commerce platforms."
+                                                className="text-white/85"
+                                                delay={0.1}
+                                                isInView={quoteInView}
+                                            />
+                                        </p>
+                                    </blockquote>
+                                    <div className="mt-6 font-mono text-xs" style={{ color: 'rgba(147,197,253,0.45)' }}>
+                                        — {personalInfo.name} · {personalInfo.location}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Story cards */}
+                    <div className="grid md:grid-cols-2 gap-5 mb-5">
+                        {[
+                            { icon: Zap,   title: 'My Journey',    body: professionalSummary.story,    delay: 0.08 },
+                            { icon: Code2, title: 'What I Do Best', body: professionalSummary.expertise, delay: 0.14 },
+                        ].map(({ icon: Icon, title, body, delay }) => (
+                            <motion.div
+                                key={title}
+                                {...fadeUp(delay)}
+                                className="group rounded-2xl p-7 transition-all duration-300"
+                                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
+                                    e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                                }}
+                            >
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div
+                                        className="w-8 h-8 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                                        style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}
+                                    >
+                                        <Icon size={14} style={{ color: '#60a5fa' }} />
+                                    </div>
+                                    <h3 className="font-display text-base font-semibold text-white tracking-tight">
+                                        {title}
+                                    </h3>
+                                </div>
+                                <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                                    {body}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* CTA + contact */}
+                    <motion.div {...fadeUp(0.18)} className="grid lg:grid-cols-5 gap-5">
+
+                        {/* CTA card */}
+                        <div className="lg:col-span-2 relative rounded-2xl p-[1.5px] overflow-hidden">
+                            <div
+                                className="absolute inset-[-50%] animate-border-spin pointer-events-none"
+                                style={{
+                                    background: 'conic-gradient(from 90deg, transparent 0deg, #2563eb 60deg, transparent 120deg)',
+                                    opacity: 0.5,
+                                }}
+                                aria-hidden="true"
+                            />
+                            <div
+                                className="relative rounded-[calc(1rem-1.5px)] p-7 sm:p-8 flex flex-col justify-between gap-7 h-full overflow-hidden"
+                                style={{ background: 'linear-gradient(145deg, #0a1628 0%, #0f1e40 100%)' }}
+                            >
+                                <div
+                                    className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none opacity-20"
+                                    style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.6) 0%, transparent 70%)' }}
+                                    aria-hidden="true"
+                                />
+                                <div className="relative z-10">
+                                    <h3 className="font-display text-xl font-bold text-white tracking-tight mb-2">
+                                        Let's Build Something
+                                    </h3>
+                                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(147,197,253,0.55)' }}>
+                                        {professionalSummary.cta}
+                                    </p>
+                                </div>
+                                <div className="relative z-10">
+                                    <button
+                                        onClick={() => scrollToSection('contact')}
+                                        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 text-white overflow-hidden relative"
+                                        style={{
+                                            background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
+                                            boxShadow: '0 0 20px rgba(37,99,235,0.3)',
+                                        }}
+                                    >
+                                        <span className="relative z-10 flex items-center gap-2">
+                                            Get in Touch
+                                            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                                        </span>
+                                        <span
+                                            className="absolute inset-0 pointer-events-none animate-shimmer-pass"
+                                            style={{ background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%)' }}
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Contact info */}
+                        <div className="lg:col-span-3 flex flex-col gap-3">
+                            {[
+                                { icon: Mail,   label: 'Email',       value: personalInfo.email,        sub: null,                         href: `mailto:${personalInfo.email}` },
+                                { icon: MapPin, label: 'Location',     value: personalInfo.location,     sub: personalInfo.timezone,        href: null },
+                                { icon: Clock,  label: 'Availability', value: personalInfo.availability, sub: personalInfo.responseTime,    href: null },
+                            ].map(({ icon: Icon, label, value, sub, href }) => {
+                                const El = href ? 'a' : 'div';
+                                return (
+                                    <El
+                                        key={label}
+                                        {...(href ? { href } : {})}
+                                        className="group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300"
+                                        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = 'rgba(37,99,235,0.07)';
+                                            e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                                        }}
+                                    >
+                                        <div
+                                            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
+                                            style={{ background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.2)' }}
+                                        >
+                                            <Icon size={16} style={{ color: '#60a5fa' }} />
+                                        </div>
+                                        <div className="min-w-0">
+                                            <div className="font-mono text-[10px] uppercase tracking-[0.14em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                                                {label}
+                                            </div>
+                                            <div className="font-medium text-sm break-words" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                                                {value}
+                                            </div>
+                                            {sub && (
+                                                <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{sub}</div>
+                                            )}
+                                        </div>
+                                    </El>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

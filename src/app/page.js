@@ -17,7 +17,7 @@ import Footer from './components/Footer';
 export default function Portfolio() {
   return (
     <ScrollProvider>
-      <div className="min-h-screen bg-slate-50 relative selection:bg-blue-200 selection:text-blue-900 font-sans">
+      <div className="min-h-screen bg-[#030c18] relative selection:bg-blue-900/60 selection:text-blue-200 font-sans">
         <Navbar />
 
         <main>

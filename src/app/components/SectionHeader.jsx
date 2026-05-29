@@ -1,28 +1,82 @@
 'use client';
 
-export default function SectionHeader({ icon: Icon, badge, title, highlight, subtitle, align = 'center' }) {
-    const alignClass = align === 'left' ? 'text-left' : 'text-center';
-    const subtitleAlign = align === 'left' ? '' : 'mx-auto';
+import { motion } from 'framer-motion';
+
+export default function SectionHeader({
+    icon: Icon,
+    badge,
+    title,
+    highlight,
+    subtitle,
+    align = 'center',
+    dark = false,
+}) {
+    const isCenter   = align === 'center';
+    const textAlign  = isCenter ? 'text-center' : 'text-left';
+    const subAlign   = isCenter ? 'mx-auto' : '';
+    const itemsAlign = isCenter ? 'justify-center' : 'justify-start';
 
     return (
-        <div className={`${alignClass} mb-16`}>
-            <div className={`inline-flex items-center gap-2 mb-6 px-4 py-2 bg-blue-50/50 rounded-full border border-blue-100/50`}>
-                <Icon className="text-blue-600" size={16} />
-                <span className="text-sm font-bold text-blue-700 uppercase tracking-widest">{badge}</span>
+        <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className={`${textAlign} mb-14`}
+        >
+            {/* Badge */}
+            <div className={`flex ${itemsAlign} mb-5`}>
+                <div
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full"
+                    style={
+                        dark
+                            ? {
+                                  background: 'rgba(59,130,246,0.1)',
+                                  border: '1px solid rgba(59,130,246,0.22)',
+                              }
+                            : {
+                                  background: '#eff6ff',
+                                  border: '1px solid #bfdbfe',
+                              }
+                    }
+                >
+                    {Icon && (
+                        <Icon
+                            size={13}
+                            style={{ color: dark ? 'rgba(96,165,250,0.9)' : '#2563eb' }}
+                        />
+                    )}
+                    <span
+                        className="text-xs font-bold uppercase tracking-[0.15em]"
+                        style={{ color: dark ? 'rgba(147,197,253,0.85)' : '#1d4ed8' }}
+                    >
+                        {badge}
+                    </span>
+                </div>
             </div>
 
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            {/* Heading */}
+            <h2
+                className={`font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] mb-5 ${
+                    dark ? 'text-white' : 'text-slate-900'
+                }`}
+            >
                 {title}{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
                     {highlight}
                 </span>
             </h2>
 
+            {/* Subtitle */}
             {subtitle && (
-                <p className={`text-lg text-slate-500 max-w-2xl ${subtitleAlign}`}>
+                <p
+                    className={`text-lg max-w-2xl leading-relaxed ${subAlign} ${
+                        dark ? 'text-white/45' : 'text-slate-500'
+                    }`}
+                >
                     {subtitle}
                 </p>
             )}
-        </div>
+        </motion.div>
     );
 }
