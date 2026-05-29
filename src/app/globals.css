@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #030c18;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -22,23 +22,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ── Legacy (kept for compatibility) ─────────────────── */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes scroll {
-  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
-}
-.animate-fadeInUp { animation: fadeInUp 0.6s ease forwards; }
-.animate-fadeIn   { animation: fadeIn 1s ease forwards; }
-.animate-scroll   { animation: scroll 2s ease infinite; }
-
 /* ── Marquee (forward + reverse) ─────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -52,10 +35,10 @@ html {
 /* ── Floating cards gentle bob ───────────────────────── */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-7px); }
+  50%       { transform: translateY(-6px); }
 }
 
-/* ── Spinning gradient ring (for photo border) ────────── */
+/* ── Spinning gradient ring ───────────────────────────── */
 @keyframes border-spin {
   to { transform: rotate(360deg); }
 }
@@ -66,32 +49,31 @@ html {
   100% { transform: translateX(320%)  skewX(-18deg); }
 }
 
-/* ── Cursor blink for cycling text ───────────────────── */
+/* ── Top shimmer line ─────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200%  center; }
+}
+
+/* ── Cursor blink ─────────────────────────────────────── */
 @keyframes cursor-blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
 
-/* ── Ambient orb pulse ───────────────────────────────── */
+/* ── Ambient orb pulse (opacity only — no paint cost) ─── */
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.45; transform: scale(1); }
-  50%       { opacity: 0.70; transform: scale(1.08); }
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 0.70; }
 }
 
-/* ── Skill-card neon border sweep on hover ───────────── */
-@keyframes neon-sweep {
-  0%   { background-position: 0%   50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0%   50%; }
-}
-
-/* ── Stat number count-up shadow flare ───────────────── */
+/* ── Stat glow (opacity-only, avoids text-shadow paint) ── */
 @keyframes stat-glow {
-  0%, 100% { text-shadow: 0 0 20px rgba(59,130,246,0); }
-  50%       { text-shadow: 0 0 30px rgba(59,130,246,0.45); }
+  0%, 100% { opacity: 0.85; }
+  50%       { opacity: 1; }
 }
 
-/* ── Horizontal scan line on dark cards ──────────────── */
+/* ── Horizontal scan line ─────────────────────────────── */
 @keyframes scan-line {
   0%   { transform: translateY(-100%); opacity: 0; }
   10%  { opacity: 1; }
@@ -101,19 +83,47 @@ html {
 
 /* ── Utility classes ─────────────────────────────────── */
 .animate-marquee           { animation: marquee         38s linear infinite; }
-.animate-marquee-slow      { animation: marquee         55s linear infinite; }
-.animate-marquee-reverse   { animation: marquee-reverse 32s linear infinite; }
-.animate-float             { animation: float            5.5s ease-in-out infinite; }
-.animate-float-delayed     { animation: float            5.5s ease-in-out 1.8s infinite; }
-.animate-border-spin       { animation: border-spin      3.5s linear infinite; }
-.animate-shimmer-pass      { animation: shimmer-pass     2.8s ease-in-out 1.2s infinite; }
+.animate-marquee-reverse   { animation: marquee-reverse 34s linear infinite; }
+.animate-float             { animation: float            5.5s ease-in-out infinite; will-change: transform; }
+.animate-float-delayed     { animation: float            5.5s ease-in-out 1.8s infinite; will-change: transform; }
+.animate-border-spin       { animation: border-spin      4s   linear infinite; will-change: transform; }
+.animate-shimmer           { animation: shimmer          3s   linear infinite; background-size: 200% auto; }
+.animate-shimmer-pass      { animation: shimmer-pass     3.5s ease-in-out 1.5s infinite; }
 .animate-cursor-blink      { animation: cursor-blink     1s   step-end infinite; }
-.animate-glow-pulse        { animation: glow-pulse       6s   ease-in-out infinite; }
+.animate-glow-pulse        { animation: glow-pulse       7s   ease-in-out infinite; }
 .animate-stat-glow         { animation: stat-glow        2.5s ease-in-out infinite; }
-.animate-scan-line         { animation: scan-line        8s   linear 2s infinite; }
+.animate-scan-line         { animation: scan-line        10s  linear 3s infinite; }
 
 /* Pause marquees on hover */
 .marquee-track:hover .animate-marquee,
 .marquee-track:hover .animate-marquee-reverse {
   animation-play-state: paused;
+}
+
+/* ── Accessibility: honour reduced-motion preference ──── */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all decorative animations */
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-float,
+  .animate-float-delayed,
+  .animate-border-spin,
+  .animate-shimmer,
+  .animate-shimmer-pass,
+  .animate-glow-pulse,
+  .animate-scan-line,
+  .animate-stat-glow {
+    animation: none !important;
+  }
+
+  /* Keep essential micro-interactions but slow them */
+  .animate-cursor-blink {
+    animation-duration: 1.5s !important;
+  }
+
+  /* Disable Framer Motion transforms site-wide */
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

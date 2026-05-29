@@ -4,17 +4,20 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -48,7 +51,6 @@ export const metadata = {
     description:
       'Backend Engineer specializing in Java Spring Boot and Python Django REST Framework. Building scalable APIs and microservices.',
     siteName: 'Mohammad Talib Uddin Portfolio',
-
     images: [
       {
         url: 'https://dz-txlib.github.io/profile12.png',
@@ -64,14 +66,12 @@ export const metadata = {
     title: 'Mohammad Talib Uddin | Backend Engineer',
     description:
       'Backend Engineer specializing in Java Spring Boot and Python Django REST Framework.',
-
     images: ['https://dz-txlib.github.io/profile12.png'],
   },
 
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -94,72 +94,28 @@ export default function RootLayout({ children }) {
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-
     "name": "Mohammad Talib Uddin",
-
-    "alternateName": [
-      "Talib Uddin",
-      "Talib"
-    ],
-
+    "alternateName": ["Talib Uddin", "Talib"],
     "url": "https://dz-txlib.github.io",
-
     "image": "https://dz-txlib.github.io/profile12.png",
-
     "jobTitle": "Backend Engineer",
-
-    "description":
-      "Backend Engineer specializing in Java Spring Boot and Python Django REST Framework. Building scalable APIs and microservices.",
-
+    "description": "Backend Engineer specializing in Java Spring Boot and Python Django REST Framework. Building scalable APIs and microservices.",
     "sameAs": [
       "https://www.linkedin.com/in/dz-txlib/",
       "https://github.com/mohammadtalibuddin",
     ],
-
-    "knowsAbout": [
-      "Java",
-      "Spring Boot",
-      "Python",
-      "Django REST Framework",
-      "Backend Development",
-      "Microservices",
-      "RESTful APIs",
-      "MySQL",
-      "PostgreSQL",
-      "Redis",
-      "Docker",
-      "AWS"
-    ],
-
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Affy Cloud IT Solutions"
-    },
-
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "SAM College of Engineering and Technology"
-    },
-
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bhopal",
-      "addressRegion": "Madhya Pradesh",
-      "addressCountry": "IN"
-    }
+    "knowsAbout": ["Java","Spring Boot","Python","Django REST Framework","Backend Development","Microservices","RESTful APIs","MySQL","PostgreSQL","Redis","Docker","AWS"],
+    "worksFor": { "@type": "Organization", "name": "Affy Cloud IT Solutions" },
+    "alumniOf": { "@type": "EducationalOrganization", "name": "SAM College of Engineering and Technology" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Bhopal", "addressRegion": "Madhya Pradesh", "addressCountry": "IN" }
   };
 
   const websiteSchema = {
     "@context": "https://schema.org",
-
     "@type": "WebSite",
-
     "name": "Mohammad Talib Uddin Portfolio",
-
     "url": "https://dz-txlib.github.io",
-
-    "description":
-      "Portfolio of Mohammad Talib Uddin, Backend Engineer specializing in Java and Python."
+    "description": "Portfolio of Mohammad Talib Uddin, Backend Engineer specializing in Java and Python."
   };
 
   return (
@@ -167,11 +123,13 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="google" content="notranslate" />
 
+        {/* Preconnect to external asset origins */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([personSchema, websiteSchema]),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([personSchema, websiteSchema]) }}
         />
       </head>
 

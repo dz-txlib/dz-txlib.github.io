@@ -136,6 +136,8 @@ export default function Hero() {
                                         fill
                                         className="object-cover object-[center_8%] transition-transform duration-700 ease-out hover:scale-[1.04]"
                                         priority
+                                        fetchPriority="high"
+                                        decoding="sync"
                                         sizes="(max-width: 640px) 200px, (max-width: 1024px) 270px, 340px"
                                     />
                                     <div
