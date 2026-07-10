@@ -27,7 +27,7 @@ function CharReveal({ text, delay = 0, className = '' }) {
         <span
             className={className}
             style={{ display: 'block', perspective: '900px', wordBreak: 'break-word' }}
-            aria-label={text}
+            aria-hidden="true"
         >
             {text.split('').map((char, i) => (
                 <motion.span
@@ -97,10 +97,6 @@ export default function Hero() {
                 />
                 <div className="absolute left-0 right-0 top-[30%] h-px opacity-20"
                     style={{ background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent)' }} />
-                <div
-                    className="absolute left-0 right-0 h-[2px] pointer-events-none animate-scan-line"
-                    style={{ background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.12), transparent)' }}
-                />
             </motion.div>
 
             {/* ── Content ────────────────────────────────────────────── */}
@@ -168,7 +164,7 @@ export default function Hero() {
                                     boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.08)',
                                 }}
                             >
-                                <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.48)' }}>
                                     Experience
                                 </div>
                                 <div className="font-display text-sm lg:text-base font-bold text-white">2+ Years</div>
@@ -190,7 +186,7 @@ export default function Hero() {
                                     boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(20,184,166,0.08)',
                                 }}
                             >
-                                <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.18em] mb-0.5" style={{ color: 'rgba(255,255,255,0.48)' }}>
                                     Primary Stack
                                 </div>
                                 <div className="font-display text-sm lg:text-base font-bold text-white">Java · Python</div>
@@ -223,7 +219,7 @@ export default function Hero() {
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                                 </span>
-                                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.72)' }}>
                                     Available for work
                                 </span>
                             </div>
@@ -240,23 +236,21 @@ export default function Hero() {
                             {'<'} {personalInfo.role.toLowerCase().replace(' ', '_')} {' />'}
                         </motion.div>
 
-                        {/* Name — character reveal */}
-                        <div className="w-full overflow-hidden leading-none space-y-0.5">
-                            {isInView && (
-                                <>
-                                    <CharReveal
-                                        text="Mohammad"
-                                        delay={0.18}
-                                        className="font-display text-[clamp(2rem,8vw,4.5rem)] lg:text-6xl xl:text-7xl font-bold tracking-[-0.02em] text-white/70"
-                                    />
-                                    <CharReveal
-                                        text="Talib Uddin"
-                                        delay={0.38}
-                                        className="font-display text-[clamp(2.4rem,9.5vw,5.5rem)] lg:text-7xl xl:text-8xl font-bold tracking-[-0.03em] text-white"
-                                    />
-                                </>
-                            )}
-                        </div>
+                        {/* Name — character reveal. Rendered unconditionally so the
+                            name (and the page's only h1) exists in the static HTML. */}
+                        <h1 className="w-full overflow-hidden leading-none space-y-0.5">
+                            <span className="sr-only">Mohammad Talib Uddin — Backend Engineer</span>
+                            <CharReveal
+                                text="Mohammad"
+                                delay={0.18}
+                                className="font-display text-[clamp(2rem,8vw,4.5rem)] lg:text-6xl xl:text-7xl font-bold tracking-[-0.02em] text-white/80"
+                            />
+                            <CharReveal
+                                text="Talib Uddin"
+                                delay={0.38}
+                                className="font-display text-[clamp(2.4rem,9.5vw,5.5rem)] lg:text-7xl xl:text-8xl font-bold tracking-[-0.03em] text-white"
+                            />
+                        </h1>
 
                         {/* Cycling role */}
                         <motion.div
@@ -264,6 +258,7 @@ export default function Hero() {
                             animate={isInView ? { opacity: 1 } : {}}
                             transition={{ delay: 1.1, duration: 0.5 }}
                             className="flex items-center gap-2 h-8 overflow-hidden"
+                            aria-live="polite"
                         >
                             <AnimatePresence mode="wait">
                                 <motion.span
@@ -290,7 +285,7 @@ export default function Hero() {
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ delay: 1.3, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                             className="text-sm sm:text-base lg:text-[17px] leading-relaxed w-full max-w-[500px] font-medium"
-                            style={{ color: 'rgba(255,255,255,0.38)' }}
+                            style={{ color: 'rgba(255,255,255,0.58)' }}
                         >
                             {personalInfo.tagline}
                         </motion.p>
@@ -358,7 +353,7 @@ export default function Hero() {
                                     border: '1px solid rgba(255,255,255,0.10)',
                                 }}
                             >
-                                <Download size={16} style={{ color: 'rgba(255,255,255,0.35)' }} />
+                                <Download size={16} style={{ color: 'rgba(255,255,255,0.55)' }} />
                                 Download Resume
                             </a>
                         </motion.div>
@@ -381,7 +376,7 @@ export default function Hero() {
                                     transition={{ duration: 0.15 }}
                                     className="w-9 h-9 flex items-center justify-center rounded-xl"
                                     style={{
-                                        color: 'rgba(255,255,255,0.45)',
+                                        color: 'rgba(255,255,255,0.65)',
                                         background: 'rgba(255,255,255,0.05)',
                                         border: '1px solid rgba(255,255,255,0.09)',
                                     }}
@@ -397,7 +392,7 @@ export default function Hero() {
                                 transition={{ duration: 0.15 }}
                                 className="w-9 h-9 flex items-center justify-center rounded-xl"
                                 style={{
-                                    color: 'rgba(255,255,255,0.45)',
+                                    color: 'rgba(255,255,255,0.65)',
                                     background: 'rgba(255,255,255,0.05)',
                                     border: '1px solid rgba(255,255,255,0.09)',
                                 }}
@@ -407,20 +402,20 @@ export default function Hero() {
 
                             <div className="h-4 w-px mx-1" style={{ background: 'rgba(255,255,255,0.12)' }} aria-hidden="true" />
 
-                            <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs sm:text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                            <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs sm:text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
                                 <span className="flex items-center gap-1.5">
                                     <Code2 size={12} />
-                                    <strong style={{ color: 'rgba(255,255,255,0.52)' }}>50+</strong>
+                                    <strong style={{ color: 'rgba(255,255,255,0.7)' }}>50+</strong>
                                     <span>APIs</span>
                                 </span>
                                 <span className="flex items-center gap-1.5">
                                     <Database size={12} />
-                                    <strong style={{ color: 'rgba(255,255,255,0.52)' }}>1k+</strong>
+                                    <strong style={{ color: 'rgba(255,255,255,0.7)' }}>1k+</strong>
                                     <span>Users</span>
                                 </span>
                                 <span className="flex items-center gap-1.5">
                                     <Cpu size={12} />
-                                    <strong style={{ color: 'rgba(255,255,255,0.52)' }}>4+</strong>
+                                    <strong style={{ color: 'rgba(255,255,255,0.7)' }}>4+</strong>
                                     <span>Products</span>
                                 </span>
                             </div>
@@ -442,7 +437,7 @@ export default function Hero() {
                     className="w-px h-10"
                     style={{ background: 'linear-gradient(to bottom, rgba(56,189,248,0.5), transparent)' }}
                 />
-                <span className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: 'rgba(255,255,255,0.4)' }}>
                     scroll
                 </span>
             </motion.div>

@@ -22,6 +22,67 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Interactive states (CSS instead of JS mouse handlers,
+      so keyboard focus and touch behave consistently) ──── */
+.hover-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.hover-card:hover,
+.hover-card:focus-within {
+  background: rgba(14, 165, 233, 0.07);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.link-quiet {
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s ease;
+}
+.link-quiet:hover,
+.link-quiet:focus-visible {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.link-accent {
+  color: rgba(255, 255, 255, 0.68);
+  transition: color 0.2s ease;
+}
+.link-accent:hover,
+.link-accent:focus-visible {
+  color: #38bdf8;
+}
+
+.icon-btn {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.menu-item {
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid transparent;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.menu-item:hover,
+.menu-item:focus-visible {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.verify-chip {
+  background: rgba(16, 185, 129, 0.1);
+  transition: background-color 0.2s ease;
+}
+.verify-chip:hover,
+.verify-chip:focus-visible {
+  background: rgba(16, 185, 129, 0.18);
+}
+
 /* ── Marquee (forward + reverse) ─────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -73,14 +134,6 @@ html {
   50%       { opacity: 1; }
 }
 
-/* ── Horizontal scan line ─────────────────────────────── */
-@keyframes scan-line {
-  0%   { transform: translateY(-100%); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 0.3; }
-  100% { transform: translateY(100vh); opacity: 0; }
-}
-
 /* ── Utility classes ─────────────────────────────────── */
 .animate-marquee           { animation: marquee         38s linear infinite; }
 .animate-marquee-reverse   { animation: marquee-reverse 34s linear infinite; }
@@ -92,7 +145,6 @@ html {
 .animate-cursor-blink      { animation: cursor-blink     1s   step-end infinite; }
 .animate-glow-pulse        { animation: glow-pulse       7s   ease-in-out infinite; }
 .animate-stat-glow         { animation: stat-glow        2.5s ease-in-out infinite; }
-.animate-scan-line         { animation: scan-line        10s  linear 3s infinite; }
 
 /* Pause marquees on hover */
 .marquee-track:hover .animate-marquee,
@@ -111,7 +163,6 @@ html {
   .animate-shimmer,
   .animate-shimmer-pass,
   .animate-glow-pulse,
-  .animate-scan-line,
   .animate-stat-glow {
     animation: none !important;
   }

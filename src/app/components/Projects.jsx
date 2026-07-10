@@ -29,7 +29,7 @@ function ProjectCard({ project, index }) {
             {/* Gradient border */}
             <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
                 <div
-                    className="absolute inset-[-50%] animate-border-spin pointer-events-none"
+                    className="absolute inset-[-50%] pointer-events-none"
                     style={{
                         background: `conic-gradient(from 0deg, transparent 0deg, ${meta.accent} 70deg, transparent 140deg)`,
                         opacity: 0.35,
@@ -66,7 +66,7 @@ function ProjectCard({ project, index }) {
                                 </span>
                                 <span
                                     className="font-mono text-[10px] uppercase tracking-[0.2em]"
-                                    style={{ color: 'rgba(255,255,255,0.2)' }}
+                                    style={{ color: 'rgba(255,255,255,0.4)' }}
                                 >
                                     0{index + 1}
                                 </span>
@@ -75,7 +75,7 @@ function ProjectCard({ project, index }) {
                             <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight mb-2">
                                 {project.title}
                             </h3>
-                            <p className="text-base mb-6 leading-relaxed" style={{ color: 'rgba(255,255,255,0.42)' }}>
+                            <p className="text-base mb-6 leading-relaxed" style={{ color: 'rgba(255,255,255,0.62)' }}>
                                 {project.tagline}
                             </p>
 
@@ -151,7 +151,7 @@ function ProjectCard({ project, index }) {
                                     <span
                                         className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium cursor-not-allowed"
                                         style={{
-                                            color: 'rgba(255,255,255,0.25)',
+                                            color: 'rgba(255,255,255,0.45)',
                                             background: 'rgba(255,255,255,0.03)',
                                             border: '1px solid rgba(255,255,255,0.06)',
                                         }}
@@ -175,11 +175,11 @@ function ProjectCard({ project, index }) {
                             >
                                 <div
                                     className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2"
-                                    style={{ color: 'rgba(255,255,255,0.28)' }}
+                                    style={{ color: 'rgba(255,255,255,0.48)' }}
                                 >
                                     // Challenge
                                 </div>
-                                <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.48)' }}>
+                                <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.66)' }}>
                                     {project.problem}
                                 </p>
                             </div>
@@ -198,7 +198,7 @@ function ProjectCard({ project, index }) {
                                 >
                                     // Solution
                                 </div>
-                                <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                                <p className="text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>
                                     {project.solution}
                                 </p>
                             </div>
@@ -219,7 +219,7 @@ function ProjectCard({ project, index }) {
                                             className="mt-0.5 shrink-0"
                                             style={{ color: 'rgba(52,211,153,0.8)' }}
                                         />
-                                        <span className="text-[12px] font-medium leading-snug" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                                        <span className="text-[12px] font-medium leading-snug" style={{ color: 'rgba(255,255,255,0.68)' }}>
                                             {m}
                                         </span>
                                     </div>

@@ -10,8 +10,6 @@ export function useScroll() {
     return ctx;
 }
 
-const SECTION_IDS = ['home', 'about', 'services', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
-
 const NAV_ITEMS = [
     { name: 'Home', id: 'home' },
     { name: 'About', id: 'about' },
@@ -46,16 +44,15 @@ export default function ScrollProvider({ children }) {
                 requestAnimationFrame(() => {
                     setIsScrolled(window.scrollY > 20);
 
-                    for (const id of SECTION_IDS) {
+                    // Highlight the last nav section whose top has passed the
+                    // threshold, so sections without a nav item (education,
+                    // certifications) keep the previous item active.
+                    let current = 'home';
+                    for (const { id } of NAV_ITEMS) {
                         const el = document.getElementById(id);
-                        if (el) {
-                            const rect = el.getBoundingClientRect();
-                            if (rect.top <= 150 && rect.bottom >= 150) {
-                                setActiveSection(id);
-                                break;
-                            }
-                        }
+                        if (el && el.getBoundingClientRect().top <= 150) current = id;
                     }
+                    setActiveSection(current);
 
                     ticking = false;
                 });

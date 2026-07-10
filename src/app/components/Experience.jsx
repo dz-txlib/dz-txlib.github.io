@@ -78,7 +78,7 @@ function ExperienceCard({ job, index }) {
                         </div>
                     )}
 
-                    <div className="flex flex-col gap-1.5 text-sm font-medium" style={{ color: 'rgba(255,255,255,0.32)' }}>
+                    <div className="flex flex-col gap-1.5 text-sm font-medium" style={{ color: 'rgba(255,255,255,0.52)' }}>
                         <span className="flex items-center gap-2">
                             <MapPin size={13} /> {job.location}
                         </span>
@@ -88,7 +88,7 @@ function ExperienceCard({ job, index }) {
                                 style={{
                                     background: 'rgba(255,255,255,0.05)',
                                     border: '1px solid rgba(255,255,255,0.1)',
-                                    color: 'rgba(255,255,255,0.45)',
+                                    color: 'rgba(255,255,255,0.65)',
                                 }}
                             >
                                 {job.type}
@@ -129,7 +129,7 @@ function ExperienceCard({ job, index }) {
                         <li
                             key={idx}
                             className="flex items-start gap-3 text-sm leading-relaxed"
-                            style={{ color: 'rgba(255,255,255,0.5)' }}
+                            style={{ color: 'rgba(255,255,255,0.68)' }}
                         >
                             <span
                                 className="mt-1.5 shrink-0 p-1 rounded-full"

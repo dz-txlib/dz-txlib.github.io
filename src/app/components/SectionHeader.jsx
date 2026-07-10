@@ -71,7 +71,7 @@ export default function SectionHeader({
             {subtitle && (
                 <p
                     className={`text-lg max-w-2xl leading-relaxed ${subAlign} ${
-                        dark ? 'text-white/45' : 'text-slate-500'
+                        dark ? 'text-white/65' : 'text-slate-500'
                     }`}
                 >
                     {subtitle}

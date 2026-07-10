@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import ScrollProvider from './components/ScrollProvider';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Stats from './components/Stats';
 
 // Below-fold sections — split into separate JS chunks so the
 // browser only parses/executes them after the hero is interactive.
@@ -22,44 +21,17 @@ export default function Portfolio() {
       <div className="min-h-screen bg-[#09090b] relative selection:bg-blue-900/60 selection:text-blue-200 font-sans">
         <Navbar />
 
+        {/* Each section component declares its own id (home, about, …) */}
         <main>
-          <div id="home">
-            <Hero />
-          </div>
-
-          <Stats />
-
-          <div id="about">
-            <About />
-          </div>
-
-          <div id="services">
-            <Services />
-          </div>
-
-          <div id="skills">
-            <Skills />
-          </div>
-
-          <div id="experience">
-            <Experience />
-          </div>
-
-          <div id="projects">
-            <Projects />
-          </div>
-
-          <div id="education">
-            <Education />
-          </div>
-
-          <div id="certifications">
-            <Certifications />
-          </div>
-
-          <div id="contact">
-            <Contact />
-          </div>
+          <Hero />
+          <About />
+          <Services />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Education />
+          <Certifications />
+          <Contact />
         </main>
 
         <Footer />

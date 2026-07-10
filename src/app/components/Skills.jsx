@@ -18,10 +18,30 @@ const ALL = 'All';
 
 const allFlat = Object.values(skills).flatMap((c) => c.items);
 
+function SkillIcon({ skill, size = 18, className = '' }) {
+    if (skill.lucide) {
+        const Lucide = skill.lucide;
+        return <Lucide size={size} className={className} style={{ color: 'rgba(125,211,252,0.85)' }} aria-hidden="true" />;
+    }
+    return (
+        <Image
+            src={skill.icon}
+            alt=""
+            width={size}
+            height={size}
+            className={`object-contain ${className}`}
+            style={{ width: size, height: size }}
+            loading="lazy"
+            unoptimized
+            aria-hidden="true"
+        />
+    );
+}
+
 function MarqueeRow({ items, reverse = false }) {
     const doubled = [...items, ...items];
     return (
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" aria-hidden="true">
             <div className={`flex gap-3 w-max ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
                 {doubled.map((skill, i) => (
                     <div
@@ -32,16 +52,8 @@ function MarqueeRow({ items, reverse = false }) {
                             border: '1px solid rgba(255,255,255,0.08)',
                         }}
                     >
-                        <Image
-                            src={skill.icon}
-                            alt={skill.name}
-                            width={18}
-                            height={18}
-                            className="w-[18px] h-[18px] object-contain"
-                            loading="lazy"
-                            unoptimized
-                        />
-                        <span className="text-[13px] font-medium whitespace-nowrap" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                        <SkillIcon skill={skill} size={18} />
+                        <span className="text-[13px] font-medium whitespace-nowrap" style={{ color: 'rgba(255,255,255,0.72)' }}>
                             {skill.name}
                         </span>
                     </div>
@@ -71,17 +83,9 @@ function SkillCard({ skill, accentColor, glowColor, delay }) {
                 className="w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
                 style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
             >
-                <Image
-                    src={skill.icon}
-                    alt={skill.name}
-                    width={28}
-                    height={28}
-                    className="w-7 h-7 object-contain"
-                    loading="lazy"
-                    unoptimized
-                />
+                <SkillIcon skill={skill} size={28} />
             </div>
-            <span className="text-xs font-semibold text-center leading-tight" style={{ color: 'rgba(255,255,255,0.55)' }}>
+            <span className="text-xs font-semibold text-center leading-tight" style={{ color: 'rgba(255,255,255,0.72)' }}>
                 {skill.name}
             </span>
         </motion.div>
@@ -91,6 +95,15 @@ function SkillCard({ skill, accentColor, glowColor, delay }) {
 export default function Skills() {
     const categories   = useMemo(() => [ALL, ...Object.keys(skills)], []);
     const [active, setActive] = useState(ALL);
+
+    const onTabKeyDown = (e, idx) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const dir  = e.key === 'ArrowRight' ? 1 : -1;
+        const next = (idx + dir + categories.length) % categories.length;
+        setActive(categories[next]);
+        e.currentTarget.closest('[role="tablist"]')?.querySelectorAll('[role="tab"]')[next]?.focus();
+    };
 
     const visibleSkills = useMemo(() => {
         if (active === ALL) return allFlat;
@@ -154,7 +167,7 @@ export default function Skills() {
                                 Expertise
                             </span>
                         </h2>
-                        <p className="sm:text-right max-w-[260px] text-[15px] leading-snug" style={{ color: 'rgba(255,255,255,0.38)' }}>
+                        <p className="sm:text-right max-w-[260px] text-[15px] leading-snug" style={{ color: 'rgba(255,255,255,0.58)' }}>
                             Technologies I use to build robust, scalable, production-ready systems.
                         </p>
                     </div>
@@ -170,7 +183,7 @@ export default function Skills() {
                 >
                     <div className="flex items-center gap-3 mb-4">
                         <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
-                        <span className="font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                        <span className="font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.48)' }}>
                             Full Stack
                         </span>
                         <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
@@ -211,7 +224,7 @@ export default function Skills() {
                         />
                         <div>
                             <div className="font-display text-sm font-semibold text-white">Primary Stack</div>
-                            <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>Technologies I work with daily</div>
+                            <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>Technologies I work with daily</div>
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -243,7 +256,7 @@ export default function Skills() {
                     role="tablist"
                     aria-label="Skill categories"
                 >
-                    {categories.map((cat) => {
+                    {categories.map((cat, idx) => {
                         const isActive  = active === cat;
                         const catMeta   = cat === ALL ? null : CAT_META[cat];
                         const accent    = catMeta?.color ?? '#0ea5e9';
@@ -255,7 +268,9 @@ export default function Skills() {
                                 key={cat}
                                 role="tab"
                                 aria-selected={isActive}
+                                tabIndex={isActive ? 0 : -1}
                                 onClick={() => setActive(cat)}
+                                onKeyDown={(e) => onTabKeyDown(e, idx)}
                                 className="relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
                                 style={
                                     isActive
@@ -267,7 +282,7 @@ export default function Skills() {
                                           }
                                         : {
                                               background: 'rgba(255,255,255,0.04)',
-                                              color: 'rgba(255,255,255,0.45)',
+                                              color: 'rgba(255,255,255,0.65)',
                                               border: '1px solid rgba(255,255,255,0.09)',
                                           }
                                 }
@@ -278,7 +293,7 @@ export default function Skills() {
                                     style={
                                         isActive
                                             ? { background: `${accent}20`, color: accent }
-                                            : { background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.3)' }
+                                            : { background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.5)' }
                                     }
                                 >
                                     {count}
@@ -333,7 +348,7 @@ export default function Skills() {
                                         style={{ background: accentColor }}
                                         aria-hidden="true"
                                     />
-                                    <span className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                                    <span className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.55)' }}>
                                         {visibleSkills.length} technologies in{' '}
                                         <span style={{ color: accentColor }}>{active}</span>
                                     </span>

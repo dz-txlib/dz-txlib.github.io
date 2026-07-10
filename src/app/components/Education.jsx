@@ -45,16 +45,7 @@ export default function Education() {
                             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                             viewport={{ once: true, margin: '-60px' }}
                             transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                            className="group rounded-2xl p-6 sm:p-8 transition-all duration-300"
-                            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
-                                e.currentTarget.style.borderColor = 'rgba(56,189,248,0.25)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                            }}
+                            className="group hover-card rounded-2xl p-6 sm:p-8"
                         >
                             <div className="flex flex-col md:flex-row md:items-start justify-between gap-5">
                                 <div className="space-y-3">
@@ -65,16 +56,13 @@ export default function Education() {
                                         href={edu.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 text-sm font-semibold transition-colors"
-                                        style={{ color: 'rgba(255,255,255,0.5)' }}
-                                        onMouseEnter={(e) => { e.currentTarget.style.color = '#38bdf8'; }}
-                                        onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
+                                        className="link-accent inline-flex items-center gap-2 text-sm font-semibold"
                                     >
                                         <div
                                             className="w-7 h-7 rounded-lg flex items-center justify-center shadow-sm shrink-0"
                                             style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
                                         >
-                                            <GraduationCap size={13} style={{ color: 'rgba(255,255,255,0.5)' }} />
+                                            <GraduationCap size={13} style={{ color: 'rgba(255,255,255,0.68)' }} />
                                         </div>
                                         {edu.institution}
                                         <ExternalLink size={12} style={{ opacity: 0.4 }} />
@@ -95,7 +83,7 @@ export default function Education() {
                                     </span>
                                     <span
                                         className="inline-flex items-center gap-1.5 text-sm font-medium"
-                                        style={{ color: 'rgba(255,255,255,0.4)' }}
+                                        style={{ color: 'rgba(255,255,255,0.6)' }}
                                     >
                                         <MapPin size={13} />
                                         {edu.location}

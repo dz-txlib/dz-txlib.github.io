@@ -44,7 +44,7 @@ export default function Footer() {
                                 Talib<span className="text-sky-500">.</span>
                             </span>
                         </button>
-                        <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                        <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(255,255,255,0.55)' }}>
                             Backend Engineer building scalable systems with Java, Spring Boot, Python, and cloud technologies.
                         </p>
                         <div
@@ -77,10 +77,7 @@ export default function Footer() {
                                     <li key={item.id}>
                                         <button
                                             onClick={() => scrollToSection(item.id)}
-                                            className="group flex items-center gap-2 text-sm transition-colors duration-200"
-                                            style={{ color: 'rgba(255,255,255,0.38)' }}
-                                            onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; }}
-                                            onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.38)'; }}
+                                            className="group link-quiet flex items-center gap-2 text-sm"
                                         >
                                             <ArrowRight
                                                 size={12}
@@ -112,10 +109,8 @@ export default function Footer() {
                                     <El
                                         key={value}
                                         {...(href ? { href } : {})}
-                                        className="group flex items-center gap-3 text-sm transition-colors duration-200"
-                                        style={{ color: 'rgba(255,255,255,0.38)' }}
-                                        onMouseEnter={(e) => { if (href) e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; }}
-                                        onMouseLeave={(e) => { if (href) e.currentTarget.style.color = 'rgba(255,255,255,0.38)'; }}
+                                        className={`group flex items-center gap-3 text-sm ${href ? 'link-quiet' : ''}`}
+                                        style={href ? undefined : { color: 'rgba(255,255,255,0.58)' }}
                                     >
                                         <div
                                             className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
@@ -149,7 +144,7 @@ export default function Footer() {
                                         style={{
                                             background: 'rgba(255,255,255,0.04)',
                                             border: '1px solid rgba(255,255,255,0.08)',
-                                            color: 'rgba(255,255,255,0.4)',
+                                            color: 'rgba(255,255,255,0.6)',
                                         }}
                                     >
                                         <Icon size={14} />
@@ -165,10 +160,10 @@ export default function Footer() {
                     className="pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-3"
                     style={{ borderColor: 'rgba(255,255,255,0.06)' }}
                 >
-                    <p className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.22)' }}>
+                    <p className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.42)' }}>
                         &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
                     </p>
-                    <p className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.22)' }}>
+                    <p className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.42)' }}>
                         Designed &amp; Built by {personalInfo.name}
                     </p>
                 </div>

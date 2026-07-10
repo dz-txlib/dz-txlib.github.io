@@ -53,7 +53,7 @@ export const metadata = {
     siteName: 'Mohammad Talib Uddin Portfolio',
     images: [
       {
-        url: 'https://dz-txlib.github.io/profile12.png',
+        url: 'https://dz-txlib.github.io/og.png',
         width: 1200,
         height: 630,
         alt: 'Mohammad Talib Uddin - Backend Engineer specializing in Java and Python',
@@ -66,7 +66,7 @@ export const metadata = {
     title: 'Mohammad Talib Uddin | Backend Engineer',
     description:
       'Backend Engineer specializing in Java Spring Boot and Python Django REST Framework.',
-    images: ['https://dz-txlib.github.io/profile12.png'],
+    images: ['https://dz-txlib.github.io/og.png'],
   },
 
   robots: {
@@ -97,12 +97,12 @@ export default function RootLayout({ children }) {
     "name": "Mohammad Talib Uddin",
     "alternateName": ["Talib Uddin", "Talib"],
     "url": "https://dz-txlib.github.io",
-    "image": "https://dz-txlib.github.io/profile12.png",
+    "image": "https://dz-txlib.github.io/profile.webp",
     "jobTitle": "Backend Engineer",
     "description": "Backend Engineer specializing in Java Spring Boot and Python Django REST Framework. Building scalable APIs and microservices.",
     "sameAs": [
       "https://www.linkedin.com/in/dz-txlib/",
-      "https://github.com/mohammadtalibuddin",
+      "https://github.com/dz-txlib",
     ],
     "knowsAbout": ["Java","Spring Boot","Python","Django REST Framework","Backend Development","Microservices","RESTful APIs","MySQL","PostgreSQL","Redis","Docker","AWS"],
     "worksFor": { "@type": "Organization", "name": "Affy Cloud IT Solutions" },
@@ -122,10 +122,6 @@ export default function RootLayout({ children }) {
     <html lang="en" translate="no" className="notranslate">
       <head>
         <meta name="google" content="notranslate" />
-
-        {/* Preconnect to external asset origins */}
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
 
         <script
           type="application/ld+json"

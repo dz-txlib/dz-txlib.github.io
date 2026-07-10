@@ -20,18 +20,7 @@ export default function CertificationGrid() {
                     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     viewport={{ once: true, margin: '-60px' }}
                     transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    className="group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
-                    style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
-                        e.currentTarget.style.borderColor = 'rgba(56,189,248,0.25)';
-                        e.currentTarget.style.boxShadow = '0 8px 32px rgba(14,165,233,0.12)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                        e.currentTarget.style.boxShadow = 'none';
-                    }}
+                    className="group hover-card flex flex-col rounded-2xl overflow-hidden hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(14,165,233,0.12)] transition-transform duration-300"
                 >
                     <div className="p-6 sm:p-7 flex flex-col h-full">
 
@@ -49,14 +38,11 @@ export default function CertificationGrid() {
                                     href={cert.verifyUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-colors"
+                                    className="verify-chip inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
                                     style={{
-                                        background: 'rgba(16,185,129,0.1)',
                                         border: '1px solid rgba(16,185,129,0.22)',
                                         color: '#34d399',
                                     }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(16,185,129,0.18)'; }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(16,185,129,0.1)'; }}
                                 >
                                     <CheckCircle2 size={12} />
                                     Verified
@@ -67,7 +53,7 @@ export default function CertificationGrid() {
                                     style={{
                                         background: 'rgba(255,255,255,0.05)',
                                         border: '1px solid rgba(255,255,255,0.1)',
-                                        color: 'rgba(255,255,255,0.35)',
+                                        color: 'rgba(255,255,255,0.55)',
                                     }}
                                 >
                                     <Award size={12} /> Certified
@@ -87,7 +73,7 @@ export default function CertificationGrid() {
                                     className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
                                     style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)' }}
                                 >
-                                    <Briefcase size={12} style={{ color: 'rgba(255,255,255,0.4)' }} />
+                                    <Briefcase size={12} style={{ color: 'rgba(255,255,255,0.6)' }} />
                                 </div>
                                 <span className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.6)' }}>{cert.issuer}</span>
                             </div>
@@ -96,7 +82,7 @@ export default function CertificationGrid() {
                                     className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
                                     style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)' }}
                                 >
-                                    <Calendar size={12} style={{ color: 'rgba(255,255,255,0.4)' }} />
+                                    <Calendar size={12} style={{ color: 'rgba(255,255,255,0.6)' }} />
                                 </div>
                                 <span className="text-sm font-bold" style={{ color: '#38bdf8' }}>{cert.year}</span>
                             </div>
@@ -105,10 +91,10 @@ export default function CertificationGrid() {
                         {/* Proficiency bar */}
                         <div className="mt-auto pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                                <span className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.5)' }}>
                                     Proficiency
                                 </span>
-                                <span className="text-xs font-bold" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                                <span className="text-xs font-bold" style={{ color: 'rgba(255,255,255,0.72)' }}>
                                     {cert.level || 'Advanced'}
                                 </span>
                             </div>

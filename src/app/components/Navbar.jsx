@@ -64,12 +64,9 @@ export default function Navbar() {
                                     <button
                                         key={item.id}
                                         onClick={() => scrollToSection(item.id)}
-                                        className="relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300"
-                                        style={{
-                                            color: isActive ? '#fff' : 'rgba(255,255,255,0.5)',
-                                        }}
-                                        onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
-                                        onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
+                                        className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                                            isActive ? 'text-white' : 'link-quiet'
+                                        }`}
                                         aria-current={isActive ? 'true' : undefined}
                                     >
                                         {isActive && (
@@ -95,16 +92,7 @@ export default function Navbar() {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
-                            style={{ color: 'rgba(255,255,255,0.7)' }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.color = '#fff';
-                                e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
-                                e.currentTarget.style.background = 'transparent';
-                            }}
+                            className="icon-btn inline-flex items-center justify-center p-2 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
                             aria-expanded={isMenuOpen}
                             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                         >
@@ -137,7 +125,9 @@ export default function Navbar() {
                                     <button
                                         key={item.id}
                                         onClick={() => handleNavClick(item.id)}
-                                        className="w-full flex items-center px-4 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300"
+                                        className={`w-full flex items-center px-4 py-3.5 rounded-xl text-[15px] font-semibold transition-all duration-300 ${
+                                            isActive ? '' : 'menu-item'
+                                        }`}
                                         style={
                                             isActive
                                                 ? {
@@ -145,23 +135,8 @@ export default function Navbar() {
                                                       border: '1px solid rgba(14,165,233,0.25)',
                                                       color: '#7dd3fc',
                                                   }
-                                                : {
-                                                      color: 'rgba(255,255,255,0.5)',
-                                                      border: '1px solid transparent',
-                                                  }
+                                                : undefined
                                         }
-                                        onMouseEnter={(e) => {
-                                            if (!isActive) {
-                                                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                                                e.currentTarget.style.color = 'rgba(255,255,255,0.9)';
-                                            }
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            if (!isActive) {
-                                                e.currentTarget.style.background = 'transparent';
-                                                e.currentTarget.style.color = 'rgba(255,255,255,0.5)';
-                                            }
-                                        }}
                                     >
                                         <span className="flex-1 text-left">{item.name}</span>
                                         {isActive && (

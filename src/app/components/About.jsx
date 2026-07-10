@@ -11,7 +11,9 @@ import { useScroll } from './ScrollProvider';
 
 /* ── rAF counter ──────────────────────────────────────────────────── */
 function useAnimatedCounter(target, isInView, duration = 1500) {
-    const [count, setCount] = useState(0);
+    // Start at the target so prerendered/static HTML (and no-JS visitors,
+    // crawlers) see the real number; the count-up runs once in view.
+    const [count, setCount] = useState(target);
     useEffect(() => {
         if (!isInView) return;
         let raf;
@@ -58,7 +60,7 @@ function GiantStat({ stat, isInView, delay }) {
                 >
                     {n}{stat.suffix}
                 </div>
-                <div className="text-sm font-medium mt-2 uppercase tracking-[0.12em]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                <div className="text-sm font-medium mt-2 uppercase tracking-[0.12em]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                     {stat.label}
                 </div>
             </div>
@@ -177,7 +179,7 @@ export default function About() {
                     <motion.div {...fadeUp(0)} ref={quoteRef} className="mb-8">
                         <div className="relative rounded-3xl p-[1.5px] overflow-hidden">
                             <div
-                                className="absolute inset-[-40%] animate-border-spin pointer-events-none"
+                                className="absolute inset-[-40%] pointer-events-none"
                                 style={{
                                     background: 'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, #0284c7 240deg, transparent 320deg)',
                                     opacity: 0.6,
@@ -212,7 +214,7 @@ export default function About() {
                                             />
                                         </p>
                                     </blockquote>
-                                    <div className="mt-6 font-mono text-xs" style={{ color: 'rgba(125,211,252,0.45)' }}>
+                                    <div className="mt-6 font-mono text-xs" style={{ color: 'rgba(125,211,252,0.65)' }}>
                                         — {personalInfo.name} · {personalInfo.location}
                                     </div>
                                 </div>
@@ -229,16 +231,7 @@ export default function About() {
                             <motion.div
                                 key={title}
                                 {...fadeUp(delay)}
-                                className="group rounded-2xl p-7 transition-all duration-300"
-                                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
-                                    e.currentTarget.style.borderColor = 'rgba(56,189,248,0.25)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                                }}
+                                className="group hover-card rounded-2xl p-7"
                             >
                                 <div className="flex items-center gap-3 mb-4">
                                     <div
@@ -251,7 +244,7 @@ export default function About() {
                                         {title}
                                     </h3>
                                 </div>
-                                <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                                <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.68)' }}>
                                     {body}
                                 </p>
                             </motion.div>
@@ -264,7 +257,7 @@ export default function About() {
                         {/* CTA card */}
                         <div className="lg:col-span-2 relative rounded-2xl p-[1.5px] overflow-hidden">
                             <div
-                                className="absolute inset-[-50%] animate-border-spin pointer-events-none"
+                                className="absolute inset-[-50%] pointer-events-none"
                                 style={{
                                     background: 'conic-gradient(from 90deg, transparent 0deg, #0ea5e9 60deg, transparent 120deg)',
                                     opacity: 0.5,
@@ -284,7 +277,7 @@ export default function About() {
                                     <h3 className="font-display text-xl font-bold text-white tracking-tight mb-2">
                                         Let's Build Something
                                     </h3>
-                                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(125,211,252,0.55)' }}>
+                                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(125,211,252,0.75)' }}>
                                         {professionalSummary.cta}
                                     </p>
                                 </div>
@@ -323,16 +316,7 @@ export default function About() {
                                     <El
                                         key={label}
                                         {...(href ? { href } : {})}
-                                        className="group flex items-center gap-4 p-4 rounded-2xl transition-all duration-300"
-                                        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
-                                            e.currentTarget.style.borderColor = 'rgba(56,189,248,0.25)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                                        }}
+                                        className="group hover-card flex items-center gap-4 p-4 rounded-2xl"
                                     >
                                         <div
                                             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
@@ -341,14 +325,14 @@ export default function About() {
                                             <Icon size={16} style={{ color: '#38bdf8' }} />
                                         </div>
                                         <div className="min-w-0">
-                                            <div className="font-mono text-[10px] uppercase tracking-[0.14em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                                            <div className="font-mono text-[10px] uppercase tracking-[0.14em] mb-0.5" style={{ color: 'rgba(255,255,255,0.48)' }}>
                                                 {label}
                                             </div>
                                             <div className="font-medium text-sm break-words" style={{ color: 'rgba(255,255,255,0.7)' }}>
                                                 {value}
                                             </div>
                                             {sub && (
-                                                <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{sub}</div>
+                                                <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>{sub}</div>
                                             )}
                                         </div>
                                     </El>

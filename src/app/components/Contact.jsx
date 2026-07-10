@@ -68,7 +68,7 @@ export default function Contact() {
                             Together
                         </span>
                     </h2>
-                    <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.38)' }}>
+                    <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.58)' }}>
                         I'm open to new opportunities, freelance work, and interesting collaborations.
                         My inbox is always open.
                     </p>
@@ -84,19 +84,7 @@ export default function Contact() {
                                 <El
                                     key={label}
                                     {...(href ? { href } : {})}
-                                    className="group flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300"
-                                    style={{
-                                        background: 'rgba(255,255,255,0.04)',
-                                        border: '1px solid rgba(255,255,255,0.08)',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.borderColor = 'rgba(56,189,248,0.28)';
-                                        e.currentTarget.style.background = 'rgba(14,165,233,0.08)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-                                        e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                                    }}
+                                    className="group hover-card flex items-center gap-4 px-5 py-4 rounded-2xl"
                                 >
                                     <div
                                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
@@ -108,7 +96,7 @@ export default function Contact() {
                                         <Icon size={16} style={{ color: 'rgba(56,189,248,0.9)' }} />
                                     </div>
                                     <div>
-                                        <div className="font-mono text-[10px] uppercase tracking-[0.16em] mb-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                                        <div className="font-mono text-[10px] uppercase tracking-[0.16em] mb-0.5" style={{ color: 'rgba(255,255,255,0.48)' }}>
                                             {label}
                                         </div>
                                         <div className="text-sm font-semibold text-white/70 group-hover:text-white transition-colors break-words min-w-0">
@@ -127,7 +115,7 @@ export default function Contact() {
                                 border: '1px solid rgba(255,255,255,0.07)',
                             }}
                         >
-                            <div className="font-mono text-[10px] uppercase tracking-[0.16em] mb-3" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.16em] mb-3" style={{ color: 'rgba(255,255,255,0.45)' }}>
                                 Connect
                             </div>
                             <div className="flex gap-2.5">
@@ -144,7 +132,7 @@ export default function Contact() {
                                         style={{
                                             background: 'rgba(255,255,255,0.05)',
                                             border: '1px solid rgba(255,255,255,0.09)',
-                                            color: 'rgba(255,255,255,0.45)',
+                                            color: 'rgba(255,255,255,0.65)',
                                         }}
                                     >
                                         <Icon size={15} />
@@ -158,7 +146,7 @@ export default function Contact() {
                     <motion.div {...fadeUp(0.14)} className="lg:col-span-3">
                         <div className="relative rounded-2xl p-[1.5px] overflow-hidden h-full">
                             <div
-                                className="absolute inset-[-40%] animate-border-spin pointer-events-none"
+                                className="absolute inset-[-40%] pointer-events-none"
                                 style={{
                                     background:
                                         'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, #0284c7 240deg, transparent 320deg)',
@@ -193,7 +181,7 @@ export default function Contact() {
                                         <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
                                             Send a Message
                                         </h3>
-                                        <p className="text-sm leading-relaxed max-w-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                                        <p className="text-sm leading-relaxed max-w-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
                                             Whether you have a question or a project proposal, I'd love to hear from you.
                                             I'll get back to you within 24 hours.
                                         </p>
@@ -218,7 +206,7 @@ export default function Contact() {
                                         />
                                     </a>
 
-                                    <p className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                                    <p className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.4)' }}>
                                         {personalInfo.responseTime}
                                     </p>
                                 </div>

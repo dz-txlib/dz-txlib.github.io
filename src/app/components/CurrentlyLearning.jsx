@@ -17,7 +17,7 @@ export default function CurrentlyLearning() {
             {/* Gradient border wrapper */}
             <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
                 <div
-                    className="absolute inset-[-40%] animate-border-spin pointer-events-none"
+                    className="absolute inset-[-40%] pointer-events-none"
                     style={{
                         background:
                             'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, #0284c7 240deg, transparent 320deg)',
@@ -54,7 +54,7 @@ export default function CurrentlyLearning() {
                                     <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
                                         Currently Learning
                                     </h3>
-                                    <p className="text-xs mt-0.5 font-mono uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                                    <p className="text-xs mt-0.5 font-mono uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.5)' }}>
                                         Expanding technical horizons
                                     </p>
                                 </div>
@@ -84,19 +84,7 @@ export default function CurrentlyLearning() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                                     whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(14,165,233,0.18)' }}
-                                    className="flex flex-col items-center gap-3 p-4 sm:p-5 rounded-xl cursor-default"
-                                    style={{
-                                        background: 'rgba(255,255,255,0.03)',
-                                        border: '1px solid rgba(255,255,255,0.07)',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.borderColor = 'rgba(56,189,248,0.3)';
-                                        e.currentTarget.style.background = 'rgba(14,165,233,0.07)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                                        e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                                    }}
+                                    className="hover-card flex flex-col items-center gap-3 p-4 sm:p-5 rounded-xl cursor-default"
                                 >
                                     <div
                                         className="w-12 h-12 flex items-center justify-center rounded-xl"

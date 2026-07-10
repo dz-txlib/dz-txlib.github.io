@@ -65,7 +65,7 @@ function ServiceCard({ service, index }) {
 
                 <p
                     className="leading-relaxed mb-6 flex-grow text-sm"
-                    style={{ color: 'rgba(255,255,255,0.42)' }}
+                    style={{ color: 'rgba(255,255,255,0.62)' }}
                 >
                     {service.desc}
                 </p>
@@ -147,7 +147,7 @@ export default function Services() {
                     className="relative rounded-2xl p-[1.5px] overflow-hidden"
                 >
                     <div
-                        className="absolute inset-[-40%] animate-border-spin pointer-events-none"
+                        className="absolute inset-[-40%] pointer-events-none"
                         style={{
                             background:
                                 'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, transparent 240deg)',
@@ -168,7 +168,7 @@ export default function Services() {
                             <h3 className="font-display text-xl sm:text-3xl font-bold text-white tracking-tight mb-2">
                                 Ready to Build Something Great?
                             </h3>
-                            <p className="text-sm" style={{ color: 'rgba(125,211,252,0.55)' }}>
+                            <p className="text-sm" style={{ color: 'rgba(125,211,252,0.75)' }}>
                                 Let's discuss how I can help bring your vision to life with reliable, scalable software.
                             </p>
                         </div>

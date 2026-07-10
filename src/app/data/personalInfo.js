@@ -10,9 +10,9 @@ export const personalInfo = {
     responseTime: "Typically responds within 24 hours",
     cv: '/Talib_Software_Engineer.pdf',
     linkedin: "https://www.linkedin.com/in/dz-txlib/",
-    github: "https://github.com/mohammadtalibuddin",
-    website: "https://talibuddin.me",
-    image: '/profile12.png',
+    github: "https://github.com/dz-txlib",
+    website: "https://dz-txlib.github.io",
+    image: '/profile.webp',
     availability: "Open to freelance projects and full-time opportunities"
 };
 
