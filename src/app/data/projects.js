@@ -50,9 +50,9 @@ export const projects = [
         tech: ["Spring Boot", "Microservices", "Razorpay", "Shiprocket", "MySQL", "Redis"],
         github: null,
         live: [
-            { name: "Meher Sambalpur Hub", url: "https://mehersambalpurihub.com/" },
-            { name: "M Organic Farm", url: "https://morganics.ae" },
-            { name: "Tarhaab Fashion", url: "https://tarhaab.com/" }
+            { name: "Pomoking – Farm-to-Consumer Platform", url: "https://pomoking.com/" },
+            { name: "TudoOne – Multi-Category Ecommerce", url: "https://tudoone.com/" },
+            { name: "Meher Sambalpuri Hub – Handloom Ecommerce", url: "https://mehersambalpurihub.com/" },
         ],
         highlights: [],
         features: []

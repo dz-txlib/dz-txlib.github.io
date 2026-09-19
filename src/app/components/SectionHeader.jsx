@@ -1,82 +1,112 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Reveal, TextReveal, EASE } from './ui/Motion';
 
+/**
+ * Section heading.
+ *
+ * A kicker rail (index · label · drawn hairline), a masked-reveal
+ * headline, and an optional lede. `accent` lets each section carry
+ * its own hue so the page reads as chapters rather than one
+ * repeating block.
+ */
 export default function SectionHeader({
     icon: Icon,
+    index,
     badge,
     title,
     highlight,
     subtitle,
     align = 'center',
-    dark = false,
+    accent = '#38bdf8',
+    className = '',
+    // Retained for compatibility with existing call sites.
+    dark = true, // eslint-disable-line no-unused-vars
 }) {
-    const isCenter   = align === 'center';
-    const textAlign  = isCenter ? 'text-center' : 'text-left';
-    const subAlign   = isCenter ? 'mx-auto' : '';
-    const itemsAlign = isCenter ? 'justify-center' : 'justify-start';
+    const isCenter = align === 'center';
+    const reduced = useReducedMotion();
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className={`${textAlign} mb-14`}
+        <div
+            className={`${isCenter ? 'text-center' : 'text-left'} mb-14 sm:mb-16 ${className}`}
         >
-            {/* Badge */}
-            <div className={`flex ${itemsAlign} mb-5`}>
+            {/* Kicker rail */}
+            <Reveal variant="up-sm" duration={0.7}>
                 <div
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full"
-                    style={
-                        dark
-                            ? {
-                                  background: 'rgba(14,165,233,0.1)',
-                                  border: '1px solid rgba(14,165,233,0.22)',
-                              }
-                            : {
-                                  background: '#eff6ff',
-                                  border: '1px solid #bfdbfe',
-                              }
-                    }
-                >
-                    {Icon && (
-                        <Icon
-                            size={13}
-                            style={{ color: dark ? 'rgba(56,189,248,0.9)' : '#0ea5e9' }}
-                        />
-                    )}
-                    <span
-                        className="text-xs font-bold uppercase tracking-[0.15em]"
-                        style={{ color: dark ? 'rgba(125,211,252,0.85)' : '#0284c7' }}
-                    >
-                        {badge}
-                    </span>
-                </div>
-            </div>
-
-            {/* Heading */}
-            <h2
-                className={`font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] mb-5 ${
-                    dark ? 'text-white' : 'text-slate-900'
-                }`}
-            >
-                {title}{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-teal-400">
-                    {highlight}
-                </span>
-            </h2>
-
-            {/* Subtitle */}
-            {subtitle && (
-                <p
-                    className={`text-lg max-w-2xl leading-relaxed ${subAlign} ${
-                        dark ? 'text-white/65' : 'text-slate-500'
+                    className={`flex items-center gap-3 sm:gap-4 mb-6 ${
+                        isCenter ? 'justify-center' : 'justify-start'
                     }`}
                 >
-                    {subtitle}
-                </p>
+                    {index && (
+                        <span
+                            className="font-mono text-[11px] font-semibold tabular-nums"
+                            style={{ color: accent, opacity: 0.85 }}
+                        >
+                            {index}
+                        </span>
+                    )}
+
+                    <span
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full"
+                        style={{
+                            background: `${accent}14`,
+                            border: `1px solid ${accent}2e`,
+                        }}
+                    >
+                        {Icon && <Icon size={12} style={{ color: accent }} />}
+                        <span
+                            className="text-[10px] font-bold uppercase tracking-[0.2em]"
+                            style={{ color: accent }}
+                        >
+                            {badge}
+                        </span>
+                    </span>
+
+                    {/* Hairline draws outward from the badge */}
+                    <motion.span
+                        className={`h-px ${isCenter ? 'w-10 sm:w-16' : 'flex-1 max-w-[220px]'}`}
+                        style={{
+                            background: `linear-gradient(90deg, ${accent}66, transparent)`,
+                            transformOrigin: 'left',
+                        }}
+                        initial={reduced ? false : { scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: true, margin: '-10% 0px' }}
+                        transition={{ duration: 1, delay: 0.15, ease: EASE }}
+                        aria-hidden="true"
+                    />
+                </div>
+            </Reveal>
+
+            {/* Headline */}
+            <h2 className="font-display font-bold tracking-[-0.03em] leading-[0.98] text-white"
+                style={{ fontSize: 'var(--step-4)' }}>
+                <TextReveal text={title} as="span" className="block" duration={0.9} stagger={0.045} />
+                {highlight && (
+                    <TextReveal
+                        text={highlight}
+                        as="span"
+                        className="block"
+                        gradient
+                        delay={0.12}
+                        duration={0.9}
+                        stagger={0.045}
+                    />
+                )}
+            </h2>
+
+            {/* Lede */}
+            {subtitle && (
+                <Reveal variant="up-sm" delay={0.18} duration={0.8}>
+                    <p
+                        className={`mt-6 leading-relaxed max-w-xl ${isCenter ? 'mx-auto' : ''}`}
+                        style={{ color: 'var(--text-lo)', fontSize: 'var(--step-0)' }}
+                    >
+                        {subtitle}
+                    </p>
+                </Reveal>
             )}
-        </motion.div>
+        </div>
     );
 }

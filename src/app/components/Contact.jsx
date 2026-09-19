@@ -1,219 +1,294 @@
 'use client';
 
-import { Mail, Phone, MapPin, Send, Linkedin, Github, MessageSquare } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import {
+    Mail, Phone, MapPin, Linkedin, Github, Copy, Check,
+    ArrowUpRight, MessageSquare, Clock,
+} from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { personalInfo } from '../data/personalInfo';
-
-const fadeUp = (delay = 0) => ({
-    initial: { opacity: 0, y: 24, filter: 'blur(4px)' },
-    whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
-    viewport: { once: true, margin: '-60px' },
-    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
-});
+import { Reveal, TextReveal, Magnetic, EASE } from './ui/Motion';
+import { Aurora, NetworkField, GridPlane } from './ui/Atmosphere';
+import { SpotlightCard } from './ui/Surfaces';
 
 export default function Contact() {
-    const contactItems = [
-        { icon: Mail,  label: 'Email',    value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-        { icon: Phone, label: 'Phone',    value: personalInfo.phone, href: `tel:${personalInfo.phone}` },
-        { icon: MapPin,label: 'Location', value: personalInfo.location, href: null },
+    const [copied, setCopied] = useState(false);
+    const [clock, setClock] = useState('');
+    const timerRef = useRef(null);
+    const reduced = useReducedMotion();
+
+    useEffect(() => {
+        const tick = () =>
+            setClock(
+                new Intl.DateTimeFormat('en-GB', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    timeZone: 'Asia/Kolkata',
+                }).format(new Date())
+            );
+        tick();
+        const t = setInterval(tick, 1000);
+        return () => clearInterval(t);
+    }, []);
+
+    useEffect(() => () => clearTimeout(timerRef.current), []);
+
+    const copyEmail = async () => {
+        try {
+            await navigator.clipboard.writeText(personalInfo.email);
+            setCopied(true);
+            clearTimeout(timerRef.current);
+            timerRef.current = setTimeout(() => setCopied(false), 2000);
+        } catch {
+            // Clipboard can be blocked by permissions or a non-secure
+            // context; the mailto link beside it still works.
+        }
+    };
+
+    const channels = [
+        { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+        { icon: Phone, label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone.replace(/[^+\d]/g, '')}` },
+        { icon: MapPin, label: 'Location', value: personalInfo.location, href: null },
     ];
 
     const socials = [
-        { href: personalInfo.linkedin, icon: Linkedin, label: 'LinkedIn', color: '#0ea5e9' },
-        { href: personalInfo.github,   icon: Github,   label: 'GitHub',   color: '#fff' },
-        { href: `mailto:${personalInfo.email}`, icon: Mail, label: 'Email', color: '#0ea5e9' },
+        { href: personalInfo.linkedin, icon: Linkedin, label: 'LinkedIn' },
+        { href: personalInfo.github, icon: Github, label: 'GitHub' },
     ];
 
     return (
         <section
             id="contact"
-            className="py-28 relative overflow-hidden"
-            style={{ background: 'linear-gradient(160deg, #111115 0%, #09090b 50%, #111115 100%)' }}
+            className="relative py-24 sm:py-32 overflow-hidden"
+            style={{ background: 'linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%)' }}
         >
-            {/* Atmosphere */}
-            <div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse, rgba(14,165,233,0.08) 0%, transparent 65%)' }}
-                aria-hidden="true"
+            {/* Bookends the hero: same atmosphere, closing the loop */}
+            <Aurora intensity={0.45} />
+            <GridPlane
+                variant="grid"
+                mask="radial-gradient(ellipse 70% 60% at 50% 45%, black 0%, transparent 72%)"
+                opacity={0.6}
             />
-            <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                    backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.10) 1px, transparent 1px)',
-                    backgroundSize: '40px 40px',
-                    maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)',
-                }}
-                aria-hidden="true"
-            />
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                <NetworkField maxNodes={48} linkDistance={120} density={0.00006} />
+            </div>
 
-            <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8">
 
-                {/* Header */}
-                <motion.div {...fadeUp(0)} className="text-center mb-14">
-                    <div
-                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5"
-                        style={{
-                            background: 'rgba(14,165,233,0.1)',
-                            border: '1px solid rgba(14,165,233,0.22)',
-                        }}
-                    >
-                        <MessageSquare size={13} className="text-sky-400" />
-                        <span className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(125,211,252,0.85)' }}>
-                            Get in Touch
-                        </span>
-                    </div>
-                    <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
-                        Let's Work{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-400">
-                            Together
-                        </span>
-                    </h2>
-                    <p className="text-base max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.58)' }}>
-                        I'm open to new opportunities, freelance work, and interesting collaborations.
-                        My inbox is always open.
-                    </p>
-                </motion.div>
-
-                <div className="grid lg:grid-cols-5 gap-5">
-
-                    {/* Contact info */}
-                    <motion.div {...fadeUp(0.08)} className="lg:col-span-2 flex flex-col gap-4">
-                        {contactItems.map(({ icon: Icon, label, value, href }) => {
-                            const El = href ? 'a' : 'div';
-                            return (
-                                <El
-                                    key={label}
-                                    {...(href ? { href } : {})}
-                                    className="group hover-card flex items-center gap-4 px-5 py-4 rounded-2xl"
-                                >
-                                    <div
-                                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
-                                        style={{
-                                            background: 'rgba(14,165,233,0.12)',
-                                            border: '1px solid rgba(14,165,233,0.2)',
-                                        }}
-                                    >
-                                        <Icon size={16} style={{ color: 'rgba(56,189,248,0.9)' }} />
-                                    </div>
-                                    <div>
-                                        <div className="font-mono text-[10px] uppercase tracking-[0.16em] mb-0.5" style={{ color: 'rgba(255,255,255,0.48)' }}>
-                                            {label}
-                                        </div>
-                                        <div className="text-sm font-semibold text-white/70 group-hover:text-white transition-colors break-words min-w-0">
-                                            {value}
-                                        </div>
-                                    </div>
-                                </El>
-                            );
-                        })}
-
-                        {/* Social links */}
-                        <div
-                            className="px-5 py-4 rounded-2xl"
+                {/* ── Statement ────────────────────────────────────── */}
+                <div className="text-center mb-14 sm:mb-16">
+                    <Reveal variant="up-sm">
+                        <span
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-7"
                             style={{
-                                background: 'rgba(255,255,255,0.03)',
-                                border: '1px solid rgba(255,255,255,0.07)',
+                                background: 'rgba(56,189,248,0.1)',
+                                border: '1px solid rgba(56,189,248,0.24)',
                             }}
                         >
-                            <div className="font-mono text-[10px] uppercase tracking-[0.16em] mb-3" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                                Connect
+                            <MessageSquare size={12} style={{ color: '#38bdf8' }} />
+                            <span
+                                className="text-[10px] font-bold uppercase tracking-[0.2em]"
+                                style={{ color: '#7dd3fc' }}
+                            >
+                                Get in touch
+                            </span>
+                        </span>
+                    </Reveal>
+
+                    <h2
+                        className="font-display font-bold tracking-[-0.04em] leading-[0.95] text-white mb-6"
+                        style={{ fontSize: 'var(--step-4)' }}
+                    >
+                        <TextReveal text="Let's build" className="block" duration={0.95} />
+                        <TextReveal text="something that scales" className="block" gradient delay={0.1} duration={0.95} />
+                    </h2>
+
+                    <Reveal variant="up-sm" delay={0.2}>
+                        <p
+                            className="max-w-xl mx-auto leading-relaxed"
+                            style={{ color: 'var(--text-lo)', fontSize: 'var(--step-0)' }}
+                        >
+                            Open to backend roles, freelance work and anything with a genuinely hard
+                            architecture problem behind it. My inbox is always open.
+                        </p>
+                    </Reveal>
+                </div>
+
+                {/* ── Primary action: the email itself ─────────────── */}
+                <Reveal variant="scale" delay={0.1} className="mb-5">
+                    <SpotlightCard
+                        className="relative rounded-3xl px-6 py-10 sm:px-12 sm:py-14 text-center overflow-hidden"
+                        style={{
+                            background: 'linear-gradient(150deg, rgba(14,165,233,0.1), rgba(13,148,136,0.05) 50%, rgba(255,255,255,0.015))',
+                            border: '1px solid rgba(56,189,248,0.2)',
+                        }}
+                    >
+                        <div className="relative z-10">
+                            <p className="mono-label mb-5">Drop me a line</p>
+
+                            <Magnetic strength={0.16} radius={200} className="inline-block mb-8">
+                                <a
+                                    href={`mailto:${personalInfo.email}`}
+                                    data-cursor="view"
+                                    data-cursor-text="Email"
+                                    className="group inline-block font-display font-bold tracking-[-0.035em] break-all leading-tight transition-colors duration-500"
+                                    style={{ fontSize: 'clamp(1.25rem, 4.4vw, 2.75rem)', color: '#fff' }}
+                                >
+                                    <span className="relative">
+                                        {personalInfo.email}
+                                        <span
+                                            className="absolute left-0 -bottom-1 h-[2px] w-full origin-right scale-x-0 group-hover:origin-left group-hover:scale-x-100 transition-transform duration-[650ms]"
+                                            style={{
+                                                background: 'linear-gradient(90deg, #38bdf8, #2dd4bf)',
+                                                transitionTimingFunction: 'cubic-bezier(0.16,1,0.3,1)',
+                                            }}
+                                            aria-hidden="true"
+                                        />
+                                    </span>
+                                </a>
+                            </Magnetic>
+
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                                <Magnetic strength={0.3}>
+                                    <a
+                                        href={`mailto:${personalInfo.email}`}
+                                        data-cursor="link"
+                                        className="btn-primary group flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold"
+                                    >
+                                        <span className="relative z-10 flex items-center gap-2">
+                                            Send a message
+                                            <ArrowUpRight
+                                                size={15}
+                                                className="transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                            />
+                                        </span>
+                                    </a>
+                                </Magnetic>
+
+                                <button
+                                    onClick={copyEmail}
+                                    data-cursor="link"
+                                    aria-live="polite"
+                                    className="btn-ghost relative flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold min-w-[150px] justify-center"
+                                >
+                                    <AnimatePresence mode="wait" initial={false}>
+                                        {copied ? (
+                                            <motion.span
+                                                key="done"
+                                                initial={reduced ? false : { opacity: 0, y: 8 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={reduced ? {} : { opacity: 0, y: -8 }}
+                                                transition={{ duration: 0.22 }}
+                                                className="flex items-center gap-2"
+                                                style={{ color: '#34d399' }}
+                                            >
+                                                <Check size={15} /> Copied
+                                            </motion.span>
+                                        ) : (
+                                            <motion.span
+                                                key="idle"
+                                                initial={reduced ? false : { opacity: 0, y: 8 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={reduced ? {} : { opacity: 0, y: -8 }}
+                                                transition={{ duration: 0.22 }}
+                                                className="flex items-center gap-2"
+                                            >
+                                                <Copy size={15} /> Copy address
+                                            </motion.span>
+                                        )}
+                                    </AnimatePresence>
+                                </button>
                             </div>
-                            <div className="flex gap-2.5">
-                                {socials.map(({ href, icon: Icon, label }) => (
-                                    <motion.a
-                                        key={label}
+
+                            <p className="mono-label mt-7">{personalInfo.responseTime}</p>
+                        </div>
+                    </SpotlightCard>
+                </Reveal>
+
+                {/* ── Channels + availability ──────────────────────── */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {channels.map(({ icon: Icon, label, value, href }, i) => {
+                        const El = href ? 'a' : 'div';
+                        return (
+                            <Reveal key={label} variant="up" delay={i * 0.07}>
+                                <El
+                                    {...(href ? { href, 'data-cursor': 'link' } : {})}
+                                    className="group surface h-full flex items-center gap-4 px-5 py-4 rounded-2xl"
+                                >
+                                    <span
+                                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110"
+                                        style={{
+                                            background: 'rgba(56,189,248,0.1)',
+                                            border: '1px solid rgba(56,189,248,0.22)',
+                                        }}
+                                    >
+                                        <Icon size={16} style={{ color: '#7dd3fc' }} />
+                                    </span>
+                                    <span className="min-w-0">
+                                        <span className="mono-label block mb-1">{label}</span>
+                                        <span
+                                            className="block text-[13px] font-semibold break-words transition-colors duration-400 group-hover:text-white"
+                                            style={{ color: 'var(--text-mid)' }}
+                                        >
+                                            {value}
+                                        </span>
+                                    </span>
+                                </El>
+                            </Reveal>
+                        );
+                    })}
+                </div>
+
+                {/* ── Status strip ─────────────────────────────────── */}
+                <Reveal variant="up" delay={0.2} className="mt-3">
+                    <div
+                        className="flex flex-col sm:flex-row items-center justify-between gap-5 px-6 py-5 rounded-2xl"
+                        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--line)' }}
+                    >
+                        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+                            <span className="flex items-center gap-2.5">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                                </span>
+                                <span
+                                    className="text-[12.5px] font-semibold"
+                                    style={{ color: '#34d399' }}
+                                >
+                                    Available for new work
+                                </span>
+                            </span>
+
+                            <span
+                                className="flex items-center gap-2 font-mono text-[12px] tabular-nums"
+                                style={{ color: 'var(--text-lo)' }}
+                            >
+                                <Clock size={12} style={{ color: 'var(--text-xlo)' }} />
+                                {clock || '--:--:--'}
+                                <span style={{ color: 'var(--text-xlo)' }}>{personalInfo.timezone}</span>
+                            </span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            {socials.map(({ href, icon: Icon, label }) => (
+                                <Magnetic key={label} strength={0.4} radius={60}>
+                                    <a
                                         href={href}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={label}
-                                        whileHover={{ y: -3, scale: 1.1 }}
-                                        transition={{ duration: 0.15 }}
-                                        className="w-9 h-9 flex items-center justify-center rounded-xl"
-                                        style={{
-                                            background: 'rgba(255,255,255,0.05)',
-                                            border: '1px solid rgba(255,255,255,0.09)',
-                                            color: 'rgba(255,255,255,0.65)',
-                                        }}
+                                        data-cursor="link"
+                                        className="w-10 h-10 flex items-center justify-center rounded-full surface"
+                                        style={{ color: 'var(--text-mid)' }}
                                     >
-                                        <Icon size={15} />
-                                    </motion.a>
-                                ))}
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* CTA card with gradient border */}
-                    <motion.div {...fadeUp(0.14)} className="lg:col-span-3">
-                        <div className="relative rounded-2xl p-[1.5px] overflow-hidden h-full">
-                            <div
-                                className="absolute inset-[-40%] pointer-events-none"
-                                style={{
-                                    background:
-                                        'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, #0284c7 240deg, transparent 320deg)',
-                                    opacity: 0.45,
-                                }}
-                                aria-hidden="true"
-                            />
-                            <div
-                                className="relative rounded-[calc(1rem-1.5px)] p-8 sm:p-12 flex flex-col items-center justify-center text-center gap-6 h-full overflow-hidden"
-                                style={{ background: 'rgba(9,9,11,0.97)' }}
-                            >
-                                {/* Interior atmosphere */}
-                                <div
-                                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full pointer-events-none"
-                                    style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%)' }}
-                                    aria-hidden="true"
-                                />
-
-                                <div className="relative z-10 space-y-5">
-                                    <div
-                                        className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center"
-                                        style={{
-                                            background: 'rgba(14,165,233,0.15)',
-                                            border: '1px solid rgba(14,165,233,0.25)',
-                                            boxShadow: '0 0 32px rgba(14,165,233,0.2)',
-                                        }}
-                                    >
-                                        <MessageSquare size={26} style={{ color: 'rgba(56,189,248,0.9)' }} />
-                                    </div>
-
-                                    <div>
-                                        <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
-                                            Send a Message
-                                        </h3>
-                                        <p className="text-sm leading-relaxed max-w-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                                            Whether you have a question or a project proposal, I'd love to hear from you.
-                                            I'll get back to you within 24 hours.
-                                        </p>
-                                    </div>
-
-                                    <a
-                                        href={`mailto:${personalInfo.email}`}
-                                        className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 text-white overflow-hidden"
-                                        style={{
-                                            background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
-                                            boxShadow: '0 0 28px rgba(14,165,233,0.35)',
-                                        }}
-                                    >
-                                        <span className="relative z-10 flex items-center gap-2.5">
-                                            Send an Email
-                                            <Send size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                                        </span>
-                                        <span
-                                            className="absolute inset-0 pointer-events-none animate-shimmer-pass"
-                                            style={{ background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)' }}
-                                            aria-hidden="true"
-                                        />
+                                        <Icon size={16} />
                                     </a>
-
-                                    <p className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                                        {personalInfo.responseTime}
-                                    </p>
-                                </div>
-                            </div>
+                                </Magnetic>
+                            ))}
                         </div>
-                    </motion.div>
-                </div>
+                    </div>
+                </Reveal>
             </div>
         </section>
     );

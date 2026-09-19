@@ -27,7 +27,7 @@ export const skills = {
             { name: 'Docker', icon: '/icons/docker.svg' },
             { name: 'CI/CD', icon: '/icons/githubactions.svg' },
             { name: 'Nginx', icon: '/icons/nginx.svg' },
-            { name: 'Linux/VPS', icon: '/icons/linux.svg' }
+            { name: 'Linux/VPS', icon: '/icons/linux.webp' }
         ],
         color: 'from-orange-500 to-red-500'
     },

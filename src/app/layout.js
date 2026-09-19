@@ -97,7 +97,7 @@ export default function RootLayout({ children }) {
     "name": "Mohammad Talib Uddin",
     "alternateName": ["Talib Uddin", "Talib"],
     "url": "https://dz-txlib.github.io",
-    "image": "https://dz-txlib.github.io/profile.webp",
+    "image": "https://dz-txlib.github.io/portrait-card.jpg",
     "jobTitle": "Backend Engineer",
     "description": "Backend Engineer specializing in Java Spring Boot and Python Django REST Framework. Building scalable APIs and microservices.",
     "sameAs": [
@@ -122,6 +122,19 @@ export default function RootLayout({ children }) {
     <html lang="en" translate="no" className="notranslate">
       <head>
         <meta name="google" content="notranslate" />
+
+        {/* The hero figure is the LCP element. It ships as a manual
+            srcset rather than next/image because static export runs
+            with images.unoptimized, so preloading it here is what
+            keeps it from being discovered late in the parse. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/portrait-780.webp"
+          imageSrcSet="/portrait-520.webp 520w, /portrait-780.webp 780w, /portrait-1048.webp 1048w"
+          imageSizes="(max-width: 640px) 280px, (max-width: 1024px) 360px, 470px"
+          fetchPriority="high"
+        />
 
         <script
           type="application/ld+json"

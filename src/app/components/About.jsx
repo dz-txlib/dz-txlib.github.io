@@ -1,347 +1,355 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import {
-    Code2, Users, Zap, Package,
-    MapPin, Mail, Clock, ArrowRight, Sparkles,
+    Code2, Users, Zap, Package, MapPin, Mail, Clock,
+    ArrowUpRight, Sparkles, Quote,
 } from 'lucide-react';
+import { motion, useScroll as useFramerScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { professionalSummary, personalInfo } from '../data/personalInfo';
 import { useScroll } from './ScrollProvider';
-
-/* ── rAF counter ──────────────────────────────────────────────────── */
-function useAnimatedCounter(target, isInView, duration = 1500) {
-    // Start at the target so prerendered/static HTML (and no-JS visitors,
-    // crawlers) see the real number; the count-up runs once in view.
-    const [count, setCount] = useState(target);
-    useEffect(() => {
-        if (!isInView) return;
-        let raf;
-        const start = performance.now();
-        const tick = (now) => {
-            const t = Math.min((now - start) / duration, 1);
-            const ease = 1 - Math.pow(1 - t, 3);
-            setCount(Math.round(ease * target));
-            if (t < 1) raf = requestAnimationFrame(tick);
-        };
-        raf = requestAnimationFrame(tick);
-        return () => cancelAnimationFrame(raf);
-    }, [isInView, target, duration]);
-    return count;
-}
+import { Reveal, TextReveal, AnimatedNumber, Magnetic, EASE } from './ui/Motion';
+import { GridPlane, SectionGlow } from './ui/Atmosphere';
+import { SpotlightCard } from './ui/Surfaces';
 
 const STATS = [
-    { value: 50,   suffix: '+', label: 'APIs Delivered',   icon: Code2,   color: '#0ea5e9', glow: 'rgba(14,165,233,0.25)' },
-    { value: 1000, suffix: '+', label: 'Users Served',     icon: Users,   color: '#10b981', glow: 'rgba(16,185,129,0.22)' },
-    { value: 40,   suffix: '%', label: 'Query Speedup',    icon: Zap,     color: '#f59e0b', glow: 'rgba(245,158,11,0.22)'  },
-    { value: 4,    suffix: '+', label: 'Products Shipped', icon: Package, color: '#8b5cf6', glow: 'rgba(139,92,246,0.22)' },
+    { value: 50,   suffix: '+', label: 'APIs integrated',  icon: Code2,   color: '#38bdf8' },
+    { value: 1000, suffix: '+', label: 'Users served',     icon: Users,   color: '#34d399' },
+    { value: 40,   suffix: '%', label: 'Faster queries',   icon: Zap,     color: '#fbbf24' },
+    { value: 4,    suffix: '+', label: 'Products shipped', icon: Package, color: '#a78bfa' },
 ];
 
-function GiantStat({ stat, isInView, delay }) {
-    const n = useAnimatedCounter(stat.value, isInView, 1600);
-    const Icon = stat.icon;
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center lg:items-start gap-3 group"
-        >
-            <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: `${stat.color}18`, border: `1px solid ${stat.color}28` }}
-            >
-                <Icon size={18} style={{ color: stat.color }} />
-            </div>
-            <div>
-                <div
-                    className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter tabular-nums leading-none animate-stat-glow"
-                    style={{ color: '#fff' }}
-                >
-                    {n}{stat.suffix}
-                </div>
-                <div className="text-sm font-medium mt-2 uppercase tracking-[0.12em]" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                    {stat.label}
-                </div>
-            </div>
-        </motion.div>
-    );
-}
+/* The narrative, broken into beats so it reads as a story with
+   rhythm instead of four equal paragraphs of grey text. */
+const CHAPTERS = [
+    { k: '01', title: 'Where it started', body: professionalSummary.story },
+    { k: '02', title: 'What I do best',   body: professionalSummary.expertise },
+    { k: '03', title: 'The impact',        body: professionalSummary.impact },
+];
 
-const fadeUp = (delay = 0) => ({
-    initial: { opacity: 0, y: 24 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: '-60px' },
-    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
-});
-
-function WordReveal({ text, className = '', delay = 0, isInView }) {
-    const words = text.split(' ');
-    return (
-        <span className={className} aria-label={text}>
-            {words.map((word, i) => (
-                <span key={i} style={{ overflow: 'hidden', display: 'inline-block', marginRight: '0.3em' }}>
-                    <motion.span
-                        initial={{ y: '110%', opacity: 0 }}
-                        animate={isInView ? { y: '0%', opacity: 1 } : {}}
-                        transition={{ delay: delay + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ display: 'inline-block' }}
-                    >
-                        {word}
-                    </motion.span>
-                </span>
-            ))}
-        </span>
-    );
-}
+const MARQUEE_WORDS = [
+    'Backend Engineering', 'Distributed Systems', 'API Design',
+    'Microservices', 'Performance', 'Clean Architecture',
+];
 
 export default function About() {
     const { scrollToSection } = useScroll();
-    const statsRef    = useRef(null);
-    const statsInView = useInView(statsRef, { once: true, margin: '-80px' });
-    const quoteRef    = useRef(null);
-    const quoteInView = useInView(quoteRef, { once: true, margin: '-80px' });
+    const railRef = useRef(null);
+    const reduced = useReducedMotion();
+
+    /* The rail fills as you read — a literal progress bar for the story */
+    const { scrollYProgress } = useFramerScroll({
+        target: railRef,
+        offset: ['start 70%', 'end 60%'],
+    });
+    const railScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
     return (
-        <section id="about" className="relative overflow-hidden">
+        <section id="about" className="relative">
 
-            {/* ── Stats band ───────────────────────────────────────── */}
+            {/* ══ Transition band — giant outlined ticker ═══════════ */}
             <div
-                className="relative py-24 overflow-hidden"
-                style={{ background: 'linear-gradient(160deg, #111115 0%, #0d0d14 50%, #111115 100%)' }}
+                className="relative overflow-hidden border-y py-6 marquee-track"
+                style={{ borderColor: 'var(--line)', background: 'var(--surface-0)' }}
+                aria-hidden="true"
             >
-                <div
-                    className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full pointer-events-none"
-                    style={{ background: 'radial-gradient(ellipse, rgba(14,165,233,0.10) 0%, transparent 65%)' }}
-                    aria-hidden="true"
-                />
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                        backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.10) 1px, transparent 1px)',
-                        backgroundSize: '40px 40px',
-                        maskImage: 'radial-gradient(ellipse 70% 80% at 50% 50%, black 20%, transparent 100%)',
-                    }}
-                    aria-hidden="true"
-                />
-
-                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
-                    <motion.div {...fadeUp(0)} className="mb-14">
-                        <div
-                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5"
-                            style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.22)' }}
-                        >
-                            <Sparkles size={13} className="text-sky-400" />
-                            <span className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: 'rgba(125,211,252,0.85)' }}>
-                                About Me
+                <div className="flex w-max animate-marquee">
+                    {[...MARQUEE_WORDS, ...MARQUEE_WORDS].map((w, i) => (
+                        <span key={`${w}-${i}`} className="flex items-center gap-10 px-8">
+                            <span
+                                className="font-display font-bold tracking-tight whitespace-nowrap text-outline"
+                                style={{ fontSize: 'clamp(1.75rem, 4.2vw, 3.25rem)' }}
+                            >
+                                {w}
                             </span>
+                            <Sparkles size={18} style={{ color: 'rgba(56,189,248,0.45)' }} className="shrink-0" />
+                        </span>
+                    ))}
+                </div>
+            </div>
+
+            {/* ══ Narrative ════════════════════════════════════════ */}
+            <div
+                className="relative overflow-hidden py-24 sm:py-32"
+                style={{ background: 'linear-gradient(180deg, var(--surface-0) 0%, var(--surface-2) 45%, var(--surface-1) 100%)' }}
+            >
+                <GridPlane
+                    variant="dots"
+                    mask="radial-gradient(ellipse 55% 60% at 85% 12%, black 0%, transparent 70%)"
+                    opacity={0.6}
+                />
+                <SectionGlow x="12%" y="70%" size={620} color="rgba(20,184,166,0.09)" />
+
+                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
+                    <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+                        {/* ── Sticky identity column ───────────────── */}
+                        <div className="lg:col-span-4 min-w-0">
+                            <div className="lg:sticky lg:top-28 space-y-7">
+                                <Reveal variant="up-sm">
+                                    <span
+                                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full"
+                                        style={{
+                                            background: 'rgba(56,189,248,0.1)',
+                                            border: '1px solid rgba(56,189,248,0.24)',
+                                        }}
+                                    >
+                                        <span className="font-mono text-[10px] font-semibold" style={{ color: '#38bdf8' }}>
+                                            02
+                                        </span>
+                                        <span
+                                            className="text-[10px] font-bold uppercase tracking-[0.2em]"
+                                            style={{ color: '#7dd3fc' }}
+                                        >
+                                            About
+                                        </span>
+                                    </span>
+                                </Reveal>
+
+                                <h2
+                                    className="font-display font-bold tracking-[-0.035em] leading-[0.95] text-white"
+                                    style={{ fontSize: 'var(--step-4)' }}
+                                >
+                                    <TextReveal text="Engineer" className="block" />
+                                    <TextReveal text="behind the" className="block" delay={0.08} />
+                                    <TextReveal text="systems" className="block" gradient delay={0.16} />
+                                </h2>
+
+                                <Reveal variant="up-sm" delay={0.2}>
+                                    <p className="leading-relaxed" style={{ color: 'var(--text-lo)' }}>
+                                        {professionalSummary.intro}
+                                    </p>
+                                </Reveal>
+
+                                {/* Quick facts */}
+                                <Reveal variant="up-sm" delay={0.26}>
+                                    <dl className="space-y-px rounded-2xl overflow-hidden" style={{ border: '1px solid var(--line)' }}>
+                                        {[
+                                            { icon: MapPin, label: 'Based in', value: personalInfo.location, sub: personalInfo.timezone },
+                                            { icon: Clock, label: 'Status', value: personalInfo.availability, sub: personalInfo.responseTime },
+                                            { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+                                        ].map(({ icon: Icon, label, value, sub, href }) => {
+                                            const Row = href ? 'a' : 'div';
+                                            return (
+                                                <Row
+                                                    key={label}
+                                                    {...(href ? { href, 'data-cursor': 'link' } : {})}
+                                                    className="group flex items-start gap-3.5 p-4 transition-colors duration-400"
+                                                    style={{ background: 'rgba(255,255,255,0.02)' }}
+                                                >
+                                                    <Icon
+                                                        size={15}
+                                                        className="mt-0.5 shrink-0 transition-colors duration-400 group-hover:text-sky-300"
+                                                        style={{ color: 'var(--text-xlo)' }}
+                                                    />
+                                                    <div className="min-w-0">
+                                                        <dt className="mono-label mb-1">{label}</dt>
+                                                        <dd
+                                                            className="text-[13px] font-medium break-words leading-snug"
+                                                            style={{ color: 'var(--text-mid)' }}
+                                                        >
+                                                            {value}
+                                                        </dd>
+                                                        {sub && (
+                                                            <dd className="text-[11px] mt-0.5" style={{ color: 'var(--text-xlo)' }}>
+                                                                {sub}
+                                                            </dd>
+                                                        )}
+                                                    </div>
+                                                </Row>
+                                            );
+                                        })}
+                                    </dl>
+                                </Reveal>
+                            </div>
                         </div>
-                        <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] text-white">
-                            By the{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-400">
-                                Numbers
-                            </span>
-                        </h2>
-                    </motion.div>
 
-                    <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-                        {STATS.map((stat, i) => (
-                            <GiantStat key={stat.label} stat={stat} isInView={statsInView} delay={i * 0.1} />
-                        ))}
+                        {/* ── Story column with a reading rail ─────── */}
+                        <div className="lg:col-span-8 min-w-0">
+
+                            {/* Pull quote */}
+                            <Reveal variant="blur" className="mb-14">
+                                <figure className="relative pl-6 sm:pl-10">
+                                    <Quote
+                                        size={34}
+                                        className="absolute -top-2 left-0 sm:left-1"
+                                        style={{ color: 'rgba(56,189,248,0.22)' }}
+                                        aria-hidden="true"
+                                    />
+                                    <blockquote
+                                        className="font-display font-medium tracking-[-0.02em] leading-[1.28]"
+                                        style={{ fontSize: 'var(--step-2)', color: 'rgba(255,255,255,0.88)' }}
+                                    >
+                                        <TextReveal
+                                            text="I build backends that stay calm under load — clear boundaries, boring failure modes, and numbers that hold up in production."
+                                            stagger={0.028}
+                                        />
+                                    </blockquote>
+                                    <figcaption
+                                        className="mt-5 font-mono text-[11px] uppercase tracking-[0.18em]"
+                                        style={{ color: 'var(--text-xlo)' }}
+                                    >
+                                        {personalInfo.name} · {personalInfo.role}
+                                    </figcaption>
+                                </figure>
+                            </Reveal>
+
+                            {/* Chapters */}
+                            <div ref={railRef} className="relative pl-8 sm:pl-12">
+                                {/* Rail track */}
+                                <div
+                                    className="absolute left-[3px] sm:left-[7px] top-2 bottom-2 w-px"
+                                    style={{ background: 'var(--line)' }}
+                                    aria-hidden="true"
+                                />
+                                {/* Rail fill, scrubbed by scroll */}
+                                <motion.div
+                                    className="absolute left-[3px] sm:left-[7px] top-2 bottom-2 w-px origin-top"
+                                    style={{
+                                        scaleY: reduced ? 1 : railScale,
+                                        background: 'linear-gradient(to bottom, #38bdf8, #2dd4bf)',
+                                        boxShadow: '0 0 10px rgba(56,189,248,0.55)',
+                                    }}
+                                    aria-hidden="true"
+                                />
+
+                                <div className="space-y-12">
+                                    {CHAPTERS.map((c, i) => (
+                                        <Reveal key={c.k} variant="up" delay={i * 0.05} className="relative">
+                                            {/* Node */}
+                                            <span
+                                                className="absolute -left-8 sm:-left-12 top-1.5 w-[7px] h-[7px] rounded-full sm:translate-x-[4px]"
+                                                style={{
+                                                    background: '#38bdf8',
+                                                    boxShadow: '0 0 0 4px rgba(56,189,248,0.12)',
+                                                }}
+                                                aria-hidden="true"
+                                            />
+                                            <div className="flex items-baseline gap-3 mb-3">
+                                                <span
+                                                    className="font-mono text-[11px] tabular-nums"
+                                                    style={{ color: 'rgba(56,189,248,0.6)' }}
+                                                >
+                                                    {c.k}
+                                                </span>
+                                                <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight text-white">
+                                                    {c.title}
+                                                </h3>
+                                            </div>
+                                            <p
+                                                className="leading-[1.75] max-w-2xl"
+                                                style={{ color: 'var(--text-lo)', fontSize: 'var(--step-0)' }}
+                                            >
+                                                {c.body}
+                                            </p>
+                                        </Reveal>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* CTA */}
+                            <Reveal variant="scale" delay={0.1} className="mt-14">
+                                <SpotlightCard
+                                    className="relative overflow-hidden rounded-2xl p-7 sm:p-9"
+                                    style={{
+                                        background: 'linear-gradient(140deg, rgba(14,165,233,0.12), rgba(13,148,136,0.06) 55%, transparent)',
+                                        border: '1px solid rgba(56,189,248,0.2)',
+                                    }}
+                                >
+                                    <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+                                        <div className="max-w-md">
+                                            <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-white mb-2.5">
+                                                Let&apos;s build something
+                                            </h3>
+                                            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-lo)' }}>
+                                                {professionalSummary.cta}
+                                            </p>
+                                        </div>
+                                        <Magnetic strength={0.3} className="shrink-0">
+                                            <button
+                                                onClick={() => scrollToSection('contact')}
+                                                data-cursor="link"
+                                                className="btn-primary group flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold"
+                                            >
+                                                <span className="relative z-10 flex items-center gap-2">
+                                                    Get in touch
+                                                    <ArrowUpRight
+                                                        size={15}
+                                                        className="transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                                    />
+                                                </span>
+                                            </button>
+                                        </Magnetic>
+                                    </div>
+                                </SpotlightCard>
+                            </Reveal>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* ── Story + CTA ──────────────────────────────────────── */}
+            {/* ══ Stats band ═══════════════════════════════════════ */}
             <div
-                className="relative py-24 overflow-hidden"
-                style={{ background: 'linear-gradient(180deg, #111115 0%, #09090b 100%)' }}
+                className="relative overflow-hidden border-t py-16 sm:py-20"
+                style={{ borderColor: 'var(--line)', background: 'var(--surface-0)' }}
             >
-                {/* Atmosphere */}
-                <div
-                    className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
-                    style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.07) 0%, transparent 70%)' }}
-                    aria-hidden="true"
+                <GridPlane
+                    variant="grid"
+                    mask="linear-gradient(to bottom, black, transparent 85%)"
+                    opacity={0.5}
                 />
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                        backgroundImage: 'radial-gradient(circle, rgba(56,189,248,0.07) 1px, transparent 1px)',
-                        backgroundSize: '40px 40px',
-                        maskImage: 'radial-gradient(ellipse 60% 70% at 80% 20%, black 20%, transparent 100%)',
-                    }}
-                    aria-hidden="true"
-                />
-
-                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
-
-                    {/* Pull quote */}
-                    <motion.div {...fadeUp(0)} ref={quoteRef} className="mb-8">
-                        <div className="relative rounded-3xl p-[1.5px] overflow-hidden">
-                            <div
-                                className="absolute inset-[-40%] pointer-events-none"
-                                style={{
-                                    background: 'conic-gradient(from 0deg, transparent 0deg, #0ea5e9 80deg, #14b8a6 160deg, #0284c7 240deg, transparent 320deg)',
-                                    opacity: 0.6,
-                                }}
-                                aria-hidden="true"
-                            />
-                            <div
-                                className="relative rounded-[calc(1.5rem-1.5px)] p-8 sm:p-10 md:p-12 overflow-hidden"
-                                style={{ background: 'linear-gradient(145deg, #0a0a12 0%, #0f0f1c 50%, #080810 100%)' }}
-                            >
-                                <div
-                                    className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none opacity-20"
-                                    style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.6) 0%, transparent 70%)' }}
-                                    aria-hidden="true"
-                                />
-                                <div
-                                    className="absolute bottom-0 left-0 w-48 h-48 rounded-full pointer-events-none opacity-15"
-                                    style={{ background: 'radial-gradient(circle, rgba(20,184,166,0.5) 0%, transparent 70%)' }}
-                                    aria-hidden="true"
-                                />
-                                <div className="relative z-10">
-                                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] mb-5" style={{ color: 'rgba(56,189,248,0.5)' }}>
-                                        // professional summary
-                                    </div>
-                                    <blockquote>
-                                        <p className="font-display text-xl sm:text-2xl lg:text-3xl font-semibold leading-[1.3] tracking-tight">
-                                            <WordReveal
-                                                text="Backend engineer with 2+ years shipping production systems in Java and Python for ed-tech, recruitment, and e-commerce platforms."
-                                                className="text-white/85"
-                                                delay={0.1}
-                                                isInView={quoteInView}
-                                            />
-                                        </p>
-                                    </blockquote>
-                                    <div className="mt-6 font-mono text-xs" style={{ color: 'rgba(125,211,252,0.65)' }}>
-                                        — {personalInfo.name} · {personalInfo.location}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Story cards */}
-                    <div className="grid md:grid-cols-2 gap-5 mb-5">
-                        {[
-                            { icon: Zap,   title: 'My Journey',    body: professionalSummary.story,    delay: 0.08 },
-                            { icon: Code2, title: 'What I Do Best', body: professionalSummary.expertise, delay: 0.14 },
-                        ].map(({ icon: Icon, title, body, delay }) => (
-                            <motion.div
-                                key={title}
-                                {...fadeUp(delay)}
-                                className="group hover-card rounded-2xl p-7"
-                            >
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div
-                                        className="w-8 h-8 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                                        style={{ background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(14,165,233,0.2)' }}
-                                    >
-                                        <Icon size={14} style={{ color: '#38bdf8' }} />
-                                    </div>
-                                    <h3 className="font-display text-base font-semibold text-white tracking-tight">
-                                        {title}
-                                    </h3>
-                                </div>
-                                <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.68)' }}>
-                                    {body}
-                                </p>
-                            </motion.div>
+                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                        {STATS.map((stat, i) => (
+                            <Reveal key={stat.label} variant="up" delay={i * 0.08}>
+                                <StatBlock stat={stat} />
+                            </Reveal>
                         ))}
                     </div>
-
-                    {/* CTA + contact */}
-                    <motion.div {...fadeUp(0.18)} className="grid lg:grid-cols-5 gap-5">
-
-                        {/* CTA card */}
-                        <div className="lg:col-span-2 relative rounded-2xl p-[1.5px] overflow-hidden">
-                            <div
-                                className="absolute inset-[-50%] pointer-events-none"
-                                style={{
-                                    background: 'conic-gradient(from 90deg, transparent 0deg, #0ea5e9 60deg, transparent 120deg)',
-                                    opacity: 0.5,
-                                }}
-                                aria-hidden="true"
-                            />
-                            <div
-                                className="relative rounded-[calc(1rem-1.5px)] p-7 sm:p-8 flex flex-col justify-between gap-7 h-full overflow-hidden"
-                                style={{ background: 'linear-gradient(145deg, #0a0a12 0%, #111120 100%)' }}
-                            >
-                                <div
-                                    className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none opacity-20"
-                                    style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.6) 0%, transparent 70%)' }}
-                                    aria-hidden="true"
-                                />
-                                <div className="relative z-10">
-                                    <h3 className="font-display text-xl font-bold text-white tracking-tight mb-2">
-                                        Let's Build Something
-                                    </h3>
-                                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(125,211,252,0.75)' }}>
-                                        {professionalSummary.cta}
-                                    </p>
-                                </div>
-                                <div className="relative z-10">
-                                    <button
-                                        onClick={() => scrollToSection('contact')}
-                                        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 text-white overflow-hidden relative"
-                                        style={{
-                                            background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
-                                            boxShadow: '0 0 20px rgba(14,165,233,0.3)',
-                                        }}
-                                    >
-                                        <span className="relative z-10 flex items-center gap-2">
-                                            Get in Touch
-                                            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                                        </span>
-                                        <span
-                                            className="absolute inset-0 pointer-events-none animate-shimmer-pass"
-                                            style={{ background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%)' }}
-                                            aria-hidden="true"
-                                        />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Contact info */}
-                        <div className="lg:col-span-3 flex flex-col gap-3">
-                            {[
-                                { icon: Mail,   label: 'Email',       value: personalInfo.email,        sub: null,                         href: `mailto:${personalInfo.email}` },
-                                { icon: MapPin, label: 'Location',     value: personalInfo.location,     sub: personalInfo.timezone,        href: null },
-                                { icon: Clock,  label: 'Availability', value: personalInfo.availability, sub: personalInfo.responseTime,    href: null },
-                            ].map(({ icon: Icon, label, value, sub, href }) => {
-                                const El = href ? 'a' : 'div';
-                                return (
-                                    <El
-                                        key={label}
-                                        {...(href ? { href } : {})}
-                                        className="group hover-card flex items-center gap-4 p-4 rounded-2xl"
-                                    >
-                                        <div
-                                            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300"
-                                            style={{ background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(14,165,233,0.2)' }}
-                                        >
-                                            <Icon size={16} style={{ color: '#38bdf8' }} />
-                                        </div>
-                                        <div className="min-w-0">
-                                            <div className="font-mono text-[10px] uppercase tracking-[0.14em] mb-0.5" style={{ color: 'rgba(255,255,255,0.48)' }}>
-                                                {label}
-                                            </div>
-                                            <div className="font-medium text-sm break-words" style={{ color: 'rgba(255,255,255,0.7)' }}>
-                                                {value}
-                                            </div>
-                                            {sub && (
-                                                <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>{sub}</div>
-                                            )}
-                                        </div>
-                                    </El>
-                                );
-                            })}
-                        </div>
-                    </motion.div>
                 </div>
             </div>
         </section>
+    );
+}
+
+function StatBlock({ stat }) {
+    const Icon = stat.icon;
+    return (
+        <div className="group relative">
+            {/* Ghost numeral behind — gives the block weight */}
+            <span
+                className="absolute -top-5 -left-1 font-display font-bold pointer-events-none select-none text-outline opacity-40 transition-opacity duration-700 group-hover:opacity-70"
+                style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', lineHeight: 1 }}
+                aria-hidden="true"
+            >
+                {stat.value}
+            </span>
+
+            <div className="relative">
+                <Icon
+                    size={16}
+                    className="mb-4 transition-transform duration-500 group-hover:-translate-y-0.5"
+                    style={{ color: stat.color }}
+                />
+                <div
+                    className="font-display font-bold tracking-[-0.04em] tabular-nums leading-none text-white"
+                    style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4rem)' }}
+                >
+                    <AnimatedNumber value={stat.value} duration={2} />
+                    <span style={{ color: stat.color }}>{stat.suffix}</span>
+                </div>
+                <div
+                    className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em]"
+                    style={{ color: 'var(--text-lo)' }}
+                >
+                    {stat.label}
+                </div>
+                <div
+                    className="mt-4 h-px w-full origin-left transition-transform duration-700 group-hover:scale-x-100 scale-x-[0.3]"
+                    style={{ background: `linear-gradient(90deg, ${stat.color}, transparent)` }}
+                    aria-hidden="true"
+                />
+            </div>
+        </div>
     );
 }

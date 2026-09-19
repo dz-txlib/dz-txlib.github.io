@@ -12,7 +12,7 @@ export const personalInfo = {
     linkedin: "https://www.linkedin.com/in/dz-txlib/",
     github: "https://github.com/dz-txlib",
     website: "https://dz-txlib.github.io",
-    image: '/profile.webp',
+    image: '/portrait-card.jpg',
     availability: "Open to freelance projects and full-time opportunities"
 };
 
